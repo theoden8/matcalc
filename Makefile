@@ -1,4 +1,4 @@
-CFLAGS = -O3 -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp
+CFLAGS = -O3 -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr
 OBJECTS = $(wildcard *.c)
 BINDIR = ./bin
 
