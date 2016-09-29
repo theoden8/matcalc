@@ -12,7 +12,7 @@ This is a bunch of tools useful for combinatorics and other fields of maths that
 
 * **cc**
 * **make**
-* **libgmp**, **pthread**
+* **gmp**, **mpfr**, **pthread**
 
 ## Usage
 
