@@ -45,7 +45,8 @@ void recurse_search(poly_args pa, int smaller_n, int idx) {
 }
 
 main(int argc, char *argv[]) {
-	assert(argc == 3);
+	if(argc != 3)
+		return EXIT_FAILURE;
 	int
 		m = atoi(argv[1]), // number of summons
 		n = atoi(argv[2]), // power
