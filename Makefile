@@ -2,7 +2,7 @@ CFLAGS = -O3 -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr
 OBJECTS = $(wildcard *.c)
 BINDIR = ./bin
 
-$(shell rm -rvf "$(BINDIR)")
+$(shell rm -rf "$(BINDIR)")
 $(shell mkdir -p "$(BINDIR)")
 
 all : $(patsubst %.c, %, $(OBJECTS))
