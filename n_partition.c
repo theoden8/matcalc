@@ -4,8 +4,6 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include <gmp.h>
-
 typedef long long llong;
 
 // With euler's pentagonal theorem we can calculate
