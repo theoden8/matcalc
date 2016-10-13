@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <gmp.h>
 #include <mpfr.h>
 
 // 1 - 1/3 + 1/5 - 1/7 ... + (-1)^n / (2 * n + 1)
@@ -27,6 +26,5 @@ main(const argc, char *argv[]) {
 	mpfr_mul_ui(sum, sum, 4, GMP_RNDU);
 	mpfr_printf("%.2000RNf\n", sum);
 
-	mpfr_clear(sum);
-	mpfr_clear(cur);
+	mpfr_clears(sum, cur, NULL);
 }
