@@ -1,4 +1,4 @@
-#include <assert.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 #include <gmp.h>
@@ -33,7 +33,8 @@ void calc_nth_row(mpz_t num, int k) {
 }
 
 main(int argc, char *argv[]) {
-	assert(argc == 2);
+	if(argc != 2)
+		return EXIT_FAILURE;
 	sscanf(argv[1], " %d", &N);
 
 	mpz_t num;

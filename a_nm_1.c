@@ -3,28 +3,19 @@
 
 #include <gmp.h>
 
-// euler numbers of first kind
-// / n \
-// \ m /
-// these numbers represent the number of permutations with exactly m ascents
-//
-// formula:
-// a(n, m) = sum(i = 1, i <= m + 1, ++i) { (-1)^(m - i + 1) * c(n + 1, m - j + 1) * i^N }
+/* euler numbers of first kind */
+/* / n \ */
+/* \ m / */
+/* these numbers represent the number of permutations with exactly m ascents */
 
+/* formula: */
+/* a(n, m) = sum(i = 1, i <= m + 1, ++i) { (-1)^(m - i + 1) * c(n + 1, m - j + 1) * i^N } */
 
-void misc_mpz_mul_fac_ui(mpz_t src, unsigned long val) {
+static void misc_mpz_manip_fac_ui(mpz_t src, unsigned long val, void (*manip)(mpz_t, mpz_t, mpz_t)) {
 	mpz_t fac;
 	mpz_init(fac);
 	mpz_fac_ui(fac, val);
-	mpz_mul(src, src, fac);
-	mpz_clear(fac);
-}
-
-void misc_mpz_div_fac_ui(mpz_t src, unsigned long val) {
-	mpz_t fac;
-	mpz_init(fac);
-	mpz_fac_ui(fac, val);
-	mpz_div(src, src, fac);
+	manip(src, src, fac);
 	mpz_clear(fac);
 }
 
@@ -53,9 +44,9 @@ main(const argc, char *argv[]) {
 	mpz_set_si(euler_nm, 0);
 	mpz_set_si(cur, (m & 1) ? 1 : -1);
 
-	misc_mpz_mul_fac_ui(cur, n + 1);
-	misc_mpz_div_fac_ui(cur, m + 1);
-	misc_mpz_div_fac_ui(cur, (n + 1) - (m + 1));
+	misc_mpz_manip_fac_ui(cur, n + 1, mpz_mul);
+	misc_mpz_manip_fac_ui(cur, m + 1, mpz_div);
+	misc_mpz_manip_fac_ui(cur, (n + 1) - (m + 1), mpz_div);
 
 	for(size_t i = 1; i <= (m + 1); ++i) {
 		/* (-1)^.. */

@@ -7,6 +7,8 @@
 #include "s_nk.h"
 
 // stirling numbers of second kind
+// [ n ]
+// [ k ]
 
 void calc_stirling_nk2(st_nk_t *st) {
 	const size_t n_k = st->n - st->k + 1;

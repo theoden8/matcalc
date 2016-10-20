@@ -29,4 +29,4 @@ void free_stirling_nk(st_nk_t *st) {
 }
 
 
-#endif /* end of include guard: S_NK_H_SFA03QPJ */
+#endif
