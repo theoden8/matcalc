@@ -2,6 +2,10 @@
 #include <string.h>
 #include <assert.h>
 
+
+// printing out all palindromes of a predefined length
+
+
 #define N 11
 
 #define HALF(len) ((len) >> 1)

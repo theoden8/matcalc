@@ -4,6 +4,10 @@
 #include <pthread.h>
 #include <gmp.h>
 
+
+// read natural geographic or smth to learn more about this wild math
+
+
 #define INTUNDEF -1
 typedef unsigned int uint;
 
@@ -77,6 +81,9 @@ main(const argc, char *argv[]) {
 
 	mpz_set_si(euclid, 2);
 	int rc;
+	// because these numbers are too long, it takes a little bit more time on
+	// average to print it as compared to calculating. For this very reason we
+	// need another thread to print what is already calculated.
 	rc = pthread_create(&thrprint, NULL, print_thr_func, (void *)&thrargs);
 	assert(!rc);
 	for(int i = 0; i <  size; ++i) {

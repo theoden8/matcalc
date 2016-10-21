@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <gmp.h>
 
+
+// catalan numbers are cowpowers of combinatorics which stand for the total
+// possible ways to make up a balanced sequence of range twice as big as the
+// index of a catalan number itself
+
+
 #define PRINT(x) gmp_printf("%Zd\n", x)
 
 main(const argc, char **argv) {

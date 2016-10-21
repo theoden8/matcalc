@@ -2,6 +2,11 @@
 #include <assert.h>
 #include <gmp.h>
 
+
+// nobody uses euclid numbers, even myself, but I will add them anyway just
+// because I can
+
+
 #define PRINT(x) gmp_printf("%Zd\n", x)
 
 main(const argc, char *argv[]) {
@@ -11,7 +16,7 @@ main(const argc, char *argv[]) {
 
 	if(N < 0)
 		return EXIT_FAILURE;
-	if(N == 0)
+	else if(N == 0)
 		return EXIT_SUCCESS;
 
 	mpz_t euclid, tmp;

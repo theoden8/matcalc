@@ -7,6 +7,17 @@
 #include <pthread.h>
 #include <mpfr.h>
 
+// stirling!
+// this thing calculates factorial approximation using the stirling formula.
+// wait, The Stirling Expression, or whatever it is.
+//
+// So, here we go.
+// n! ~= sqrt(2*pi*n) * (n/e)^n
+//
+// the reason for me to code this formula is just curiosity in how well do
+// stupid approximations correlate with things they are supposed to become
+// down to infinity
+
 #define INTUNDEF -1
 #define PRECISION 50
 #define CONST_STR_E "2.71828182845904523536028747135266249775724709369995"

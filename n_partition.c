@@ -6,6 +6,8 @@
 
 typedef long long llong;
 
+// calculates the number of partions of a given natural number
+//
 // With euler's pentagonal theorem we can calculate
 // p(n) = (-1)^(q + 1) * (p(n - (3q*q - q)/2) + p(n - (3*q*q + q)/2))
 //        while (n - (3*q*q + q)/2 >= 0)

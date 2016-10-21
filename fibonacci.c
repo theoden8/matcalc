@@ -2,6 +2,18 @@
 #include <assert.h>
 #include <gmp.h>
 
+
+// fibonacci are needed everywhere
+// but i dont see why you would want to always compute them in the most unreal
+// way.
+//
+// below is the most standard solution for computing the fibonacci sequence
+// features:
+//  + simplicity
+//  + gmp
+//  + f(n - 1) + f(n - 2)
+
+
 #define PRINT(x) gmp_printf("%Zd\n", x)
 
 main(const argc, char **argv) {

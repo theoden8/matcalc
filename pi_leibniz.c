@@ -3,7 +3,9 @@
 
 #include <mpfr.h>
 
+// the leibniz formula allows to compute pi as
 // 1 - 1/3 + 1/5 - 1/7 ... + (-1)^n / (2 * n + 1)
+// with the efficiency of about 1.4 decimal points per term (quite weak, but eh)
 
 main(const argc, char *argv[]) {
 	if(argc > 3)

@@ -4,6 +4,16 @@
 
 #include <gmp.h>
 
+// polynomial coefficients.
+// the file is called multinomials.c because polynimials would mean that
+// x-power-ish finite series, and the polynomial-coefficients would be too long
+// to write, cant be bothered.
+//
+// polynomial coefficients are the ones obtained when expanding a (sum of m
+// variables) to the n.
+//
+// for more relevant information about that thing, read the code
+
 mpz_t n_fac;
 
 typedef struct _poly_args {
@@ -27,6 +37,8 @@ void print_coeff(poly_args pa) {
 	mpz_clear(coeff);
 }
 
+// this is, by the way, natural number partition for n*n. However, as opposed to
+// n_partition, it needs to output each result.
 void recurse_search(poly_args pa, int smaller_n, int idx) {
 	if(idx == pa.m - 1) {
 		pa.k[idx] = smaller_n;

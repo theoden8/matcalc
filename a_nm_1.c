@@ -3,13 +3,17 @@
 
 #include <gmp.h>
 
-/* euler numbers of first kind */
-/* / n \ */
-/* \ m / */
-/* these numbers represent the number of permutations with exactly m ascents */
+// euler numbers of first kind
+// / n \
+// \ m /
+//
+// alike stirling numbers, catalan numbers, binomial coefficients and other
+// parts of the zoo, euler numbers mean something to combinatorics: they
+// represent the number of permutations with exactly m ascents of a set of size n
+//
+// formula:
+// a(n, m) = sum(i = 1, i <= m + 1, ++i) { (-1)^(m - i + 1) * c(n + 1, m - j + 1) * i^N }
 
-/* formula: */
-/* a(n, m) = sum(i = 1, i <= m + 1, ++i) { (-1)^(m - i + 1) * c(n + 1, m - j + 1) * i^N } */
 
 static void misc_mpz_manip_fac_ui(mpz_t src, unsigned long val, void (*manip)(mpz_t, mpz_t, mpz_t)) {
 	mpz_t fac;

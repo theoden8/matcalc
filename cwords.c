@@ -3,6 +3,11 @@
 #include <string.h>
 #include <assert.h>
 
+// consider the alphabet A.
+// then if all the symbols of A are 1-byte characters and are a full range from
+// some lower thing to some upper, then this program can be used to generate all
+// possible words of a given length, iteratively (as opposed to recursively)
+
 #define LOWER '3'
 #define UPPER '7'
 

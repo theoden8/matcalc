@@ -8,6 +8,14 @@
 // implementation, which features a wheel (built-in optimisation) of 2 and 3.
 //
 // http://codereview.stackexchange.com/questions/112901/eratosthenes-sieve-optimized-in-c
+//
+// this thing might look a little bit fishy, but with solid knowledge of
+// computer science one could come to the conclusion that this is, actually,
+// code.
+//
+// I would enjoy seeing the face of anyone looking at this. The sweat should
+// come out in the first seven minutes. Than you will start getting red. Another
+// few minutes of suffering will drive you crazy. Welcome to __FILE__
 
 #define N 1000000
 

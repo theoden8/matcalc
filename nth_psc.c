@@ -3,6 +3,13 @@
 
 #include <gmp.h>
 
+// nth_psc means nth row in the pascal triangle
+//
+// being a genius of math you do understand that this is a sequence of binomial
+// coefficients c(n, 0..n)
+//
+// c(n, k) / c(n, k - 1) = (n - k) / (k + 1) or smth like that, whatever works
+
 int N;
 #define SIZE(x) (((x) >> 1) + 1)
 

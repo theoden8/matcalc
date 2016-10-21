@@ -4,6 +4,16 @@
 #include <pthread.h>
 #include <gmp.h>
 
+
+// this code is proudly presented to you by your favourite (or not) text editor
+// as it can display whatever the darkest souls of computer science (actually,
+// it is singular) have put into this file: gmp, pthread, whatever. Hope it
+// works on your machine. Use with care.
+//
+// This is a pascal triangle program. Each row is calculated in a parallel-for loop
+// from a previous row (2 arrays of left-palindrome-half length).
+
+
 #define N 30
 #define SIZE(x) (((x) >> 1) + 1)
 #define NTHREADS 4

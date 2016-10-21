@@ -3,6 +3,9 @@
 
 #include <gmp.h>
 
+// this one should be raised for charity
+// c[n] = 2n! / (n! * (n + 1)!)
+
 void nth_catalan(mpz_t cat, unsigned n) {
 	mpz_t n_fac;
 	mpz_init(n_fac);

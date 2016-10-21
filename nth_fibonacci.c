@@ -4,6 +4,9 @@
 
 #include <mpfr.h>
 
+// we will use the Binet formula (using generating functions to find out the
+// formula) to compute nth fibonacci number straight (approx, though)
+
 #define PRECISION 500
 
 #define MPFR_INIT(var) mpfr_init2(var, PRECISION)

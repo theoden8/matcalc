@@ -7,6 +7,12 @@
 #include <gmp.h>
 
 
+// binomial coefficients
+// ( n )
+// ( k )
+// you should watch discovery or smth if you dont know what it is
+
+
 typedef enum {
 	KFAC, NKFAC, RESFAC,
 	FACSIZE
