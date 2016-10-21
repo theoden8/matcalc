@@ -17,7 +17,7 @@ main(const argc, char *argv[]) {
 
 	mpfr_set_d(sum, 0.0, MPFR_RNDD);
 	for(unsigned int i = 0; i < NO_ITERATIONS; ++i) {
-		mpfr_set_d(cur, 1.0 * (i & 1 ? -1 : 1), MPFR_RNDD);
+		mpfr_set_si(cur, (i & 1 ? -1 : 1), MPFR_RNDD);
 		mpfr_div_ui(cur, cur, 2 * i + 1, GMP_RNDU);
 		/* mpfr_printf("%d\t%.20RNf\n", i, cur); */
 		mpfr_add(sum, sum, cur, GMP_RNDD);
