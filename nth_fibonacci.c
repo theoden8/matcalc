@@ -1,55 +1,45 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <assert.h>
+#include <string.h>
 
 #include <mpfr.h>
 
-// we will use the Binet formula (using generating functions to find out the
-// formula) to compute nth fibonacci number straight (approx, though)
+#define PRECISION 1000
 
-#define PRECISION 500
+// using closed formula for fibs we get
+// t = sqrt(5)
+// f(n) = (1/t) * ( (0.5*(1 - t))^N - (0.5*(1 + t))^N )
 
-#define MPFR_INIT(var) mpfr_init2(var, PRECISION)
+void nth_fib(const N, mpfr_t sqrt_5, mpfr_t *F) {
+	mpfr_t
+		left, right;
+	mpfr_init2(left, PRECISION);
+	mpfr_init2(right, PRECISION);
 
-mpfr_t phi;
-void nth_fibonacci(mpfr_t fib, int n) {
-	mpfr_t phix, phi_n, rev_phi_n;
-	MPFR_INIT(phix);
-	MPFR_INIT(phi_n);
-	MPFR_INIT(rev_phi_n);
+	mpfr_add_ui(left, sqrt_5, 1, MPFR_RNDD);
+	mpfr_div_ui(left, left, 2, MPFR_RNDD);
+	mpfr_pow_si(left, left, N, MPFR_RNDD);
 
-	mpfr_set(phix, phi, MPFR_RNDD);
+	mpfr_mul_si(right, sqrt_5, -1, MPFR_RNDD);
+	mpfr_add_ui(right, right, 1, MPFR_RNDD);
+	mpfr_div_ui(right, right, 2, MPFR_RNDD);
+	mpfr_pow_si(right, right, N, MPFR_RNDD);
 
-	// phi^N
-	mpfr_pow_ui(phi_n, phi, n, MPFR_RNDD);
-	// 1/phi^N
-	mpfr_set_si(rev_phi_n, 1, MPFR_RNDD);
-	mpfr_div(rev_phi_n, rev_phi_n, phi_n, MPFR_RNDD);
+	mpfr_sub(left, left, right, MPFR_RNDD);
+	mpfr_div(*F, left, sqrt_5, MPFR_RNDD);
 
-	void (*mpfrdo)(mpfr_t, mpfr_t, mpfr_t, mpfr_rnd_t) = (n & 1) ? mpfr_sub : mpfr_add;
-	mpfrdo(phi_n, phi_n, rev_phi_n, MPFR_RNDD);
-	mpfr_mul_ui(phix, phi, 2, MPFR_RNDD);
-	mpfr_add_si(phix, phix, -1, MPFR_RNDD);
-	mpfr_div(fib, phi_n, phi, MPFR_RNDD);
-
-	mpfr_clears(phix, phi_n, rev_phi_n, NULL);
+	mpfr_clears(left, right, NULL);
 }
 
 main(const argc, char *argv[]) {
-	mpfr_t fib;
-	MPFR_INIT(fib);
-	MPFR_INIT(phi);
-	// phi
-	mpfr_sqrt_ui(phi, 5, MPFR_RNDD);
-	mpfr_add_si(phi, phi, 1, MPFR_RNDD);
-	mpfr_div_si(phi, phi, 2, MPFR_RNDD);
+	mpfr_t f, sqrt_5;
+	mpfr_init2(f, PRECISION);
+	mpfr_init2(sqrt_5, PRECISION);
 
+	mpfr_sqrt_ui(sqrt_5, 5, MPFR_RNDD);
 	for(int i = 1; i < argc; ++i) {
-		nth_fibonacci(fib, atoi(argv[i]));
-		mpfr_printf("%.100RNf\n", fib);
+		nth_fib(atoi(argv[i]), sqrt_5, &f);
+		mpfr_printf("%d: %.0RNf\n", atoi(argv[i]), &f);
 	}
-
-
-	mpfr_clears(fib, phi, NULL);
-	mpfr_free_cache();
+	mpfr_clears(f, sqrt_5, NULL);
 }
