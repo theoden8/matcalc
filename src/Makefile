@@ -14,3 +14,7 @@ all : $(patsubst %.c, %, $(COBJECTS)) $(patsubst %.hpp, %.hpp.gch, $(CXXHEADERS)
 
 %.hpp.gch : %.hpp
 	$(CXX) $(CXXFLAGS) "$<"
+
+clean :
+	rm -vf *.gch
+	rm -rvf $(BINDIR)

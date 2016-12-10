@@ -7,8 +7,34 @@
 #include "s_nk.h"
 
 // stirling numbers of second kind
-// [ n ]
-// [ k ]
+// { n }
+// { k }
+//
+// s2(n, k) is the number of ways to split a given set of size n into k
+// non-empty subsets.
+//
+// (1) recursive formula:
+// s2(n, k) = {
+//  k * s2(n - 1, k) + s2(n - 1, k - 1)
+//  0 | n == 0 or! k == 0
+//  1 | n == k
+// }
+//
+// (2) iterative formula:
+//  using tail recursion, we transform the "path" of calculating the s2(n, k)
+//  like:
+//
+//  1 0 0 0 0 0 0 0 0 0
+//  0 1 0 - - - - - - 0
+//  0 * 1 0 - - - - - 0
+//  0 * * 1 0 - - - - 0
+//  0 * * * 1 0 - - - 0
+//  0 * * * - 1 0 - - 0
+//  0 - * * - - 1 0 - 0
+//  0 - - x - - - 1 0 0
+//  0 - - - - - - - 1 0
+//
+//  Therefore, we will use the same method as for s1(n, k)
 
 void calc_stirling_nk2(st_nk_t *st) {
 	const size_t n_k = st->n - st->k + 1;
@@ -34,8 +60,8 @@ main(const argc, char *argv[]) {
 		return EXIT_FAILURE;
 
 	size_t
-		n = atoi(argv[1]),
-		k = atoi(argv[2]);
+		n = atol(argv[1]),
+		k = atol(argv[2]);
 
 	if(k > n)
 		return EXIT_FAILURE;

@@ -11,8 +11,15 @@
 // parts of the zoo, euler numbers mean something to combinatorics: they
 // represent the number of permutations with exactly m ascents of a set of size n
 //
-// formula:
-// a(n, m) = sum(i = 1, i <= m + 1, ++i) { (-1)^(m - i + 1) * c(n + 1, m - j + 1) * i^N }
+// (1) iterative formula:
+//  a1(n, m) = sum( (-1)^(m - i + 1) * c(n + 1, m - j + 1) * i^n | i <- [1..m + 1] )
+// (2) recursive formula:
+//  a1(n, m) = {
+//    0 | m > n
+//    1 | m == n
+//    1 | m=0, n=0
+//    (m + 1) * a(n - 1, m) + (n - m) * a(n - 1, m - 1)
+//  }
 
 
 static void misc_mpz_manip_fac_ui(mpz_t src, unsigned long val, void (*manip)(mpz_t, mpz_t, mpz_t)) {
@@ -29,8 +36,8 @@ main(const argc, char *argv[]) {
 		return EXIT_FAILURE;
 
 	size_t
-		n = atoi(argv[1]),
-		m = atoi(argv[2]);
+		n = atol(argv[1]),
+		m = atol(argv[2]);
 
 	if(m > n) {
 		printf("0\n");
