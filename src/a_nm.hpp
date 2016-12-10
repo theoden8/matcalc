@@ -11,14 +11,18 @@ template <uint N> struct A_NM_1 <N, N> { declare(uint) 0; };
 template <uint N> struct A_NM_1 <N, 0> { declare(uint) 1; };
 template <> struct A_NM_1 <0, 0> { declare(uint) 1; };
 
+template <uint N, uint M> constexpr uint a_nm_1() {
+	return A_NM_1<N, M>::n;
+}
+
 void statictest_anm1() {
-	static_assert(A_NM_1<0, 0>::n == 1, "");
-	static_assert(A_NM_1<1, 0>::n == 1, "");
-	static_assert(A_NM_1<2, 0>::n == 1, "");
-	static_assert(A_NM_1<1, 1>::n == 0, "");
-	static_assert(A_NM_1<16, 16>::n == 0, "");
-	static_assert(A_NM_1<16, 15>::n == 1, "");
-	static_assert(A_NM_1<15, 7>::n == 447538817472, "");
+	static_assert(a_nm_1<0, 0>() == 1, "");
+	static_assert(a_nm_1<1, 0>() == 1, "");
+	static_assert(a_nm_1<2, 0>() == 1, "");
+	static_assert(a_nm_1<1, 1>() == 0, "");
+	static_assert(a_nm_1<16, 16>() == 0, "");
+	static_assert(a_nm_1<16, 15>() == 1, "");
+	static_assert(a_nm_1<15, 7>() == 447538817472, "");
 }
 
 
@@ -29,13 +33,17 @@ template <uint N> struct A_NM_2 <N, N> { declare(uint) 0; };
 template <uint M> struct A_NM_2 <0, M> { declare(uint) 0; };
 template <> struct A_NM_2 <0, 0> { declare(uint) 1; };
 
+template <uint N, uint M> constexpr uint a_nm_2() {
+	return A_NM_2<N, M>::n;
+}
+
 
 void statictest_anm2() {
-	static_assert(A_NM_2<0, 0>::n == 1, "");
-	static_assert(A_NM_2<1, 0>::n == 1, "");
-	static_assert(A_NM_2<1, 1>::n == 0, "");
-	static_assert(A_NM_2<8, 8>::n == 0, "");
-	static_assert(A_NM_2<9, 6>::n == 11026296, "");
+	static_assert(a_nm_2<0, 0>() == 1, "");
+	static_assert(a_nm_2<1, 0>() == 1, "");
+	static_assert(a_nm_2<1, 1>() == 0, "");
+	static_assert(a_nm_2<8, 8>() == 0, "");
+	static_assert(a_nm_2<9, 6>() == 11026296, "");
 }
 
 #endif

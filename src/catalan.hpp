@@ -10,11 +10,15 @@ template <uint N> struct Catalan {
 	declare(uint) C_NK<2 * N, N>::n / (N + 1);
 };
 
+template <uint N> constexpr uint catalan() {
+	return Catalan<N>::n;
+}
+
 
 void statictest_catalan() {
-	static_assert(Catalan<0>::n == 1, "");
-	static_assert(Catalan<1>::n == 1, "");
-	static_assert(Catalan<10>::n == 16796, "");
+	static_assert(catalan<0>() == 1, "");
+	static_assert(catalan<1>() == 1, "");
+	static_assert(catalan<10>() == 16796, "");
 }
 
 #endif

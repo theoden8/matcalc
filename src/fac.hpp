@@ -11,11 +11,14 @@ template <uint N> struct Factorial {
 };
 template <> struct Factorial <0> { declare(uint) 1; };
 
+template <uint N> constexpr uint fac() {
+	return Factorial<N>::n;
+}
 
 void statictest_fac() {
-	static_assert(Factorial<0>::n == 1, "");
-	static_assert(Factorial<5>::n == 120, "");
-	static_assert(Factorial<10>::n == ProductRange<1, 10>::n, "");
+	static_assert(fac<0>() == 1, "");
+	static_assert(fac<5>() == 120, "");
+	static_assert(fac<10>() == ProductRange<1, 10>::n, "");
 }
 
 #endif

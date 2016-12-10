@@ -14,11 +14,23 @@ template <class T, T x> struct Value { declare(T) x; };
 template <class A, class B> struct Min { declare(uint) (A::n < B::n) ? A::n : B::n; };
 template <class A, class B> struct Max { declare(uint) (A::n > B::n) ? A::n : B::n; };
 
+template <class T, T x> constexpr T value() {
+	return Value<T, x>::n;
+}
+
+template <class A, class B> constexpr uint mmin() {
+	return Min<A, B>::n;
+}
+
+template <class A, class B> constexpr uint mmax() {
+	return Max<A, B>::n;
+}
+
 
 void statictest() {
-	static_assert(Min<Value<uint, 6>, Value<uint, 3> >::n == Value<uint, 3>::n, "");
-	static_assert(Max<Value<uint, 6>, Value<uint, 3> >::n == Value<uint, 6>::n, "");
-	static_assert(Value<uint, 1323>::n == 1323, "");
+	static_assert(mmin<Value<uint, 6>, Value<uint, 3> >() == value<uint, 3>(), "");
+	static_assert(mmax<Value<uint, 6>, Value<uint, 3> >() == value<uint, 6>(), "");
+	static_assert(value<uint, 1323>() == 1323, "");
 }
 
 #endif

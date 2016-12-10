@@ -11,11 +11,14 @@ template <uint N> struct Fibonacci {
 template <> struct Fibonacci <1> { declare(uint) 1; };
 template <> struct Fibonacci <2> { declare(uint) 1; };
 
+template <uint N> constexpr uint fib() {
+	return Fibonacci<N>::n;
+}
 
 void statictest_fib() {
-	static_assert(Fibonacci<1>::n == 1, "");
-	static_assert(Fibonacci<2>::n == 1, "");
-	static_assert(Fibonacci<10>::n == 55, "");
+	static_assert(fib<1>() == 1, "");
+	static_assert(fib<2>() == 1, "");
+	static_assert(fib<10>() == 55, "");
 }
 
 #endif
