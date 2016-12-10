@@ -3,9 +3,8 @@
 
 #include <mpfr.h>
 
-// the leibniz formula allows to compute pi as
-// 1 - 1/3 + 1/5 - 1/7 ... + (-1)^n / (2 * n + 1)
-// with the efficiency of about 1.4 decimal points per term (quite weak, but eh)
+// the arctangent formula for pi is:
+//  pi = 4 * atan(1) = 2 * (sum ( n! / (2*n + 1)!! | n -> infinity) )
 
 main(const argc, char *argv[]) {
 	if(argc > 3)
@@ -17,14 +16,16 @@ main(const argc, char *argv[]) {
 	mpfr_inits2(PRECISION, sum, cur, NULL);
 
 	mpfr_set_d(sum, 0.0, MPFR_RNDD);
-	for(unsigned int i = 0; i < NO_ITERATIONS; ++i) {
-		mpfr_set_si(cur, (i & 1 ? -1 : 1), MPFR_RNDD);
-		mpfr_div_ui(cur, cur, 2 * i + 1, GMP_RNDU);
+	mpfr_set_d(cur, 1.0, MPFR_RNDD);
+	for(unsigned i = 0; i < NO_ITERATIONS; ++i) {
+		if(i > 0)
+			mpfr_mul_ui(cur, cur, i, MPFR_RNDD);
+		mpfr_div_ui(cur, cur, 2 * i + 1, MPFR_RNDU);
 		/* mpfr_printf("%d\t%.20RNf\n", i, cur); */
-		mpfr_add(sum, sum, cur, GMP_RNDD);
+		mpfr_add(sum, sum, cur, MPFR_RNDU);
 	}
 	/* mpfr_printf("%.2000RNf\n", sum); */
-	mpfr_mul_ui(sum, sum, 4, GMP_RNDU);
+	mpfr_mul_ui(sum, sum, 2, MPFR_RNDU);
 	mpfr_printf("%.2000RNf\n", sum);
 
 	mpfr_clears(sum, cur, NULL);
