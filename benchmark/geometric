@@ -1,0 +1,17 @@
+#!/bin/bash
+
+term=2
+len=10
+
+[ $# -ge 1 ] && {
+  len=$1; shift
+}
+[ $# -eq 1 ] && {
+  term=$1; shift
+}
+
+cur=$term
+for i in $(seq $len); do
+  echo $cur
+  ((cur *= term))
+done

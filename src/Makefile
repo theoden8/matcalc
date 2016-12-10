@@ -1,6 +1,6 @@
-CFLAGS = -O3 -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr
+CFLAGS = -O3 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr
 OBJECTS = $(wildcard *.c)
-BINDIR = ./bin
+BINDIR = ../bin
 
 $(shell rm -rf "$(BINDIR)")
 $(shell mkdir -p "$(BINDIR)")

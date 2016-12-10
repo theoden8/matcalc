@@ -1,0 +1,21 @@
+#!/bin/bash
+
+get_time() {
+  program=$1; shift
+  arg=$1; shift
+  gtime "--format=%E" $program $arg > /dev/null
+}
+
+get_fmt_time() {
+  program=$1; shift
+  arg=$1; shift
+  get_time "$program" "$i" 2>&1 | tr '.' ':' | sed 's/:/ /g' | (
+    read -r m s ms
+    echo "$((m * 60 + s)).$ms"
+  )
+}
+
+program=$1; shift
+for i in $@; do
+  printf "$i\t$(get_fmt_time "$program" "$i")\n"
+done
