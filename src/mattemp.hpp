@@ -8,6 +8,11 @@ typedef long long sint;
 // exact same thing, but recursively and in compile time
 
 
+template <class T, T x> struct Value {
+	declare(T) x;
+};
+
+
 template <class A, class B> struct Min {
 	declare(uint) (A::n < B::n) ? A::n : B::n;
 };
@@ -15,9 +20,6 @@ template <class A, class B> struct Max {
 	declare(uint) (A::n > B::n) ? A::n : B::n;
 };
 
-template <class T, T x> struct Value {
-	declare(T) x;
-};
 
 
 template <sint F, sint... Rs> struct ProductArgs {
