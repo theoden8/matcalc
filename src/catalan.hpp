@@ -7,7 +7,7 @@
 
 
 template <uint N> struct Catalan {
-	declare(uint) Binomial<2 * N, N>::n / (N + 1);
+	declare(uint) C_NK<2 * N, N>::n / (N + 1);
 };
 
 

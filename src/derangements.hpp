@@ -3,7 +3,6 @@
 
 
 #include "mattemp.hpp"
-#include "c_nk.hpp"
 
 
 template <uint N> struct Derangements {
