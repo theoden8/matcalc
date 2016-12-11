@@ -6,7 +6,7 @@
 
 
 template <uint K, uint N> struct Figurate {
-	declare(uint) N * (2 + (K - 2) * (N - 1)) / 2;
+	declare N * (2 + (K - 2) * (N - 1)) / 2;
 };
 
 void statictest_fig() {

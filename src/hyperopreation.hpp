@@ -8,10 +8,10 @@
 
 
 template <uint N, uint P, template <uint, uint...> class Join> struct HyperOperation {
-	declare(uint) Join<N, HyperOperation<N, P - 1, Join>::n >::n;
+	declare Join<N, HyperOperation<N, P - 1, Join>::n >::n;
 };
 template <uint N, template <uint, uint...> class Join> struct HyperOperation <N, 0, Join> {
-	declare(uint) 1;
+	declare 1;
 };
 
 

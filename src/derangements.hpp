@@ -6,11 +6,11 @@
 
 
 template <uint N> struct Derangements {
-	declare(uint) (N - 1) * (Derangements<N - 1>::n + Derangements<N - 2>::n);
+	declare (N - 1) * (Derangements<N - 1>::n + Derangements<N - 2>::n);
 };
-template <> struct Derangements <1> { declare(uint) 0; };
-template <> struct Derangements <2> { declare(uint) 1; };
-template <> struct Derangements <3> { declare(uint) 2; };
+template <> struct Derangements <1> { declare 0; };
+template <> struct Derangements <2> { declare 1; };
+template <> struct Derangements <3> { declare 2; };
 
 template <uint N> constexpr uint d() {
 	return Derangements<N>::n;

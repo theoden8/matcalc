@@ -6,11 +6,11 @@
 
 
 template <uint N, uint K> struct C_NK {
-	declare(uint) C_NK<N - 1, K - 1>::n + C_NK<N - 1, K>::n;
+	declare C_NK<N - 1, K - 1>::n + C_NK<N - 1, K>::n;
 };
-template <uint N> struct C_NK <N, N> { declare(uint) 1; };
-template <uint N> struct C_NK <N, 0> { declare(uint) 1; };
-template <> struct C_NK <0, 0> { declare(uint) 1; };
+template <uint N> struct C_NK <N, N> { declare 1; };
+template <uint N> struct C_NK <N, 0> { declare 1; };
+template <> struct C_NK <0, 0> { declare 1; };
 
 template <uint N, uint K> constexpr uint c_nk() {
 	return C_NK<N, K>::n;

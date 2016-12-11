@@ -6,10 +6,10 @@
 
 
 template <uint N> struct Fibonacci {
-	declare(uint) Fibonacci<N - 2>::n + Fibonacci<N - 1>::n;
+	declare Fibonacci<N - 2>::n + Fibonacci<N - 1>::n;
 };
-template <> struct Fibonacci <1> { declare(uint) 1; };
-template <> struct Fibonacci <2> { declare(uint) 1; };
+template <> struct Fibonacci <1> { declare 1; };
+template <> struct Fibonacci <2> { declare 1; };
 
 template <uint N> constexpr uint fib() {
 	return Fibonacci<N>::n;

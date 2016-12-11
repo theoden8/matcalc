@@ -6,16 +6,16 @@
 
 
 template <uint F, uint... Rs> struct ProductArgs {
-	declare(uint) F * ProductArgs<Rs...>::n;
+	declare F * ProductArgs<Rs...>::n;
 };
-template <uint F> struct ProductArgs <F> { declare(uint) F; };
+template <uint F> struct ProductArgs <F> { declare F; };
 
 
 
 template <uint L, uint R> struct ProductRange {
-	declare(uint) L * ProductRange<L + 1, R>::n;
+	declare L * ProductRange<L + 1, R>::n;
 };
-template <uint L> struct ProductRange<L, L> { declare(uint) L; };
+template <uint L> struct ProductRange<L, L> { declare L; };
 
 void statictest_product() {
 	static_assert(ProductArgs<15>::n == 15, "");
@@ -28,8 +28,8 @@ void statictest_product() {
 }
 
 
-template <uint N, uint P> struct Power { declare(uint) Power<N, P - 1>::n * N; };
-template <uint N> struct Power <N, 0> { declare(uint) 1; };
+template <uint N, uint P> struct Power { declare Power<N, P - 1>::n * N; };
+template <uint N> struct Power <N, 0> { declare 1; };
 
 template <uint N, uint P> constexpr uint power() {
 	return Power<N, P>::n;

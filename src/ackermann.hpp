@@ -7,16 +7,16 @@
 
 
 template <uint M, uint N> struct Ackermann {
-	declare(uint) Ackermann<M - 1, Ackermann<M, N - 1>::n>::n;
+	declare Ackermann<M - 1, Ackermann<M, N - 1>::n>::n;
 };
-/* template <uint M> struct Ackermann <M, 0> { declare(uint) Ackermann<M - 1, 1>::n;  }; */
-template <uint N> struct Ackermann <0, N> { declare(uint) N + 1; };
-template <uint N> struct Ackermann <1, N> { declare(uint) N + 2; };
-template <uint N> struct Ackermann <2, N> { declare(uint) 2 * N + 3; };
-template <uint N> struct Ackermann <3, N> { declare(uint) -3 + 8 * power<2, N>(); };
-template <uint N> struct Ackermann <4, N> { declare(uint) power<2, Ackermann<4, N - 1>::n + 3>() - 3; };
-template <> struct Ackermann <4, 0> { declare(uint) 13; };
-template <> struct Ackermann <0, 0> { declare(uint) 1; };
+/* template <uint M> struct Ackermann <M, 0> { declare Ackermann<M - 1, 1>::n;  }; */
+template <uint N> struct Ackermann <0, N> { declare N + 1; };
+template <uint N> struct Ackermann <1, N> { declare N + 2; };
+template <uint N> struct Ackermann <2, N> { declare 2 * N + 3; };
+template <uint N> struct Ackermann <3, N> { declare -3 + 8 * power<2, N>(); };
+template <uint N> struct Ackermann <4, N> { declare power<2, Ackermann<4, N - 1>::n + 3>() - 3; };
+template <> struct Ackermann <4, 0> { declare 13; };
+template <> struct Ackermann <0, 0> { declare 1; };
 
 template <uint M, uint N> constexpr uint ack() {
 	return Ackermann<M, N>::n;

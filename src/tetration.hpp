@@ -7,13 +7,13 @@
 
 
 template <uint F, uint ... Ns> struct ExponentArgs {
-	declare(uint) power<F, ExponentArgs<Ns...>::n>();
+	declare power<F, ExponentArgs<Ns...>::n>();
 };
-template <> struct ExponentArgs <0> { declare(uint) 0; };
-template <> struct ExponentArgs <1> { declare(uint) 1; };
-template <uint... Ns> struct ExponentArgs <0, Ns...> { declare(uint) ExponentArgs<0>::n; };
-template <uint... Ns> struct ExponentArgs <1, Ns...> { declare(uint) ExponentArgs<1>::n; };
-template <uint F> struct ExponentArgs <F> { declare(uint) F; };
+template <> struct ExponentArgs <0> { declare 0; };
+template <> struct ExponentArgs <1> { declare 1; };
+template <uint... Ns> struct ExponentArgs <0, Ns...> { declare ExponentArgs<0>::n; };
+template <uint... Ns> struct ExponentArgs <1, Ns...> { declare ExponentArgs<1>::n; };
+template <uint F> struct ExponentArgs <F> { declare F; };
 
 
 void statictest_exps() {
@@ -26,9 +26,9 @@ void statictest_exps() {
 
 
 template <uint N, uint T> struct Tetration {
-	declare(uint) power<N, Tetration<N, T - 1>::n >();
+	declare power<N, Tetration<N, T - 1>::n >();
 };
-template <uint N> struct Tetration <N, 0> { declare(uint) 1; };
+template <uint N> struct Tetration <N, 0> { declare 1; };
 
 template <uint N, uint T> constexpr uint tetration() {
 	return Tetration<N, T>::n;

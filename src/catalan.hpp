@@ -7,7 +7,7 @@
 
 
 template <uint N> struct Catalan {
-	declare(uint) c_nk<2 * N, N>() / (N + 1);
+	declare c_nk<2 * N, N>() / (N + 1);
 };
 
 template <uint N> constexpr uint catalan() {

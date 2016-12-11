@@ -7,9 +7,9 @@
 
 
 template <uint N> struct Factorial {
-	declare(uint) N * Factorial<N - 1>::n;
+	declare N * Factorial<N - 1>::n;
 };
-template <> struct Factorial <0> { declare(uint) 1; };
+template <> struct Factorial <0> { declare 1; };
 
 template <uint N> constexpr uint fac() {
 	return Factorial<N>::n;
