@@ -6,6 +6,25 @@
 #include "pow.hpp"
 
 
+template <uint F, uint ... Ns> struct ExponentArgs {
+	declare(uint) power<F, ExponentArgs<Ns...>::n>();
+};
+template <> struct ExponentArgs <0> { declare(uint) 0; };
+template <> struct ExponentArgs <1> { declare(uint) 1; };
+template <uint... Ns> struct ExponentArgs <0, Ns...> { declare(uint) ExponentArgs<0>::n; };
+template <uint... Ns> struct ExponentArgs <1, Ns...> { declare(uint) ExponentArgs<1>::n; };
+template <uint F> struct ExponentArgs <F> { declare(uint) F; };
+
+
+void statictest_exps() {
+	static_assert(ExponentArgs<10>::n == 10, "");
+	static_assert(ExponentArgs<1, 2, 7, 1, 1, 1, 1>::n == 1, "");
+	static_assert(ExponentArgs<1, 2, 3, 4, 5, 6, 7>::n == 1, "");
+	static_assert(ExponentArgs<7, 1, 0, 4, 5, 6, 7>::n == 7, "");
+	static_assert(ExponentArgs<2, 5, 1>::n == 32, "");
+}
+
+
 template <uint N, uint T> struct Tetration {
 	declare(uint) power<N, Tetration<N, T - 1>::n >();
 };
