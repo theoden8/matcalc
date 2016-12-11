@@ -1,4 +1,4 @@
-CFLAGS = -O3 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr
+CFLAGS = -O3 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr -pthread
 COBJECTS = $(wildcard *.c)
 BINDIR = ../bin
 CXXFLAGS = -std=c++1y
@@ -11,13 +11,17 @@ $(shell mkdir -p "$(BINDIR)")
 all : $(patsubst %.c, %, $(COBJECTS)) $(patsubst %.hpp, %.hpp.gch, $(CXXHEADERS)) $(patsubst %.cpp, %, $(CXXOBJECTS))
 
 % : %.c
-	$(CC) $(CFLAGS) -o "$(BINDIR)/$@" "$<"
+	$(CC) "$<" $(CFLAGS) -o "$(BINDIR)/$@"
 
 % : %.cpp
-	$(CXX) $(CXXFLAGS) -lgmpxx -lgmp -o "$(BINDIR)/$@" "$<"
+	$(CXX) "$<" $(CXXFLAGS) -lgmpxx -lgmp -o "$(BINDIR)/$@"
 
 %.hpp.gch : %.hpp
-	$(CXX) $(CXXFLAGS) "$<"
+	$(CXX) "$<" $(CXXFLAGS)
+
+check :
+	make
+	make clean
 
 clean :
 	rm -vf *.gch
