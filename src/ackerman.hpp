@@ -1,0 +1,38 @@
+#ifndef ACKERMAN_HPP_N3RY0XGW
+#define ACKERMAN_HPP_N3RY0XGW
+
+
+#include "mattemp.hpp"
+#include "pow.hpp"
+
+
+template <uint M, uint N> struct Ackermann {
+	declare(uint) Ackermann<M - 1, Ackermann<M, N - 1>::n>::n;
+};
+/* template <uint M> struct Ackermann <M, 0> { declare(uint) Ackermann<M - 1, 1>::n;  }; */
+template <uint N> struct Ackermann <0, N> { declare(uint) N + 1; };
+template <uint N> struct Ackermann <1, N> { declare(uint) N + 2; };
+template <uint N> struct Ackermann <2, N> { declare(uint) 2 * N + 3; };
+template <uint N> struct Ackermann <3, N> { declare(uint) -3 + 8 * power<2, N>(); };
+template <uint N> struct Ackermann <4, N> { declare(uint) power<2, Ackermann<4, N - 1>::n + 3>() - 3; };
+template <> struct Ackermann <4, 0> { declare(uint) 13; };
+template <> struct Ackermann <0, 0> { declare(uint) 1; };
+
+template <uint M, uint N> constexpr uint ack() {
+	return Ackermann<M, N>::n;
+}
+
+void statictest_ack() {
+	static_assert(ack<0, 0>() == 1, "");
+	static_assert(ack<1, 0>() == 2, "");
+	static_assert(ack<2, 0>() == 3, "");
+	static_assert(ack<2, 543432>() == 1086867, "");
+	static_assert(ack<3, 0>() == 5, "");
+	static_assert(ack<3, 10>() == 8189, "");
+	static_assert(ack<3, 15>() == 262141, "");
+	static_assert(ack<3, 60>() == 9223372036854775805, "");
+	static_assert(ack<4, 0>() == 13, "");
+	static_assert(ack<4, 1>() == 65533, "");
+}
+
+#endif

@@ -33,6 +33,7 @@ This is a collection of tools useful for combinatorics, number theory and other 
 * Eulerian 1, 2
 * Pi digits
 * Natural number partition
+* Ackerman
 * Palindromes
 * Prime sieve
 * Polynomial coefficient

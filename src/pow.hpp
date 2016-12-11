@@ -27,9 +27,7 @@ void statictest_product() {
 }
 
 
-template <sint N, uint P> struct Power {
-	declare(sint) Power<N, P - 1>::n * N;
-};
+template <sint N, uint P> struct Power { declare(sint) Power<N, P - 1>::n * N; };
 template <uint N> struct Power <N, 0> { declare(sint) 1; };
 
 template <uint N, uint P> constexpr uint power() {
