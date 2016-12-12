@@ -69,7 +69,7 @@ The project is licensed under [WTFPL](./LICENSE) license.
 	make
 	cd ../benchmark
 	# ./benchmark program test1 test2 ..., e.g.
-	./benchmark ../bin/_partition $(./geometric 15)
+	./benchmark ../bin/n_partition $(./geometric 15)
 
 ## Bugs and optimizations
 
