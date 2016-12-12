@@ -35,9 +35,9 @@ main(const argc, char **argv) {
 	for(int i = 1; i < N; ++i) {
 		mpz_add(tail[head], tail[first], tail[second]);
 		gmp_printf("%Zd\n", tail[head]);
-		++head;
+		head = (head + 1) % 3;;
 		first = (head + 1) % 3;
-		second = 3 - first - head;
+		second = (head + 2) % 3;
 	}
 	for(int i = 0; i < 3; ++i)
 		mpz_clear(tail[i]);
