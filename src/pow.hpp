@@ -17,6 +17,15 @@ template <uint L, uint R> struct ProductRange {
 };
 template <uint L> struct ProductRange<L, L> { declare L; };
 
+
+template <uint L, uint N, template <uint> class Sequence> struct SubseqProduct {
+	declare Sequence<L>::n * SubseqProduct<L + 1, N - 1, Sequence>::n;
+};
+template <uint L, template <uint> class Sequence> struct SubseqProduct <L, 0, Sequence> {
+	declare 1;
+};
+
+
 void statictest_product() {
 	static_assert(ProductArgs<15>::n == 15, "");
 	static_assert(ProductArgs<1, 2, 5, 51>::n == 510, "");
@@ -25,6 +34,7 @@ void statictest_product() {
 	static_assert(ProductRange<3, 5>::n == 60, "");
 	static_assert(ProductRange<3, 6>::n == 360, "");
 	static_assert(ProductRange<3, 10>::n == 1814400, "");
+	static_assert(SubseqProduct<1, 10, Value>::n == 3628800, "");
 }
 
 
