@@ -31,25 +31,25 @@ typedef long long llong;
 // we can compute this iteratively without having to calculate anything twice.
 
 
-mpz_t *alloc_partition_ans(int n) {
+mpz_t *alloc_partition_ans(long n) {
 	mpz_t *P = malloc(sizeof(mpz_t) * (n + 1));
-	for(int i = 0; i <= n; ++i)
+	for(long i = 0; i <= n; ++i)
 		mpz_init(P[i]);
 	return P;
 }
 
-void clear_partition_ans(mpz_t *P, int n) {
-	for(int i = 0; i <= n; ++i)
+void clear_partition_ans(mpz_t *P, long n) {
+	for(long i = 0; i <= n; ++i)
 		mpz_clear(P[i]);
 	free(P);
 }
 
 
-void partition(int n, mpz_t *P) {
+void partition(long n, mpz_t *P) {
 	mpz_t term;
 	mpz_inits(term, NULL);
 
-	for(int i = 0; i <= n; ++i) {
+	for(long i = 0; i <= n; ++i) {
 		if(i == 0 || i == 1) {
 			mpz_set_si(P[i], 1);
 			continue;
@@ -82,34 +82,21 @@ void partition(int n, mpz_t *P) {
 }
 
 
-// for no particular reason, I want this to be recursive
-int find_max(int *arr, int len) {
-	if(len == 0)
-		return -1;
-	if(len == 1)
-		return *arr;
-	const half = len >> 1;
-	int l = find_max(arr, half),
-			r = find_max(arr + half, half + (len & 1));
-	return (l > r) ? l : r;
-}
-
 main(const argc, char *argv[]) {
 	if(argc == 1)
 		return EXIT_SUCCESS;
 
-	int n[argc - 1];
+	long n[argc - 1], max = -1;
 	for(int i = 1; i < argc; ++i) {
-		const tmp = atoi(argv[i]);
-		assert(tmp >= 0);
-		n[i - 1] = tmp;
+		n[i - 1] = atol(argv[i]);
+		assert(n[i - 1] >= 0);
+		if(n[i - 1] > max)
+			max = n[i - 1];
 	}
-	int max = find_max(n, argc - 1);
 
 	mpz_t *P = alloc_partition_ans(max);
 	partition(max, P);
-	for(int i = 1; i < argc; ++i) {
+	for(int i = 1; i < argc; ++i)
 		gmp_printf("%Zd\n", P[n[i - 1]]);
-	}
 	clear_partition_ans(P, max);
 }
