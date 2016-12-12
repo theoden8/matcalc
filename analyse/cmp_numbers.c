@@ -30,7 +30,7 @@ main(int argc, char *argv[]) {
 		}
 		else
 			break;
-	printf("%lu\n", len);
+	printf("\n%lu\n", len);
 
 	fclose(first);
 	fclose(second);
