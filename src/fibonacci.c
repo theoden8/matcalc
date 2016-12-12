@@ -29,13 +29,15 @@ main(const argc, char **argv) {
 		mpz_init(tail[i]);
 	mpz_set_ui(tail[0], 1);
 	mpz_set_ui(tail[1], 0);
-	mpz_set_ui(tail[2], 0);
+	mpz_set_ui(tail[2], 1);
 	gmp_printf("%Zd\n", tail[0]);
+	char head = 0, first = 1, second = 2;
 	for(int i = 1; i < N; ++i) {
-		mpz_set(tail[2], tail[0]);
-		mpz_add(tail[0], tail[1], tail[2]);
-		mpz_set(tail[1], tail[2]);
-		gmp_printf("%Zd\n", tail[0]);
+		mpz_add(tail[head], tail[first], tail[second]);
+		gmp_printf("%Zd\n", tail[head]);
+		++head;
+		first = (head + 1) % 3;
+		second = 3 - first - head;
 	}
 	for(int i = 0; i < 3; ++i)
 		mpz_clear(tail[i]);

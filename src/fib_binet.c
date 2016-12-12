@@ -8,14 +8,10 @@
 
 #define PRECISION 500
 
-#define MPFR_INIT(var) mpfr_init2(var, PRECISION)
-
 mpfr_t phi;
 void nth_fibonacci(mpfr_t fib, int n) {
 	mpfr_t phix, phi_n, rev_phi_n;
-	MPFR_INIT(phix);
-	MPFR_INIT(phi_n);
-	MPFR_INIT(rev_phi_n);
+	mpfr_inits2(PRECISION, phix, phi_n, rev_phi_n, NULL);
 
 	mpfr_set(phix, phi, MPFR_RNDD);
 
@@ -36,8 +32,7 @@ void nth_fibonacci(mpfr_t fib, int n) {
 
 main(const argc, char *argv[]) {
 	mpfr_t fib;
-	MPFR_INIT(fib);
-	MPFR_INIT(phi);
+	mpfr_inits2(PRECISION, fib, phi, NULL);
 	// phi
 	mpfr_sqrt_ui(phi, 5, MPFR_RNDD);
 	mpfr_add_si(phi, phi, 1, MPFR_RNDD);
@@ -45,9 +40,8 @@ main(const argc, char *argv[]) {
 
 	for(int i = 1; i < argc; ++i) {
 		nth_fibonacci(fib, atoi(argv[i]));
-		mpfr_printf("%.100RNf\n", fib);
+		mpfr_printf("%.0RNf\n", fib);
 	}
-
 
 	mpfr_clears(fib, phi, NULL);
 	mpfr_free_cache();
