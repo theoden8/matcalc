@@ -39,7 +39,7 @@ main(const argc, char *argv[]) {
 	mpfr_sqrt_ui(sqrt_5, 5, MPFR_RNDD);
 	for(int i = 1; i < argc; ++i) {
 		nth_fib(atol(argv[i]), sqrt_5, &f);
-		mpfr_printf("%d: %.0RNf\n", atol(argv[i]), &f);
+		mpfr_printf("%.0RNf\n", atol(argv[i]), &f);
 	}
 	mpfr_clears(f, sqrt_5, NULL);
 }
