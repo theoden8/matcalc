@@ -8,6 +8,7 @@
 //
 // the number of derangements can be computed in recursively as:
 //	d(n) = (n - 1) * (d(n - 1) * d(n - 2)) for n >= 3, otherwise {0, 1, 2}
+//	d(n) = n*d(n - 1) + (-1)^n
 // and iteratively as:
 //	d(n) = sum( (-1)^k * (n!/k!) | k <- 0..n )
 

@@ -6,7 +6,7 @@
 
 
 template <uint N> struct Derangements {
-	declare (N - 1) * (Derangements<N - 1>::n + Derangements<N - 2>::n);
+	declare N * Derangements<N - 1>::n + ((N & 1) ? -1 : 1);
 };
 template <> struct Derangements <1> { declare 0; };
 template <> struct Derangements <2> { declare 1; };
