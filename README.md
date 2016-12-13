@@ -32,11 +32,14 @@ This is a collection of tools useful for combinatorics, number theory and other 
 * Stirling 1, 2
 * Eulerian 1, 2
 * Pi digits
+* E digits
 * Natural number partition
 * Ackermann
 * Palindromes
 * Prime sieve
 * Polynomial coefficient
+* Binomial distribution
+* Poisson distribution
 
 ## Build with
 
@@ -63,15 +66,14 @@ To clean up, do
 
 The project is licensed under [WTFPL](./LICENSE) license.
 
-## Measuring performance
+## Analysis tools
 
-	cd src
-	make
-	cd ../benchmark
-	# ./benchmark program test1 test2 ..., e.g.
-	./benchmark ../bin/n_partition $(./geometric 15)
+* Benchmarking
+* Comparing output
 
-## Bugs and optimizations
+## Contributing
+
+### Bugs and optimizations
 
 If you find a problem, or optimization related to any of the programs/algorithms, do not hesitate posting an issue.
 
