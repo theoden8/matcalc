@@ -23,9 +23,9 @@ mpz_class pow2huge(const mpz_class &power) {
 mpz_class ackermann(int m, mpz_class n) {
 	if(m == 0) {
 		return n + 1;
-    } else if(n == 0) {
+	} else if(n == 0) {
 		return ackermann(m - 1, 1);
-    }
+	}
 
 	if(m == 1) {
 		return n + 2;
@@ -40,9 +40,9 @@ mpz_class ackermann(int m, mpz_class n) {
 		return -3 + 16 * pow2huge(n - 1);
 	} else if(m == 4 && n < 3) {
 		// a(4, n) == a(2^16^a(4, n - 1)) - 3
-		const size_t n_ui = n.get_ui();
+		size_t n_ui = n.get_ui();
 		n = 16;
-		for(size_t i = 0; i < n_ui; ++i)
+		while(--n_ui != -1ul)
 			n = pow2huge(n);
 		return n - 3;
 	}

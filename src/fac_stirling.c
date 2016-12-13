@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdbool.h>
 
+#include "constants.h"
+
 #include <pthread.h>
 #include <mpfr.h>
 
@@ -15,13 +17,11 @@
 // n! ~= sqrt(2*pi*n) * (n/e)^n
 //
 // the reason for me to code this formula is just curiosity in how well do
-// stupid approximations correlate with things they are supposed to become
-// down to infinity
+// stupid approximations match with things they are supposed to approximate
+// when we use it on a finitely clever computer
 
 #define INTUNDEF -1
 #define PRECISION 50
-#define CONST_STR_E "2.71828182845904523536028747135266249775724709369995"
-#define CONST_PRECISION_E (strlen(CONST_STR_E) - strlen("2."))
 
 typedef unsigned long int ULONG;
 
@@ -49,7 +49,14 @@ void print(seq_t *seq) {
 	}
 }
 
+mpfr_t const_e;
 void nth_term(seq_t *sargs, ULONG idx) {
+	static bool e_init = false;
+	if(!e_init) {
+		e_init = true;
+		mpfr_init2(const_e, PRECISION);
+		mpfr_const_e(&const_e, 1, PRECISION);
+	}
 	mpfr_t *head = sargs->arr + idx;
 	assert(!defined(head));
 	mpfr_const_pi(*head, MPFR_RNDD);
@@ -58,14 +65,10 @@ void nth_term(seq_t *sargs, ULONG idx) {
 	mpfr_root(*head, *head, 2, MPFR_RNDD);
 
 	mpfr_t ne_pow;
-	mpfr_init2(ne_pow, PRECISION);
-	mpfr_t CONST_E;
-	assert(CONST_PRECISION_E == PRECISION);
-	mpfr_init2(CONST_E, CONST_PRECISION_E);
-	mpfr_set_str(CONST_E, CONST_STR_E, 10, MPFR_RNDD);
+	mpfr_inits2(PRECISION, ne_pow, NULL);
 
 	mpfr_set_d(ne_pow, idx, MPFR_RNDD); // n
-	mpfr_div(ne_pow, ne_pow, CONST_E, MPFR_RNDD); // n / e
+	mpfr_div(ne_pow, ne_pow, const_e, MPFR_RNDD); // n / e
 	mpfr_pow_ui(ne_pow, ne_pow, idx, MPFR_RNDD); // (n / e) ^ n
 
 	mpfr_mul(*head, *head, ne_pow, MPFR_RNDD);
@@ -106,6 +109,7 @@ main(int argc, char *argv[]) {
 		mpfr_clear(sequence.arr[i]);
 	}
 	mpfr_free_cache();
+	mpfr_clear(const_e);
 
 	pthread_exit(NULL);
 }

@@ -1,9 +1,12 @@
 #ifndef PROBABILITY_H_WTR3TMUP
 #define PROBABILITY_H_WTR3TMUP
 
-long double get_double(int n, char *argv[]) {
+#define UNDEFINED -1
+const PRECISION = 2000;
+
+long double atold(char *s) {
 	long double d;
-	sscanf(argv[n], "%Lf", &d);
+	sscanf(s, "%Lf", &d);
 	return d;
 }
 

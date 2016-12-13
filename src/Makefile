@@ -8,7 +8,7 @@ CXXOBJECTS = $(wildcard *.cpp)
 $(shell rm -rf "$(BINDIR)")
 $(shell mkdir -p "$(BINDIR)")
 
-all : $(patsubst %.c, %, $(COBJECTS)) $(patsubst %.hpp, %.hpp.gch, $(CXXHEADERS)) $(patsubst %.cpp, %, $(CXXOBJECTS))
+all : $(patsubst %.c, %, $(COBJECTS)) $(patsubst %.cpp, %, $(CXXOBJECTS)) $(patsubst %.hpp, %.hpp.gch, $(CXXHEADERS))
 
 % : %.c
 	$(CC) "$<" $(CFLAGS) -o "$(BINDIR)/$@"
