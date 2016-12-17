@@ -7,7 +7,7 @@
 
 
 template <uint F, uint ... Ns> struct ExponentArgs {
-	declare power<F, ExponentArgs<Ns...>::n>();
+	declare Power<F, ExponentArgs<Ns...>::n>::n;
 };
 template <> struct ExponentArgs <0> { declare 0; };
 template <> struct ExponentArgs <1> { declare 1; };
@@ -26,24 +26,21 @@ void statictest_exps() {
 
 
 template <uint N, uint T> struct Tetration {
-	declare power<N, Tetration<N, T - 1>::n >();
+	declare Power<N, Tetration<N, T - 1>::n>::n;
 };
 template <uint N> struct Tetration <N, 0> { declare 1; };
 
-template <uint N, uint T> constexpr uint tetration() {
-	return Tetration<N, T>::n;
-}
-
+template <uint N, uint T> constexpr uint tetration = Tetration<N, T>::n;
 
 void statictest_tetration() {
-	static_assert(tetration<2, 0>() == 1, "");
-	static_assert(tetration<2, 1>() == 2, "");
-	static_assert(tetration<2, 2>() == 4, "");
-	static_assert(tetration<2, 3>() == 16, "");
-	static_assert(tetration<2, 4>() == 65536, "");
-	static_assert(tetration<1, 100>() == 1, "");
-	static_assert(tetration<3, 2>() == 27, "");
-	static_assert(tetration<3, 3>() == 7625597484987, "");
+	static_assert(tetration<2, 0> == 1, "");
+	static_assert(tetration<2, 1> == 2, "");
+	static_assert(tetration<2, 2> == 4, "");
+	static_assert(tetration<2, 3> == 16, "");
+	static_assert(tetration<2, 4> == 65536, "");
+	static_assert(tetration<1, 100> == 1, "");
+	static_assert(tetration<3, 2> == 27, "");
+	static_assert(tetration<3, 3> == 7625597484987, "");
 }
 
 

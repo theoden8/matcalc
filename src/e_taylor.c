@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <mpfr.h>
 
-#define PRECISION 2000
+#define PRECISION 20000
 
 /*
  * e = 1/0! + 1/1! + 1/2! + 1/3! + 1/4! + ...
@@ -20,6 +20,6 @@ main(int argc, char *argv[]) {
 		mpfr_div_ui(term, term, i, MPFR_RNDU);
 		mpfr_add(E, E, term, MPFR_RNDU);
 	}
-	mpfr_printf("%.200RNf\n", E);
+	mpfr_printf("%.20000RNf\n", E);
 	mpfr_clears(E, term, NULL);
 }

@@ -13,26 +13,24 @@ template <uint M, uint N> struct Ackermann {
 template <uint N> struct Ackermann <0, N> { declare N + 1; };
 template <uint N> struct Ackermann <1, N> { declare N + 2; };
 template <uint N> struct Ackermann <2, N> { declare 2 * N + 3; };
-template <uint N> struct Ackermann <3, N> { declare -3 + 8 * power<2, N>(); };
-template <uint N> struct Ackermann <4, N> { declare power<2, Ackermann<4, N - 1>::n + 3>() - 3; };
+template <uint N> struct Ackermann <3, N> { declare -3 + 8 * Power<2, N>::n; };
+template <uint N> struct Ackermann <4, N> { declare Power<2, Ackermann<4, N - 1>::n + 3>::n - 3; };
 template <> struct Ackermann <4, 0> { declare 13; };
 template <> struct Ackermann <0, 0> { declare 1; };
 
-template <uint M, uint N> constexpr uint ack() {
-	return Ackermann<M, N>::n;
-}
+template <uint M, uint N> superconst uint ack = Ackermann<M, N>::n;
 
 void statictest_ack() {
-	static_assert(ack<0, 0>() == 1, "");
-	static_assert(ack<1, 0>() == 2, "");
-	static_assert(ack<2, 0>() == 3, "");
-	static_assert(ack<2, 543432>() == 1086867, "");
-	static_assert(ack<3, 0>() == 5, "");
-	static_assert(ack<3, 10>() == 8189, "");
-	static_assert(ack<3, 15>() == 262141, "");
-	static_assert(ack<3, 60>() == 9223372036854775805, "");
-	static_assert(ack<4, 0>() == 13, "");
-	static_assert(ack<4, 1>() == 65533, "");
+	static_assert(ack<0, 0> == 1, "");
+	static_assert(ack<1, 0> == 2, "");
+	static_assert(ack<2, 0> == 3, "");
+	static_assert(ack<2, 543432> == 1086867, "");
+	static_assert(ack<3, 0> == 5, "");
+	static_assert(ack<3, 10> == 8189, "");
+	static_assert(ack<3, 15> == 262141, "");
+	static_assert(ack<3, 60> == 9223372036854775805, "");
+	static_assert(ack<4, 0> == 13, "");
+	static_assert(ack<4, 1> == 65533, "");
 }
 
 #endif

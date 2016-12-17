@@ -12,16 +12,14 @@ template <> struct Derangements <1> { declare 0; };
 template <> struct Derangements <2> { declare 1; };
 template <> struct Derangements <3> { declare 2; };
 
-template <uint N> constexpr uint d() {
-	return Derangements<N>::n;
-}
+template <uint N> superconst uint d = Derangements<N>::n;
 
 void statictest_d() {
-	static_assert(d<1>() == 0, "");
-	static_assert(d<2>() == 1, "");
-	static_assert(d<3>() == 2, "");
-	static_assert(d<7>() == 1854, "");
-	static_assert(d<20>() == 895014631192902121, "");
+	static_assert(d<1> == 0, "");
+	static_assert(d<2> == 1, "");
+	static_assert(d<3> == 2, "");
+	static_assert(d<7> == 1854, "");
+	static_assert(d<20> == 895014631192902121, "");
 }
 
 #endif

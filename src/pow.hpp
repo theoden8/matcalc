@@ -41,16 +41,14 @@ void statictest_product() {
 template <uint N, uint P> struct Power { declare Power<N, P - 1>::n * N; };
 template <uint N> struct Power <N, 0> { declare 1; };
 
-template <uint N, uint P> constexpr uint power() {
-	return Power<N, P>::n;
-}
+template <uint N, uint P> constexpr uint power = Power<N, P>::n;
 
 void statictest_pow() {
-	static_assert(power<0, 0>() == 1, "");
-	static_assert(power<1, 0>() == 1, "");
-	static_assert(power<0, 1>() == 0, "");
-	static_assert(power<2, 3>() == 8, "");
-	static_assert(power<5, 6>() == 15625, "");
+	static_assert(power<0, 0> == 1, "");
+	static_assert(power<1, 0> == 1, "");
+	static_assert(power<0, 1> == 0, "");
+	static_assert(power<2, 3> == 8, "");
+	static_assert(power<5, 6> == 15625, "");
 }
 
 #endif

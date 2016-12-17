@@ -3,8 +3,9 @@
 
 // matcalc in compile time
 
-#define declare static const auto n =
-#define redeclare constexpr declare
+#define superconst const constexpr
+#define declare static superconst auto n =
+#define redeclare declare
 
 typedef unsigned long long uint;
 typedef long long sint;
@@ -12,7 +13,7 @@ typedef long double real;
 
 template <uint N> struct Value { declare N; };
 template <uint N, uint D> struct Fraction {
-	const static auto _n = N, _d = D;
+	superconst static auto _n = N, _d = D;
 	redeclare real(N) / real(D);
 };
 template <class A, class B> struct Min { declare (A::n < B::n) ? A::n : B::n; };

@@ -9,17 +9,19 @@ template <uint K, uint N> struct Figurate {
 	declare N * (2 + (K - 2) * (N - 1)) / 2;
 };
 
+template <uint K, uint N> superconst uint figurate = Figurate<K, N>::n;
+
 void statictest_fig() {
-	static_assert(Figurate<3, 1>::n == 1, "");
-	static_assert(Figurate<3, 2>::n == 3, "");
-	static_assert(Figurate<3, 3>::n == 6, "");
-	static_assert(Figurate<4, 1>::n == 1, "");
-	static_assert(Figurate<4, 2>::n == 4, "");
-	static_assert(Figurate<4, 3>::n == 9, "");
-	static_assert(Figurate<5, 1>::n == 1, "");
-	static_assert(Figurate<5, 2>::n == 5, "");
-	static_assert(Figurate<5, 10>::n == 145, "");
-	static_assert(Figurate<12, 30>::n == 4380, "");
+	static_assert(figurate<3, 1> == 1, "");
+	static_assert(figurate<3, 2> == 3, "");
+	static_assert(figurate<3, 3> == 6, "");
+	static_assert(figurate<4, 1> == 1, "");
+	static_assert(figurate<4, 2> == 4, "");
+	static_assert(figurate<4, 3> == 9, "");
+	static_assert(figurate<5, 1> == 1, "");
+	static_assert(figurate<5, 2> == 5, "");
+	static_assert(figurate<5, 10> == 145, "");
+	static_assert(figurate<12, 30> == 4380, "");
 }
 
 
