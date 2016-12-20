@@ -4,8 +4,8 @@
 // matcalc in compile time
 
 #define superconst const constexpr
-#define declare static superconst auto n =
-#define redeclare declare
+#define declare static superconst uint n =
+#define redeclare static superconst real n =
 
 typedef unsigned long long uint;
 typedef long long sint;
