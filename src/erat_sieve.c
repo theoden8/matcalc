@@ -75,7 +75,9 @@ main(int argc, char *argv[]) {
 	}
 
 	const uint N = atol(argv[1]);
-	const uint size_of_array = (((N + 95) / 96) + 1) * sizeof(uint);
+	#define INTDIFF (8 * sizeof(uint) * 3)
+	const uint size_of_array = (((N + (INTDIFF - 1)) / INTDIFF) + 1) * sizeof(uint);
+	/* printf("%uMB\n", size_of_array / (1024 * 1024)); */
 	uint *ARRAY = malloc(size_of_array);
 	assert(ARRAY != NULL);
 
@@ -133,19 +135,17 @@ main(int argc, char *argv[]) {
 	for(uint i = 5; i < N; i += 6) {
 		SET_ITER(i);
 		if(IS_SET(i)) {
-			MPRINTF("%d\n", (BIT_NUMBER(i) + 1) * 3 + 2);
+			MPRINTF("%u\n", (BIT_NUMBER(i) + 1) * 3 + 2);
 			MCOUNT(++count);
 		}
 		++BIT_NUMBER(i);
 		BIT(i) <<= 1;
 		if(IS_SET(i)) {
-			MPRINTF("%d\n", (BIT_NUMBER(i) + 1) * 3 + 2);
+			MPRINTF("%u\n", (BIT_NUMBER(i) + 1) * 3 + 2);
 			MCOUNT(++count);
 		}
 	}
-	if(m == COUNT) {
-		printf("\n%d\n", count);
-	}
+	MCOUNT(printf("\n%d\n", count));
 
 end:
 	free(ARRAY);
