@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -17,38 +18,66 @@
 // come out in the first seven minutes. Than you will start getting red. Another
 // few minutes of suffering will drive you crazy. Welcome to __FILE__
 
-#define N 1000000
-
 typedef struct _int_it {
 	int
-		bit_number,
-		index,
-		bit;
+		bit_number, // total index
+		index, // index in the primes array
+		bit; // bit inside the array[index]
 } int_it;
+
+typedef uint32_t uint;
+#define SZ_UINT sizeof(uint)
 
 
 #define ITER(i) i##_it
-
+#define DECLARE_INT_IT(iter) int_it ITER(iter)
 #define BIT_NUMBER(i) ITER(i).bit_number
 #define IDX(i) ITER(i).index
 #define BIT(i) ITER(i).bit
 
 #define SET_ITER(i) \
-	{ \
 		BIT_NUMBER(i) = i / 3 - 1; \
-		IDX(i) = BIT_NUMBER(i) >> 5; \
-		BIT(i) = 1 << (BIT_NUMBER(i) & 0x1f); \
-	}
-
-#define INIT_INT_IT(iter) int_it ITER(iter); SET_ITER(iter)
-
+		IDX(i) = BIT_NUMBER(i) / (8 * sizeof(uint)); \
+		BIT(i) = 1 << (BIT_NUMBER(i) & 0x1f);
 
 #define ARRAY primes
-#define ARRIDX(i) ARRAY[IDX(i)]
+#define IS_SET(i) ARRAY[IDX(i)] & BIT(i)
+#define UNSET(i) ARRAY[IDX(i)] &= ~BIT(i)
+
+typedef enum {
+	COUNT, PRINT, TIMING, INVALID
+} MODE;
+
+MODE set_mode(int argc, char *argv[]) {
+	if(argc == 2) {
+		return TIMING;
+	} else if(argc == 3 && strlen(argv[2]) != 1) {
+		return INVALID;
+	} else if(argc == 3) {
+		switch(argv[2][0]) {
+			case 'c': return COUNT;
+			case 't': return TIMING;
+			case 'p': return PRINT;
+			default: return INVALID;
+		}
+	}
+	return INVALID;
+}
+
+#define MPRINTF if(m == PRINT) printf
+#define MCOUNT(what) if(m == COUNT) { what; }
 
 main(int argc, char *argv[]) {
-	static int size_of_array = (N / 24 + 1);
-	uint32_t *ARRAY = malloc(size_of_array);
+	MODE m = set_mode(argc, argv);
+	if(m == INVALID) {
+		fprintf(stderr, "error: invalid mode");
+		return EXIT_FAILURE;
+	}
+
+	const uint N = atol(argv[1]);
+	const uint size_of_array = (((N + 95) / 96) + 1) * sizeof(uint);
+	uint *ARRAY = malloc(size_of_array);
+	assert(ARRAY != NULL);
 
 	// The bits in ARRAY follow this pattern:
 	//
@@ -58,63 +87,66 @@ main(int argc, char *argv[]) {
 	// forodd  bits, bit n represents 1 + 6*n
 	memset(ARRAY , 0xFF, size_of_array);
 
-	const int sqrt_N = sqrt(N);
-	for(int i = 5; i <= sqrt_N; i += 4) {
-		INIT_INT_IT(i);
-		if(ARRIDX(i) & BIT(i)) {
-			const int increment = 2 * i;
-			for(int j = i * i; i < N; j += increment) {
-				INIT_INT_IT(j);
-				ARRIDX(j) &= ~BIT(j);
-
-				j += increment;
+	const uint sqrt_N = sqrt(N);
+	static DECLARE_INT_IT(i);
+	static DECLARE_INT_IT(j);
+	for(uint i = 5; i <= sqrt_N; i += 4) {
+		SET_ITER(i);
+		if(IS_SET(i)) {
+			const uint increment = 2 * i;
+			for(uint j = i * i; j < N; j += increment) {
+				SET_ITER(j);
+				UNSET(j);
+				j += 1*increment;
 				if(j >= N)
 					break;
-
 				SET_ITER(j);
-				ARRIDX(j) &= ~BIT(j);
-
+				UNSET(j);
 				// Skip multiple of 3.
-				j += 1 * increment;
+				j += 1*increment;
 			}
 		}
 		i += 2;
+		SET_ITER(i);
 		BIT(i) <<= 1;
-		if(ARRIDX(i) & BIT(i)) {
-			const int increment = 2 * i;
-			for(int j = i * i; i < N; j += increment) {
-				INIT_INT_IT(j);
-				ARRIDX(j) &= ~BIT(j);
-
+		if(IS_SET(i)) {
+			const uint increment = 2 * i;
+			for(uint j = i * i; j < N; j += increment) {
+				SET_ITER(j);
+				UNSET(j);
 				// Skip multiple of 3.
-				j += 2 * increment;
+				j += 2*increment;
 				if(j >= N)
 					break;
-
 				SET_ITER(j);
-
-				ARRIDX(j) &= ~BIT(j);
+				UNSET(j);
 			}
 		}
 	}
 
+	if(m == TIMING)
+		goto end;
+
 	// Initial count includes 2, 3.
-	printf("2\n3\n");
-	/* int count = 2; */
-	for(int i = 5; i < N; i += 6) {
-		INIT_INT_IT(i);
-		if(ARRIDX(i) & BIT(i)) {
-			printf("%d\n", (BIT_NUMBER(i) + 1) * 3 + 2);
-			/* ++count; */
+	MPRINTF("2\n3\n");
+	uint count = 2;
+	for(uint i = 5; i < N; i += 6) {
+		SET_ITER(i);
+		if(IS_SET(i)) {
+			MPRINTF("%d\n", (BIT_NUMBER(i) + 1) * 3 + 2);
+			MCOUNT(++count);
 		}
 		++BIT_NUMBER(i);
 		BIT(i) <<= 1;
-		if(ARRIDX(i) & BIT(i)) {
-			printf("%d\n", (BIT_NUMBER(i) + 1) * 3 + 1);
-			/* ++count; */
+		if(IS_SET(i)) {
+			MPRINTF("%d\n", (BIT_NUMBER(i) + 1) * 3 + 2);
+			MCOUNT(++count);
 		}
 	}
-	/* printf("\n%d\n", count); */
+	if(m == COUNT) {
+		printf("\n%d\n", count);
+	}
 
+end:
 	free(ARRAY);
 }

@@ -1,4 +1,4 @@
-CFLAGS = -O3 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr -pthread
+CFLAGS = -O2 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr -pthread -lm -ftrapv
 COBJECTS = $(wildcard *.c)
 BINDIR = ../bin
 CXXFLAGS = -std=c++1y
