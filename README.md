@@ -49,10 +49,13 @@ This is a collection of tools useful for combinatorics, number theory and other 
 
 ## Usage
 
-To see what a particular program does, run
+### Compilation
 
-	cd src/
 	make
+	
+### Runing
+
+	bin/<program> <args>
 
 and supply with enough arguments.
 
