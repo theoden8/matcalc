@@ -22,6 +22,7 @@ This is a collection of tools useful for combinatorics, number theory and other 
 
 ### Keywords
 
+* Narcissistic numbers
 * Figurate numbers
 * Fibonacci
 * Factorial
@@ -44,7 +45,7 @@ This is a collection of tools useful for combinatorics, number theory and other 
 ## Build with
 
 * cc, c++, make, bash
-* gmp, mpfr, pthread
+* gmp, mpfr, pthread, openmp
 
 ## Usage
 

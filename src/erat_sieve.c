@@ -26,8 +26,6 @@ typedef struct _int_it {
 } int_it;
 
 typedef uint32_t uint;
-#define SZ_UINT sizeof(uint)
-
 
 #define ITER(i) i##_it
 #define DECLARE_INT_IT(iter) int_it ITER(iter)
