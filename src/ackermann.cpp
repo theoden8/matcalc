@@ -33,8 +33,7 @@ mpz_class ackermann(int m, mpz_class n) {
 		return 2 * n + 3;
 	} else if(m == 3) {
 		// the recursive formula will be:
-		//	  a[3, 1] = 13
-		//	  a[3, n] = 2 * a[3, n - 1] + 3
+		//	  a[3, 1..] = { 13, 2 * a[3, n - 1] + 3 }
 		// by converting it to closed formula we get:
 		//	  a[3, n] = -3 + 16 * 2^(n - 1)
 		return -3 + 16 * pow2huge(n - 1);
