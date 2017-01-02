@@ -1,36 +1,45 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <assert.h>
 #include <gmp.h>
 
 
-// nobody uses euclid numbers, even myself, but I will add them anyway just
-// because I can
+// nobody uses euclid numbers, even myself, but I will add them anyway
 
+#include "erat_sieve.h"
 
-#define PRINT(x) gmp_printf("%Zd\n", x)
+mpz_t euclid;
+long Q;
+
+void euclid_iter_func(uint N) {
+	if(Q <= 0)
+		return;
+	--Q;
+	mpz_mul_ui(euclid, euclid, N);
+	mpz_add_ui(euclid, euclid, 1);
+	gmp_printf("%Zd\n", euclid);
+	mpz_sub_ui(euclid, euclid, 1);
+}
 
 main(const argc, char *argv[]) {
 	if(argc != 2)
 		return EXIT_FAILURE;
-	const N = atoi(argv[1]);
+	Q = atol(argv[1]);
 
-	if(N < 0)
+	if(Q < 0)
 		return EXIT_FAILURE;
-	else if(N == 0)
+	else if(Q == 0)
 		return EXIT_SUCCESS;
-
-	mpz_t euclid, tmp;
-	mpz_inits(euclid, tmp, NULL);
-	mpz_set_si(euclid, 2);
-	mpz_set(tmp, euclid);
-
-	PRINT(euclid);
-	for(int i = 1; i < N; ++i) {
-		mpz_set(tmp, euclid);
-		mpz_mul(euclid, euclid, euclid);
-		mpz_sub(euclid, euclid, tmp);
-		mpz_add_ui(euclid, euclid, 1);
-		PRINT(euclid);
+	else if(Q == 1) {
+		printf("3\n");
+		return EXIT_SUCCESS;
 	}
-	mpz_clears(euclid, tmp, NULL);
+
+	mpz_inits(euclid, NULL);
+
+	printf("3\n7\n");
+	Q -= 2;
+	mpz_set_si(euclid, 6);
+	iterate_esieve((Q + 2) * (Q + 2), euclid_iter_func);
+	mpz_clears(euclid, NULL);
 }
