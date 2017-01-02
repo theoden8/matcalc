@@ -9,7 +9,7 @@
 #include <omp.h>
 #include <gmp.h>
 
-// factorions are a function of a number which adds factorials of its digits
+// factorion is a sum of factorials of digits
 
 int number_of_threads = 0;
 
@@ -71,9 +71,6 @@ void *reduce_sum(void *args) {
 	mpz_add(*tt->res, *tt->res, right);
 	mpz_clear(right);
 	return NULL;
-}
-
-void sum(char *s, mpz_t *res) {
 }
 
 main(int argc, char *argv[]) {

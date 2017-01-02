@@ -25,4 +25,13 @@ void statictest_gcd() {
 	static_assert(gcd<99999999, 100000000> == 1, "");
 }
 
+template <uint A, uint B> struct Coprime { declare (GCD<A, B>::n == 1) ? 1 : 0; };
+
+void statictest_coprime() {
+	static_assert(Coprime<1, 1>::n == 1, "");
+	static_assert(Coprime<0, 1>::n == 1, "");
+	static_assert(Coprime<123, 321>::n == 0, "");
+	static_assert(Coprime<1234, 4321>::n == 1, "");
+}
+
 #endif
