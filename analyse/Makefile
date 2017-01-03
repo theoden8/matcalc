@@ -5,7 +5,10 @@ endif
 COBJECTS = $(wildcard *.c)
 BINDIR = ../bin
 
-all : $(patsubst %.c, %, $(COBJECTS))
+CORES ?= $(shell sysctl -n hw.ncpu || echo 1)
+all:; @$(MAKE) _all -j$(CORES)
+_all : \
+	$(patsubst %.c, %, $(COBJECTS))
 
 % : %.c
 	$(CC) "$<" $(CFLAGS) -o "$(BINDIR)/$@"
