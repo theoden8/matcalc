@@ -70,22 +70,24 @@ int cuda_check() {
 #endif
 
 int main(int argc, char *argv[]) {
-	if(argc != 2) {
-		fputs("argc != 2", stderr);
+	if(argc != 2 && argc != 3) {
+		fputs("error: invalid number of arguments", stderr);
 		return EXIT_FAILURE;
 	}
 
-	const int_t N = atol(argv[1]);
-	if(N < 1) {
+	bool ranged = argc == 3;
+	const int_t S = ranged ? atol(argv[1]) : 1;
+	const int_t N = atol(argv[ranged ? 2 : 1]);
+	if(S < 1 || N < S) {
 		fputs("invalid domain", stderr);
 		return EXIT_FAILURE;
 	}
 
 	int_t x_copy;
 	static const int_t x_default = 1;
-	if(N >= 1)
+	if(S <= 1 && N >= 1)
 		puts("1");
-	for(int_t i = 2; i <= N; ++i) {
+	for(int_t i = S + 1; i <= N; ++i) {
 		cudaMemcpyToSymbol(x, &x_default, sizeof(int_t));
 		CUDACHK;
 		const int no_threads = i - 2;
