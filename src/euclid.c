@@ -28,8 +28,8 @@ void euclid_iter_func(uint N) {
 }
 
 // using prime number theorem. is a dirty hack, but I like it.
-uint n_primes_upper(uint N) {
-	return ((double)N) * (log(N) + 1);
+uint n_primes_upper(uint n) {
+	return ((double)n) * (log(n) + 1);
 }
 
 main(const argc, char *argv[]) {
