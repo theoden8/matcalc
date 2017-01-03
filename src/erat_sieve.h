@@ -48,6 +48,7 @@ typedef uint32_t uint;
 uint *erat_sieve(const uint N) {
 	#define INTDIFF (8 * sizeof(uint) * 3)
 	const uint size_of_array = (((N + (INTDIFF - 1)) / INTDIFF) + 1) * sizeof(uint);
+	#undef INTDIFF
 	/* printf("%uMB\n", size_of_array / (1024 * 1024)); */
 	uint *ESIEVE = malloc(size_of_array);
 	assert(ESIEVE != NULL);
