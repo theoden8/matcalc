@@ -31,7 +31,7 @@ int map_elem(char x) {
 	return fac(x - '0');
 }
 
-#define MAXTHREADS 8
+#define MAXTHREADS 16
 void *reduce_sum(void *args) {
 	reduce_tls *tt = (reduce_tls *)args;
 
@@ -52,7 +52,7 @@ void *reduce_sum(void *args) {
 	pthread_t rthread;
 	reduce_tls rt = { tt->array + mid, tt->len - mid, &right };
 	tt->len = mid;
-	if(number_of_threads < MAXTHREADS) {
+	if(number_of_threads < MAXTHREADS / 2) {
 		mt = true;
 		int rc = pthread_create(&rthread, NULL, reduce_sum, (void *)&rt);
 		++number_of_threads;
@@ -76,7 +76,7 @@ void *reduce_sum(void *args) {
 main(int argc, char *argv[]) {
 	mpz_t res[argc - 1];
 	int i;
-	#pragma omp for private(i)
+	#pragma omp for private(i) num_threads(MAXTHREADS - (MAXTHREADS / 2))
 	for(i = 1; i < argc; ++i) {
 		const char *s = argv[i];
 		mpz_init(res[i - 1]);
