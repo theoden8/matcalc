@@ -61,8 +61,8 @@ uint *erat_sieve(const uint N) {
 	memset(ESIEVE , 0xFF, size_of_array);
 
 	const uint sqrt_N = sqrt(N);
-	static DECLARE_INT_IT(i);
-	static DECLARE_INT_IT(j);
+	DECLARE_INT_IT(i);
+	DECLARE_INT_IT(j);
 	for(uint i = 5; i <= sqrt_N; i += 4) {
 		SET_ITER(i);
 		if(IS_SET(i)) {
@@ -101,8 +101,8 @@ uint *erat_sieve(const uint N) {
 
 void iterate_esieve(uint N, void (func(uint))) {
 	uint *ESIEVE = erat_sieve(N);
-	static DECLARE_INT_IT(i);
-	static DECLARE_INT_IT(j);
+	DECLARE_INT_IT(i);
+	DECLARE_INT_IT(j);
 	for(uint i = 5; i < N; i += 6) {
 		SET_ITER(i);
 		if(IS_SET(i))

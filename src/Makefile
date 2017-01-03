@@ -6,6 +6,7 @@ COBJECTS = $(wildcard *.c)
 BINDIR = ../bin
 CXXFLAGS = -std=c++1y -lgmpxx -lgmp -flto -O2
 CXXOBJECTS = $(wildcard *.cpp)
+HPPFLAGS = -std=c++1y
 CXXHEADERS = $(wildcard *.hpp)
 
 NVCC = nvcc
@@ -15,7 +16,9 @@ NVFLAGS = -lm -O2
 $(shell rm -rf "$(BINDIR)")
 $(shell mkdir -p "$(BINDIR)")
 
-all : \
+CORES ?= $(shell sysctl -n hw.ncpu || echo 1)
+all :; @$(MAKE) _all -j$(CORES)
+_all : \
 	$(patsubst %.c, %, $(COBJECTS)) \
 	$(patsubst %.cu, %, $(NVOBJECTS)) \
 	$(patsubst %.cpp, %, $(CXXOBJECTS)) \
@@ -31,7 +34,7 @@ all : \
 	$(CXX) "$<" $(CXXFLAGS) -o "$(BINDIR)/$@"
 
 %.hpp.gch : %.hpp
-	$(CXX) "$<" $(CXXFLAGS)
+	$(CXX) "$<" $(HPPFLAGS)
 
 check :
 	make
