@@ -7,6 +7,13 @@ typedef int int_t;
 
 __device__ int_t x;
 
+// eulers totient funtion (commonly abbreviated as phi, here: etf)
+// etf(1) = 1
+// etf(n) = reduce (+) (map (coprime n) [1..n])
+//
+// the way to calculate it here is to use the amazing gpu cores for euclidean
+// algorithm.
+
 #define THREADS_PER_BLOCK 512
 __global__ void kernel(int_t N) {
 	const int_t
