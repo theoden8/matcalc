@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <omp.h>
 #include <gmp.h>
 
 typedef struct _mat2 {
@@ -52,22 +53,68 @@ void clear_mat(mat2 *m) {
 void mul_mat(mat2 *r, mat2 *m, mat2 *p) {
 	mat2 *buf = r;
 
-	mpz_t am, bk, an, bp, cm, dk, cn, dp;
-	mpz_inits(am, bk, an, bp, cm, dk, cn, dp);
-	mpz_mul(am, m->a, p->a);
-	mpz_mul(bk, m->b, p->c);
-	mpz_mul(an, m->a, p->b);
-	mpz_mul(bp, m->b, p->d);
-	mpz_mul(cm, m->c, p->a);
-	mpz_mul(dk, m->d, p->c);
-	mpz_mul(cn, m->c, p->b);
-	mpz_mul(dp, m->d, p->d);
+	mpz_t t1, t2, t3;
+	mpz_t p1, p2, p3, p4, p5, p6, p7;
 
-	mpz_add(buf->a, am, bk);
-	mpz_add(buf->b, an, bp);
-	mpz_add(buf->c, cm, dk);
-	mpz_add(buf->d, cn, dp);
-	mpz_clears(am, bk, an, bp, cm, dk, cn, dp);
+	mpz_inits(t1, t2, t3, NULL);
+	mpz_inits(p1, p2, p3, p4, p5, p6, p7, NULL);
+	// strassen multiplication
+	#pragma omp parallel
+	{
+		{
+			mpz_add(t1, p->a, p->d);
+			mpz_add(p1, m->a, m->d);
+			mpz_mul(p1, p1, t1);
+		};
+		{
+			mpz_add(p2, m->c, m->d);
+			mpz_mul(p2, p2, p->a);
+		};
+		{
+			mpz_sub(p3, p->b, p->d);
+			mpz_mul(p3, p3, p->a);
+		};
+		{
+			mpz_sub(p4, p->c, p->a);
+			mpz_mul(p4, p4, m->d);
+		};
+		{
+			mpz_add(p5, m->a, m->b);
+			mpz_mul(p5, p5, p->d);
+		};
+		{
+			mpz_add(t2, p->a, p->b);
+			mpz_sub(p6, m->c, m->a);
+			mpz_mul(p6, p6, t2);
+		};
+		{
+			mpz_add(t3, p->c, p->d);
+			mpz_sub(p7, m->b, m->d);
+			mpz_mul(p7, p7, t3);
+		};
+	}
+
+	// result matrix
+	{
+		mpz_add(t1, p1, p4);
+		mpz_sub(r->a, p7, p5);
+		mpz_add(r->a, r->a, t1);
+	};
+	{
+		mpz_add(r->b, p3, p5);
+	};
+	{
+		mpz_add(r->c, p2, p4);
+	};
+	{
+		mpz_add(t2, p1, p3);
+		mpz_sub(r->d, p6, p2);
+		mpz_add(r->d, r->d, t2);
+	};
+
+	mpz_clears(t1, t2, t3, NULL);
+
+	mpz_clears(p1, p2, p3, p4, p5, p6, p7, NULL);
 }
 
 mat2 square_mat(mat2 *m) {
@@ -78,13 +125,16 @@ mat2 square_mat(mat2 *m) {
 	mpz_t aa, ab, ac, bc, bd, cd, dd;
 	mpz_inits(aa, ab, ac, bc, bd, cd, dd, NULL);
 
-	mpz_mul(aa, m->a, m->a);
-	mpz_mul(ab, m->a, m->b);
-	mpz_mul(ac, m->a, m->c);
-	mpz_mul(bc, m->b, m->c);
-	mpz_mul(bd, m->b, m->d);
-	mpz_mul(cd, m->c, m->d);
-	mpz_mul(dd, m->d, m->d);
+	#pragma omp parallel
+	{
+		mpz_mul(aa, m->a, m->a);
+		mpz_mul(ab, m->a, m->b);
+		mpz_mul(ac, m->a, m->c);
+		mpz_mul(bc, m->b, m->c);
+		mpz_mul(bd, m->b, m->d);
+		mpz_mul(cd, m->c, m->d);
+		mpz_mul(dd, m->d, m->d);
+	}
 
 	mpz_add(p.a, aa, bc);
 	mpz_add(p.b, ab, bd);

@@ -16,7 +16,7 @@ NVFLAGS = -lm -O2
 $(shell rm -rf "$(BINDIR)")
 $(shell mkdir -p "$(BINDIR)")
 
-CORES ?= $(shell sysctl -n hw.ncpu || echo 1)
+CORES = $(shell getconf _NPROCESSORS_ONLN)
 all :; @$(MAKE) _all -j$(CORES)
 _all : \
 	$(patsubst %.c, %, $(COBJECTS)) \
