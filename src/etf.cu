@@ -14,7 +14,7 @@ __device__ int_t x;
 // the way to calculate it here is to use the amazing gpu cores for euclidean
 // algorithm.
 
-#define THREADS_PER_BLOCK 512
+#define THREADS_PER_BLOCK 1024
 __global__ void kernel(int_t N) {
 	const int_t
 		T = blockIdx.x * THREADS_PER_BLOCK + threadIdx.x + 2;
