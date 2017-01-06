@@ -4,8 +4,6 @@
 
 #include <gmp.h>
 
-#include "s_nk.h"
-
 // stirling numbers of first kind
 // [ n ]
 // [ k ]
@@ -34,6 +32,8 @@
 //  1 - - - - - - - 1 - - -
 //  Therefore, to compute x, we only need to store and compute
 //  the elements of the table denoted by '*'.
+
+#include "s_nk.h"
 
 void calc_stirling_nk1(st_nk_t *st) {
 	const size_t n_k = st->n - st->k + 1;

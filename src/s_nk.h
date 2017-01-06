@@ -1,6 +1,13 @@
 #ifndef S_NK_H_SFA03QPJ
 #define S_NK_H_SFA03QPJ
 
+#include <omp.h>
+
+#ifndef MAXTHREADS
+#define MAXTHREADS 8
+#endif
+
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
 // this file provides stirling numbers structure and alloc/free funcs.
 // why? because both kinds of numbers store the same data and can be computed
@@ -23,14 +30,18 @@ typedef struct _st_n_k {
 st_nk_t alloc_st_n_k(size_t n, size_t k) {
 	st_nk_t st = { NULL, n, k, (n - k + 1)*(k + 1) };
 	st.data = malloc(sizeof(mpz_t) * st.size);
-	for(size_t i = 0; i < st.size; ++i)
+	size_t i;
+	#pragma omp for private(i) num_threads(MAXTHREADS)
+	for(i = 0; i < st.size; ++i)
 		mpz_init(st.data[i]);
 	return st;
 }
 
 
 void free_stirling_nk(st_nk_t *st) {
-	for(size_t i = 0; i < st->size; ++i)
+	size_t i;
+	#pragma omp for private(i) num_threads(MAXTHREADS)
+	for(i = 0; i < st->size; ++i)
 		mpz_clear(st->data[i]);
 	free(st->data);
 }
