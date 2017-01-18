@@ -6,6 +6,7 @@
 #include <pthread.h>
 #include <gmp.h>
 
+#include "visitor.h"
 
 // binomial coefficients
 // ( n )
@@ -75,19 +76,26 @@ void binomial_s(long n, long k, mpz_t *res) {
 	}
 }
 
-main(int argc, char *argv[]) {
-	assert(argc == 3);
+void c_nk(size_t n, size_t k, mpz_visitor visitor_func) {
 	mpz_t res;
 	mpz_init(res);
+	binomial_s(n, k, &res);
+	visitor_func(&res);
+	mpz_clear(res);
+}
+
+main(int argc, char *argv[]) {
+	if(argc != 3) {
+		fputs("invalid number of arguments", stderr);
+		return EXIT_FAILURE;
+	}
 
 	long n, k;
 	sscanf(argv[1], "%ld", &n);
 	sscanf(argv[2], "%ld", &k);
-	assert((n < 0 && k >= 0) || n >= k);
-
-	binomial_s(n, k, &res);
-
-	gmp_printf("%Zd\n", res);
-
-	mpz_clear(res);
+	if((n < 0 && k >= 0) || n >= k) {
+		fputs("invalid arguments", stderr);
+		return EXIT_FAILURE;
+	}
+	c_nk(n, k, mpz_printer);
 }

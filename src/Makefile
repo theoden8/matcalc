@@ -1,11 +1,15 @@
-CFLAGS = -O2 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr -pthread -lm -ftrapv
-ifeq ($(shell uname), Darwin)
-	CC = clang-omp
-endif
-COBJECTS = $(wildcard *.c)
 BINDIR = ../bin
+
+ifeq ($(shell uname), Darwin)
+CC = clang-omp
+endif
+
+CFLAGS = -O2 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr -pthread -lm -ftrapv
+COBJECTS = $(wildcard *.c)
+
 CXXFLAGS = -std=c++1y -lgmpxx -lgmp -flto -O2
 CXXOBJECTS = $(wildcard *.cpp)
+
 HPPFLAGS = -std=c++1y
 CXXHEADERS = $(wildcard *.hpp)
 

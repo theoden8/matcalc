@@ -11,9 +11,11 @@
 // sieve of upper bound defined according to prime number theorem.
 
 #include "erat_sieve.h"
+#include "visitor.h"
 
 mpz_t euclid;
 long Q;
+mpz_visitor *euc_visitor_func = &mpz_printer;
 
 void euclid_iter_func(uint N) {
 	if(Q <= 0) {
@@ -23,13 +25,38 @@ void euclid_iter_func(uint N) {
 	mpz_mul_ui(euclid, euclid, N);
 	mpz_add_ui(euclid, euclid, 1);
 	/* printf("real bound... %u\n", N); */
-	gmp_printf("%Zd\n", euclid);
+	euc_visitor_func(&euclid);
 	mpz_sub_ui(euclid, euclid, 1);
 }
 
 // using prime number theorem. is a dirty hack, but I like it.
 uint n_primes_upper(uint n) {
 	return ((double)n) * (log(n) + 1);
+}
+
+void visit(uint x, mpz_visitor visitor_func) {
+	mpz_t res;
+	mpz_init(res);
+	mpz_set_si(res, x);
+	visitor_func(&res);
+	mpz_clear(res);
+}
+
+void calc_euclid(uint q, mpz_visitor visitor_func) {
+	if(q == 0) {
+		return;
+	} else if(q == 1) {
+		visit(3, visitor_func);
+		return;
+	}
+	mpz_inits(euclid, NULL);
+	visit(3, visitor_func);
+	visit(7, visitor_func);
+	q -= 2;
+	mpz_set_si(euclid, 6);
+	/* printf("upper bound %u\n", n_primes_upper(Q + 2)); */
+	iterate_esieve(n_primes_upper(q + 2), euclid_iter_func);
+	mpz_clears(euclid, NULL);
 }
 
 main(const argc, char *argv[]) {
@@ -39,19 +66,5 @@ main(const argc, char *argv[]) {
 
 	if(Q < 0)
 		return EXIT_FAILURE;
-	else if(Q == 0)
-		return EXIT_SUCCESS;
-	else if(Q == 1) {
-		printf("3\n");
-		return EXIT_SUCCESS;
-	}
-
-	mpz_inits(euclid, NULL);
-
-	printf("3\n7\n");
-	Q -= 2;
-	mpz_set_si(euclid, 6);
-	/* printf("upper bound %u\n", n_primes_upper(Q + 2)); */
-	iterate_esieve(n_primes_upper(Q + 2), euclid_iter_func);
-	mpz_clears(euclid, NULL);
+	calc_euclid(Q, euc_visitor_func);
 }

@@ -1,6 +1,9 @@
-#include <stdlib.h>
 #include <assert.h>
+#include <stdlib.h>
+
 #include <gmp.h>
+
+#include "visitor.h"
 
 
 // fibonacci are needed everywhere
@@ -13,17 +16,9 @@
 //  + gmp
 //  + f(n - 1) + f(n - 2)
 
-
-main(const argc, char **argv) {
-	if(argc != 2)
-		return EXIT_FAILURE;
-	const N = atoi(argv[1]);
-
-	if(N < 0)
-		return EXIT_FAILURE;
-	if(N == 0)
-		return EXIT_SUCCESS;
-
+void calc_fibs(long n, mpz_visitor visitor_func) {
+	if(n == 0)
+		return;
 	mpz_t tail[3];
 	for(int i = 0; i < 3; ++i)
 		mpz_init(tail[i]);
@@ -32,13 +27,23 @@ main(const argc, char **argv) {
 	mpz_set_ui(tail[2], 1);
 	gmp_printf("%Zd\n", tail[0]);
 	char head = 0, first = 1, second = 2;
-	for(int i = 1; i < N; ++i) {
+	for(long i = 1; i < n; ++i) {
 		mpz_add(tail[head], tail[first], tail[second]);
-		gmp_printf("%Zd\n", tail[head]);
+		visitor_func(&tail[head]);
 		head = (head + 1) % 3;;
 		first = (head + 1) % 3;
 		second = (head + 2) % 3;
 	}
 	for(int i = 0; i < 3; ++i)
 		mpz_clear(tail[i]);
+}
+
+main(const argc, char **argv) {
+	if(argc != 2)
+		return EXIT_FAILURE;
+	long N = atol(argv[1]);
+
+	if(N < 0)
+		return EXIT_FAILURE;
+	calc_fibs(N, mpz_printer);
 }

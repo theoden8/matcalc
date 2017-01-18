@@ -3,6 +3,8 @@
 
 #include <gmp.h>
 
+#include "visitor.h"
+
 // euler numbers of first kind
 // / n \
 // \ m /
@@ -15,10 +17,10 @@
 //  a1(n, m) = sum( (-1)^(m - i + 1) * c(n + 1, m - j + 1) * i^n | i <- [1..m + 1] )
 // (2) recursive formula:
 //  a1(n, m) = {
-//    0 | m > n
-//    1 | m == n
-//    1 | m=0, n=0
-//    (m + 1) * a(n - 1, m) + (n - m) * a(n - 1, m - 1)
+//	0 | m > n
+//	1 | m == n
+//	1 | m=0, n=0
+//	(m + 1) * a(n - 1, m) + (n - m) * a(n - 1, m - 1)
 //  }
 
 
@@ -30,18 +32,14 @@ static void misc_mpz_manip_fac_ui(mpz_t src, unsigned long val, void (*manip)(mp
 	mpz_clear(fac);
 }
 
-
-main(const argc, char *argv[]) {
-	if(argc != 3)
-		return EXIT_FAILURE;
-
-	size_t
-		n = atol(argv[1]),
-		m = atol(argv[2]);
-
+void calc_anm1(size_t n, size_t m, mpz_visitor visitor_func) {
 	if(m > n) {
-		printf("0\n");
-		return EXIT_SUCCESS;
+		mpz_t res;
+		mpz_init(res);
+		mpz_set_si(res, 0);
+		visitor_func(&res);
+		mpz_clear(res);
+		return;
 	}
 
 	mpz_t
@@ -76,7 +74,17 @@ main(const argc, char *argv[]) {
 		/* add cur to a_n_k */
 		mpz_add(euler_nm, euler_nm, cur);
 	}
-	gmp_printf("%Zd\n", euler_nm);
+	visitor_func(&euler_nm);
 
 	mpz_clears(euler_nm, cur, pow_n, NULL);
+}
+
+main(const argc, char *argv[]) {
+	if(argc != 3)
+		return EXIT_FAILURE;
+
+	size_t
+		n = atol(argv[1]),
+		m = atol(argv[2]);
+	calc_anm1(n, m, mpz_printer);
 }

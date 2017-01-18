@@ -9,6 +9,8 @@
 #include <omp.h>
 #include <gmp.h>
 
+#include "visitor.h"
+
 // factorion is a sum of factorials of digits
 
 int number_of_threads = 0;
@@ -73,19 +75,26 @@ void *reduce_sum(void *args) {
 	return NULL;
 }
 
-main(int argc, char *argv[]) {
+void calc_factorions(const char *digits) {
+	mpz_init(res[i - 1]);
+	mpz_set_si(res[i - 1], 0);
+	reduce_tls t = { digits, strlen(digits), &res[i - 1] };
+	reduce_sum(&t);
+}
+
+void calc_factorions_args(int argc, char *argv[], mpz_visitor visitor_func) {
 	mpz_t res[argc - 1];
 	int i;
 	#pragma omp for private(i) num_threads(MAXTHREADS - (MAXTHREADS / 2))
 	for(i = 1; i < argc; ++i) {
-		const char *s = argv[i];
-		mpz_init(res[i - 1]);
-		mpz_set_si(res[i - 1], 0);
-		reduce_tls t = { s, strlen(s), &res[i - 1] };
-		reduce_sum(&t);
+		calc_factorions(argv[i])
 	}
 	for(i = 1; i < argc; ++i) {
-		gmp_printf("%Zd\n", res[i - 1]);
+		visitor_func(&res[i - 1]);
 		mpz_clear(res[i - 1]);
 	}
+}
+
+main(int argc, char *argv[]) {
+	calc_factorions_args(argc, argv, mpz_printer);
 }

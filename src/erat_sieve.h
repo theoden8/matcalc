@@ -100,18 +100,18 @@ uint *erat_sieve(const uint N) {
 	return ESIEVE;
 }
 
-void iterate_esieve(uint N, void (func(uint))) {
+void iterate_esieve(uint N, void (visitor_func(uint))) {
 	uint *ESIEVE = erat_sieve(N);
 	DECLARE_INT_IT(i);
 	DECLARE_INT_IT(j);
 	for(uint i = 5; i < N; i += 6) {
 		SET_ITER(i);
 		if(IS_SET(i))
-			func((BIT_NUMBER(i) + 1) * 3 + 2);
+			visitor_func((BIT_NUMBER(i) + 1) * 3 + 2);
 		++BIT_NUMBER(i);
 		BIT(i) <<= 1;
 		if(IS_SET(i))
-			func((BIT_NUMBER(i) + 1) * 3 + 1);
+			visitor_func((BIT_NUMBER(i) + 1) * 3 + 1);
 	}
 	free(ESIEVE);
 }

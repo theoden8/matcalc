@@ -12,10 +12,10 @@
 //
 // (1) recursive formula:
 //  s1(n, k) = {
-//    s1(n - 1, k - 1) + (n - 1) * s1(n - 1, k)
-//    0 | k == 0
-//    0 | k > n
-//    1 | n == 0, n == 0
+//	s1(n - 1, k - 1) + (n - 1) * s1(n - 1, k)
+//	0 | k == 0
+//	0 | k > n
+//	1 | n == 0, n == 0
 //  }
 //
 // (2) iterative formula:
@@ -34,6 +34,7 @@
 //  the elements of the table denoted by '*'.
 
 #include "s_nk.h"
+#include "visitor.h"
 
 void calc_stirling_nk1(st_nk_t *st) {
 	const size_t n_k = st->n - st->k + 1;
@@ -53,6 +54,12 @@ void calc_stirling_nk1(st_nk_t *st) {
 	}
 }
 
+void calc_snk1(size_t n, size_t k, mpz_visitor visitor_func) {
+	st_nk_t st = alloc_st_n_k(n, k);
+	calc_stirling_nk1(&st);
+	visitor_func(&st.data[st.size - 1]);
+	free_stirling_nk(&st);
+}
 
 main(const argc, char *argv[]) {
 	if(argc != 3)
@@ -64,9 +71,5 @@ main(const argc, char *argv[]) {
 
 	if(k > n)
 		return EXIT_FAILURE;
-
-	st_nk_t st = alloc_st_n_k(n, k);
-	calc_stirling_nk1(&st);
-	gmp_printf("%Zd\n", st.data[st.size - 1]);
-	free_stirling_nk(&st);
+	calc_snk1(n, k, mpz_printer);
 }

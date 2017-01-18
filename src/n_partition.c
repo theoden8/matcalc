@@ -4,6 +4,8 @@
 
 #include <gmp.h>
 
+#include "visitor.h"
+
 typedef long long llong;
 
 // calculates the number of partions of a given natural number
@@ -81,22 +83,27 @@ void partition(long n, mpz_t *P) {
 	mpz_clears(term, NULL);
 }
 
+void calc_npartition_args(long *n, size_t len, mpz_visitor visitor_func) {
+	long max = -1;
+	for(size_t i = 0; i < len; ++i)
+		if(n[i - 1] > max)
+			max = n[i];
+
+	mpz_t *P = alloc_partition_ans(max);
+	partition(max, P);
+	for(int i = 0; i < len; ++i)
+		gmp_printf(&P[n[i]]);
+	clear_partition_ans(P, max);
+}
 
 main(const argc, char *argv[]) {
 	if(argc == 1)
 		return EXIT_SUCCESS;
 
-	long n[argc - 1], max = -1;
+	long n[argc - 1];
 	for(int i = 1; i < argc; ++i) {
 		n[i - 1] = atol(argv[i]);
 		assert(n[i - 1] >= 0);
-		if(n[i - 1] > max)
-			max = n[i - 1];
 	}
-
-	mpz_t *P = alloc_partition_ans(max);
-	partition(max, P);
-	for(int i = 1; i < argc; ++i)
-		gmp_printf("%Zd\n", P[n[i - 1]]);
-	clear_partition_ans(P, max);
+	calc_npartition_args(n, argc - 1, mpz_printer);
 }

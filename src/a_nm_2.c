@@ -5,6 +5,7 @@
 #include <gmp.h>
 
 #include "s_nk.h"
+#include "visitor.h"
 
 // euler numbers of second kind
 // // n \\
@@ -37,6 +38,12 @@ void calc_euler_nk2(st_nk_t *st) {
 	mpz_clear(tmp);
 }
 
+void calc_anm2(size_t n, size_t k, mpz_visitor visitor_func) {
+	st_nk_t st = alloc_st_n_k(n, k);
+	calc_euler_nk2(&st);
+	visitor_func(&st.data[st.size - 1]);
+	free_stirling_nk(&st);
+}
 
 main(const argc, char *argv[]) {
 	if(argc != 3)
@@ -48,9 +55,5 @@ main(const argc, char *argv[]) {
 
 	if(k > n)
 		return EXIT_FAILURE;
-
-	st_nk_t st = alloc_st_n_k(n, k);
-	calc_euler_nk2(&st);
-	gmp_printf("%Zd\n", st.data[st.size - 1]);
-	free_stirling_nk(&st);
+	calc_anm2(n, k, mpz_printer);
 }

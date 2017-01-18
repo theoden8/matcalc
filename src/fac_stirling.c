@@ -5,6 +5,7 @@
 #include <stdbool.h>
 
 #include "constants.h"
+#include "visitor.h"
 
 #include <pthread.h>
 #include <mpfr.h>
@@ -42,13 +43,6 @@ void wait_def(mpfr_t *number) {
 		;
 }
 
-void print(seq_t *seq) {
-	for_seq(i, seq) {
-		wait_def(seq->arr + i);
-		mpfr_printf("%.5RNF\n", seq->arr[i]);
-	}
-}
-
 mpfr_t const_e;
 void nth_term(seq_t *sargs, ULONG idx) {
 	static bool e_init = false;
@@ -84,12 +78,7 @@ void *calc_seq(void *args) {
 	return NULL;
 }
 
-main(int argc, char *argv[]) {
-	if(argc != 2)
-		return EXIT_FAILURE;
-	unsigned long long N;
-	sscanf(argv[1], "%llu", &N);
-
+void fac_stirling(unsigned long long N, mpfr_visitor visitor_func) {
 	mpfr_t arr[N];
 	seq_t sequence = { arr, N };
 	for_seq(i, (&sequence)) {
@@ -102,14 +91,26 @@ main(int argc, char *argv[]) {
 	int rc;
 	rc = pthread_create(&thrcalc, NULL, calc_seq, &sequence);
 	assert(!rc);
-	print(&sequence);
+	for_seq(i, (&sequence)) {
+		wait_def(sequence.arr + i);
+		visitor_func(&sequence.arr[i]);
+	}
 	pthread_join(thrcalc, NULL);
 
 	for_seq(i, (&sequence)) {
 		mpfr_clear(sequence.arr[i]);
 	}
+
 	mpfr_free_cache();
 	mpfr_clear(const_e);
 
 	pthread_exit(NULL);
+}
+
+main(int argc, char *argv[]) {
+	if(argc != 2)
+		return EXIT_FAILURE;
+	unsigned long long N;
+	sscanf(argv[1], "%llu", &N);
+	fac_stirling(N, mpfr_printer);
 }
