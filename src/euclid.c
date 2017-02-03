@@ -10,14 +10,14 @@
 // I will calculate that using eratosthene sieve iterator, which will iterate a
 // sieve of upper bound defined according to prime number theorem.
 
-#include "erat_sieve.h"
-#include "visitor.h"
+#include <matcalc/erat_sieve.h>
+#include <matcalc/visitor.h>
 
 mpz_t euclid;
 long Q;
 mpz_visitor *euc_visitor_func = &mpz_printer;
 
-void euclid_iter_func(uint N) {
+static void euclid_iter_func(uint N) {
 	if(Q <= 0) {
 		return;
 	}
@@ -30,11 +30,11 @@ void euclid_iter_func(uint N) {
 }
 
 // using prime number theorem. is a dirty hack, but I like it.
-uint n_primes_upper(uint n) {
+static uint n_primes_upper(uint n) {
 	return ((double)n) * (log(n) + 1);
 }
 
-void visit(uint x, mpz_visitor visitor_func) {
+static void visit(uint x, mpz_visitor visitor_func) {
 	mpz_t res;
 	mpz_init(res);
 	mpz_set_si(res, x);

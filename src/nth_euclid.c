@@ -11,7 +11,7 @@
 #define INTUNDEF -1
 typedef unsigned int uint;
 
-void swap(uint *restrict a, uint *restrict b) {
+static void swap(uint *restrict a, uint *restrict b) {
 	if(a != b) {
 		uint t = *a;
 		*a = *b;
@@ -19,14 +19,14 @@ void swap(uint *restrict a, uint *restrict b) {
 	}
 }
 
-pthread_mutex_t mutex;
+static pthread_mutex_t mutex;
 
 typedef struct _thrprint_args {
 	mpz_t *numbers;
 	int size;
 } thrprint_args;
 
-void *print_thr_func(void *args) {
+static void *print_thr_func(void *args) {
 	thrprint_args *local = args;
 	for(int i = 0; i < local->size; ++i) {
 		while(mpz_cmp_si(local->numbers[i], INTUNDEF) == 0)
@@ -36,7 +36,7 @@ void *print_thr_func(void *args) {
 	return NULL;
 }
 
-void qcksort(uint *arr, int len) {
+static void qcksort(uint *arr, int len) {
 	if(len < 2)
 		return;
 	int pivot = 0;
@@ -50,7 +50,7 @@ void qcksort(uint *arr, int len) {
 	qcksort(arr + pivot + 1, len - pivot);
 }
 
-void next_euclid(mpz_t *euclid, mpz_t *tmp) {
+static void next_euclid(mpz_t *euclid, mpz_t *tmp) {
 	mpz_set(*tmp, *euclid);
 	mpz_mul(*euclid, *euclid, *euclid);
 	mpz_sub(*euclid, *euclid, *tmp);

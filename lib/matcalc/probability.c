@@ -1,7 +1,5 @@
-#ifndef PROBABILITY_H_WTR3TMUP
-#define PROBABILITY_H_WTR3TMUP
+#include "probability.h"
 
-#define UNDEFINED -1
 const PRECISION = 2000;
 
 long double atold(char *s) {
@@ -9,5 +7,3 @@ long double atold(char *s) {
 	sscanf(s, "%Lf", &d);
 	return d;
 }
-
-#endif

@@ -4,14 +4,14 @@
 
 #include <gmp.h>
 
-#include "s_nk.h"
-#include "visitor.h"
+#include <matcalc/s_nk.h>
+#include <matcalc/visitor.h>
 
 // euler numbers of second kind
 // // n \\
 // \\ k //
 
-void calc_euler_nk2(st_nk_t *st) {
+static void calc_euler_nk2(st_nk_t *st) {
 	const size_t n_k = st->n - st->k + 1;
 	mpz_t tmp;
 	mpz_init(tmp);

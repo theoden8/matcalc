@@ -7,7 +7,7 @@
 
 // e^x = sinh(x) + cosh(x)
 
-#include "constants.h"
+#include <matcalc/constants.h>
 
 main(int argc, char *argv[]) {
 	if(argc != 1 && argc != 2)

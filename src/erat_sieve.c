@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "erat_sieve.h"
+#include <matcalc/erat_sieve.h>
 
 typedef enum {
 	COUNT, PRINT, TIMING, INVALID

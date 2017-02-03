@@ -4,14 +4,12 @@ ifeq ($(shell uname), Darwin)
 CC = clang-omp
 endif
 
-CFLAGS = -O2 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr -pthread -lm -ftrapv
+LDFLAGS = -L../lib/matcalc -lmatcalc
+CFLAGS = -O2 -ftrapv -flto -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ $(LDFLAGS)
 COBJECTS = $(wildcard *.c)
 
 CXXFLAGS = -std=c++1y -lgmpxx -lgmp -flto -O2
 CXXOBJECTS = $(wildcard *.cpp)
-
-HPPFLAGS = -std=c++1y
-CXXHEADERS = $(wildcard *.hpp)
 
 NVCC = nvcc
 NVOBJECTS = $(wildcard *.cu)
@@ -25,11 +23,10 @@ all :; @$(MAKE) _all -j$(CORES)
 _all : \
 	$(patsubst %.c, %, $(COBJECTS)) \
 	$(patsubst %.cu, %, $(NVOBJECTS)) \
-	$(patsubst %.cpp, %, $(CXXOBJECTS)) \
-	$(patsubst %.hpp, %.hpp.gch, $(CXXHEADERS))
+	$(patsubst %.cpp, %, $(CXXOBJECTS))
 
 % : %.c
-	$(CC) "$<" $(CFLAGS) -o "$(BINDIR)/$@"
+	$(CC) "$<" $(CFLAGS) $(shell ./detect_libs.pl "$<") -o "$(BINDIR)/$@"
 
 % : %.cu
 	$(NVCC) "$<" $(NVFLAGS) -o "$(BINDIR)/$@"
@@ -37,13 +34,9 @@ _all : \
 % : %.cpp
 	$(CXX) "$<" $(CXXFLAGS) -o "$(BINDIR)/$@"
 
-%.hpp.gch : %.hpp
-	$(CXX) "$<" $(HPPFLAGS)
-
 check :
 	make
 	make clean
 
 clean :
-	rm -vf *.gch
 	rm -rvf $(BINDIR)

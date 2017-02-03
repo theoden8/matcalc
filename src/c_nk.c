@@ -6,7 +6,7 @@
 #include <pthread.h>
 #include <gmp.h>
 
-#include "visitor.h"
+#include <matcalc/visitor.h>
 
 // binomial coefficients
 // ( n )
@@ -23,13 +23,13 @@ typedef struct _thrfac_t {
 	unsigned int base;
 } thrfac_t;
 
-void *factorial(void *args) {
+static void *factorial(void *args) {
 	thrfac_t *wrap = args;
 	mpz_fac_ui(*wrap->obj, wrap->base);
 	return NULL;
 }
 
-void binomial_u(long n, long k, mpz_t *res) {
+static void binomial_u(long n, long k, mpz_t *res) {
 	assert(n >= 0 && k >= 0);
 
 	mpz_t k_fac, nk_fac;
@@ -66,7 +66,7 @@ void binomial_u(long n, long k, mpz_t *res) {
 	mpz_clears(k_fac, nk_fac, NULL);
 }
 
-void binomial_s(long n, long k, mpz_t *res) {
+static void binomial_s(long n, long k, mpz_t *res) {
 	if(n >= 0) {
 		binomial_u(n, k, res);
 	} else {
@@ -76,7 +76,7 @@ void binomial_s(long n, long k, mpz_t *res) {
 	}
 }
 
-void c_nk(size_t n, size_t k, mpz_visitor visitor_func) {
+static void calc_c_nk(size_t n, size_t k, mpz_visitor visitor_func) {
 	mpz_t res;
 	mpz_init(res);
 	binomial_s(n, k, &res);
@@ -97,5 +97,5 @@ main(int argc, char *argv[]) {
 		fputs("invalid arguments", stderr);
 		return EXIT_FAILURE;
 	}
-	c_nk(n, k, mpz_printer);
+	calc_c_nk(n, k, mpz_printer);
 }

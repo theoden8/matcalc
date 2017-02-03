@@ -5,10 +5,10 @@
  * pmf(m) = [ (e^m * m^(-k)) / k! | k <- [0..]
  */
 
-#include "constants.h"
-#include "probability.h"
-
 #include <mpfr.h>
+
+#include <matcalc/constants.h>
+#include <matcalc/probability.h>
 
 main(int argc, char *argv[]) {
 	if(argc != 3 && argc != 4)

@@ -4,8 +4,8 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "constants.h"
-#include "visitor.h"
+#include <matcalc/constants.h>
+#include <matcalc/visitor.h>
 
 #include <pthread.h>
 #include <mpfr.h>

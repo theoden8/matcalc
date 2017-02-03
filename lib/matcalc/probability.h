@@ -1,0 +1,11 @@
+#ifndef PROBABILITY_H_WTR3TMUP
+#define PROBABILITY_H_WTR3TMUP
+
+#include <stdio.h>
+
+#define UNDEFINED -1
+extern const PRECISION;
+
+long double atold(char *s);
+
+#endif

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <gmp.h>
 
-#include "visitor.h"
+#include <matcalc/visitor.h>
 
 bool calc_gcd_euclid(const char *left, const char *right, mpz_visitor visitor_func) {
 	mpz_t a, b;

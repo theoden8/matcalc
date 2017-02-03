@@ -3,7 +3,7 @@
 
 #include <gmp.h>
 
-#include "visitor.h"
+#include <matcalc/visitor.h>
 
 // euler numbers of first kind
 // / n \

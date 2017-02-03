@@ -3,7 +3,7 @@
 
 #include <gmp.h>
 
-#include "visitor.h"
+#include <matcalc/visitor.h>
 
 
 // fibonacci are needed everywhere

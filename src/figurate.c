@@ -5,7 +5,7 @@
 
 #include <gmp.h>
 
-#include "visitor.h"
+#include <matcalc/visitor.h>
 
 void calc_figurate(long k, long n, mpz_visitor visitor_func) {
 	mpz_t f, s;

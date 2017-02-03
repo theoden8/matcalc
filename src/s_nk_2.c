@@ -34,8 +34,8 @@
 //
 //  Therefore, we will use the same method as for s1(n, k)
 
-#include "s_nk.h"
-#include "visitor.h"
+#include <matcalc/s_nk.h>
+#include <matcalc/visitor.h>
 
 void calc_stirling_nk2(st_nk_t *st) {
 	const size_t n_k = st->n - st->k + 1;

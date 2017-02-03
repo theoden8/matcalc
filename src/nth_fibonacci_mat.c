@@ -1,14 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include <omp.h>
-#include <gmp.h>
 
-typedef struct _mat2 {
-	mpz_t a, b, c, d;
-} mat2;
-
-void print_mat(mat2 *);
-mpz_t *get_mat(mat2 *, int, int);
+#include "nth_fibonacci_mat.h"
 
 void init_mat(mat2 *m) {
 	mpz_inits(m->a, m->b, m->c, m->d, NULL);
@@ -165,16 +160,20 @@ void pow_mat(mat2 *m, size_t power) {
 	clear_mat(&p);
 }
 
-main(int argc, char *argv[]) {
-	if(argc != 2)
-		return EXIT_FAILURE;
+void calc_nth_fib_mat(size_t power) {
 	mat2 f;
 	init_mat(&f);
 	mpz_set_si(f.a, 1);
 	mpz_set_si(f.b, 1);
 	mpz_set_si(f.c, 1);
 	mpz_set_si(f.d, 0);
-	pow_mat(&f, atol(argv[1]) - 1);
+	pow_mat(&f, power);
 	gmp_printf("%Zd\n", f.a);
 	clear_mat(&f);
+}
+
+main(int argc, char *argv[]) {
+	if(argc != 2)
+		return EXIT_FAILURE;
+	calc_nth_fib_mat(atoi(argv[1]) - 1);
 }

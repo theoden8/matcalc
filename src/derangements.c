@@ -3,7 +3,7 @@
 
 #include <gmp.h>
 
-#include "visitor.h"
+#include <matcalc/visitor.h>
 
 void calc_derangements(const long N, mpz_visitor visitor_func) {
 	mpz_t d[3];

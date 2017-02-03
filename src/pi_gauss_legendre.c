@@ -6,7 +6,7 @@
 
 // https://en.wikipedia.org/wiki/Gauss%E2%80%93Legendre_algorithm
 
-void init_components(mpfr_t *a, mpfr_t *b, mpfr_t *t, mpfr_t *p, int precision) {
+static void init_components(mpfr_t *a, mpfr_t *b, mpfr_t *t, mpfr_t *p, int precision) {
 // a:
 	mpfr_set_si(*a, 1, MPFR_RNDD);
 // b:
@@ -19,7 +19,7 @@ void init_components(mpfr_t *a, mpfr_t *b, mpfr_t *t, mpfr_t *p, int precision) 
 	mpfr_set_si(*p, 1, MPFR_RNDD);
 }
 
-void pi_iterate(mpfr_t a[2], mpfr_t b[2], mpfr_t t[2], mpfr_t p[2], char head, int precision) {
+static void pi_iterate(mpfr_t a[2], mpfr_t b[2], mpfr_t t[2], mpfr_t p[2], char head, int precision) {
 // a_head:
 	mpfr_add(a[head], a[!head], b[!head], MPFR_RNDD);
 	mpfr_div_ui(a[head], a[head], 2, MPFR_RNDU);
@@ -35,7 +35,7 @@ void pi_iterate(mpfr_t a[2], mpfr_t b[2], mpfr_t t[2], mpfr_t p[2], char head, i
 	mpfr_mul_ui(p[head], p[!head], 2, MPFR_RNDU);
 }
 
-void pi_calculate(mpfr_t *pi, mpfr_t *a, mpfr_t *b, mpfr_t *t) {
+static void pi_calculate(mpfr_t *pi, mpfr_t *a, mpfr_t *b, mpfr_t *t) {
 	mpfr_add(*pi, *a, *b, MPFR_RNDU);
 	mpfr_mul(*pi, *pi, *pi, MPFR_RNDU);
 	mpfr_div(*pi, *pi, *t, MPFR_RNDD);

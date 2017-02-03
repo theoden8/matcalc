@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "probability.h"
+#include <matcalc/probability.h>
 
 /*
  * pmf(n, p) = [ c_nk(n, k) * p^k * p^(n-k) | k <- [0..n]

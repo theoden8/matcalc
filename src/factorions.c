@@ -9,7 +9,7 @@
 #include <omp.h>
 #include <gmp.h>
 
-#include "visitor.h"
+#include <matcalc/visitor.h>
 
 // factorion is a sum of factorials of digits
 
@@ -75,19 +75,16 @@ void *reduce_sum(void *args) {
 	return NULL;
 }
 
-void calc_factorions(const char *digits) {
-	mpz_init(res[i - 1]);
-	mpz_set_si(res[i - 1], 0);
-	reduce_tls t = { digits, strlen(digits), &res[i - 1] };
-	reduce_sum(&t);
-}
-
 void calc_factorions_args(int argc, char *argv[], mpz_visitor visitor_func) {
 	mpz_t res[argc - 1];
 	int i;
 	#pragma omp for private(i) num_threads(MAXTHREADS - (MAXTHREADS / 2))
 	for(i = 1; i < argc; ++i) {
-		calc_factorions(argv[i])
+		const char *digits = argv[i];
+		mpz_init(res[i - 1]);
+		mpz_set_si(res[i - 1], 0);
+		reduce_tls t = { digits, strlen(digits), &res[i - 1] };
+		reduce_sum(&t);
 	}
 	for(i = 1; i < argc; ++i) {
 		visitor_func(&res[i - 1]);

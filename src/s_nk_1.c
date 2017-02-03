@@ -33,8 +33,8 @@
 //  Therefore, to compute x, we only need to store and compute
 //  the elements of the table denoted by '*'.
 
-#include "s_nk.h"
-#include "visitor.h"
+#include <matcalc/s_nk.h>
+#include <matcalc/visitor.h>
 
 void calc_stirling_nk1(st_nk_t *st) {
 	const size_t n_k = st->n - st->k + 1;

@@ -3,7 +3,7 @@
 #include <gmp.h>
 
 
-#include "visitor.h"
+#include <matcalc/visitor.h>
 
 // catalan numbers are cowpowers of combinatorics which stand for the total
 // possible ways to make up a balanced sequence of range twice as big as the
@@ -15,7 +15,7 @@
 //  (1) c(n) = c_nk(2n, n) * 1/(n + 1)
 //  (2) c(n) = product( 2 * (2 * i - 1) / (i + 1) | i <- [1..n] )
 
-void catalans(size_t n, mpz_visitor visitor_func) {
+void calc_catalans(size_t n, mpz_visitor visitor_func) {
 	mpz_t catalan;
 	mpz_init(catalan);
 	mpz_set_si(catalan, 1);
@@ -32,12 +32,12 @@ void catalans(size_t n, mpz_visitor visitor_func) {
 main(const argc, char **argv) {
 	if(argc != 2)
 		return EXIT_FAILURE;
-	size_t N = atol(argv[1]);
+	long N = atol(argv[1]);
 
 	if(N < 0)
 		return EXIT_FAILURE;
 	if(N == 0)
 		return EXIT_SUCCESS;
 
-	catalans(N, mpz_printer);
+	calc_catalans(N, mpz_printer);
 }

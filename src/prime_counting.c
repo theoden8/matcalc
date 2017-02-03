@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "erat_sieve.h"
+#include <matcalc/erat_sieve.h>
 
 uint cur = 0;
 uint Q;

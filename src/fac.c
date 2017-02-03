@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include <gmp.h>
 
 // it is here for visual comparison with some other programs

@@ -5,13 +5,13 @@
 
 #include <gmpxx.h>
 
-mpz_class pow2(size_t power) {
+static mpz_class pow2(size_t power) {
 	mpz_class result;
 	mpz_ui_pow_ui(result.get_mpz_t(), 2, power);
 	return result;
 }
 
-mpz_class pow2huge(const mpz_class &power) {
+static mpz_class pow2huge(const mpz_class &power) {
 	if(power > LONG_MAX) {
 		mpz_class half = power / 2;
 		return pow2huge(half) * pow2huge(power - half);
