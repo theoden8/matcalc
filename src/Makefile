@@ -5,7 +5,7 @@ CC = clang-omp
 endif
 
 LDFLAGS = -L../lib/matcalc -lmatcalc
-CFLAGS = -O2 -ftrapv -flto -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ $(LDFLAGS)
+CFLAGS = -O2 -ftrapv -flto -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ -lgmp -lmpfr -pthread -lm $(LDFLAGS)
 COBJECTS = $(wildcard *.c)
 
 CXXFLAGS = -std=c++1y -lgmpxx -lgmp -flto -O2
@@ -26,7 +26,7 @@ _all : \
 	$(patsubst %.cpp, %, $(CXXOBJECTS))
 
 % : %.c
-	$(CC) "$<" $(CFLAGS) $(shell ./detect_libs.pl "$<") -o "$(BINDIR)/$@"
+	$(CC) "$<" $(CFLAGS) -o "$(BINDIR)/$@"
 
 % : %.cu
 	$(NVCC) "$<" $(NVFLAGS) -o "$(BINDIR)/$@"

@@ -20,9 +20,12 @@ while(<>) {
   while(my($k, $v) = each %$sought) {
     $found{$k} = $v if(/$k/);
   }
+  my $l = undef;
   if(/#include ".*\.h"/) {
     my $l = $_;
     $l =~ s/(#include "|")//g;
+  }
+  if($l) {
     if(not exists $inclusions{$l}) {
       push @ARGV, $l;
     }

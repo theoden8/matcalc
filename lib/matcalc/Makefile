@@ -16,7 +16,7 @@ $(STATICLIB).a : $(patsubst %.c, %.o, $(OBJECTS))
 	ar rcs "$@" $(patsubst %.c, %.o, $(OBJECTS))
 
 %.o : %.c
-	$(CC) -c $(CFLAGS) $(shell ./detect_libs.pl "$<") -rdynamic -o "$@" "$<"
+	$(CC) -c $(CFLAGS) $(shell ./detect_libs.pl "$<") -o "$@" "$<"
 
 clean :
 	rm -vf *.o
