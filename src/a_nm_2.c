@@ -2,8 +2,6 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include <gmp.h>
-
 #include <matcalc/a_nm_2.h>
 #include <matcalc/visitor.h>
 

@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <gmp.h>
-
 #include <matcalc/visitor.h>
 #include <matcalc/a_nm_1.h>
 

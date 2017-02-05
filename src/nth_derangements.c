@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include <gmp.h>
-
 #include <matcalc/visitor.h>
 #include <matcalc/nth_derangements.h>
 

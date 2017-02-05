@@ -24,8 +24,6 @@ while(<>) {
   if(/#include ".*\.h"/) {
     my $l = $_;
     $l =~ s/(#include "|")//g;
-  }
-  if($l) {
     if(not exists $inclusions{$l}) {
       push @ARGV, $l;
     }
@@ -33,4 +31,4 @@ while(<>) {
   }
 }
 
-print (join " ", values %found);
+print join " ", values %found;
