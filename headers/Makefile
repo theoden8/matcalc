@@ -8,6 +8,7 @@ _all : \
 
 %.hpp.gch : %.hpp
 	$(CXX) "$<" $(HXXFLAGS)
+	rm -vf "$@"
 
 clean :
 	rm -vf *.gch

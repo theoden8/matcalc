@@ -5,14 +5,18 @@
 
 static mpz_t *alloc_partition_ans(long n) {
 	mpz_t *P = malloc(sizeof(mpz_t) * (n + 1));
-	for(long i = 0; i <= n; ++i)
+	#pragma omp for private(i) num_threads(MAXTHREADS)
+	for(long i = 0; i <= n; ++i) {
 		mpz_init(P[i]);
+	}
 	return P;
 }
 
 static void clear_partition_ans(mpz_t *P, long n) {
-	for(long i = 0; i <= n; ++i)
+	#pragma omp for private(i) num_threads(MAXTHREADS)
+	for(long i = 0; i <= n; ++i) {
 		mpz_clear(P[i]);
+	}
 	free(P);
 }
 
@@ -61,9 +65,12 @@ void calc_npartition(long n, mpz_visitor visitor_func) {
 }
 
 void calc_npartition_args(long *n, size_t len, mpz_visitor visitor_func) {
+	if(!len)
+		return;
+
 	long max = -1;
 	for(size_t i = 0; i < len; ++i)
-		if(n[i - 1] > max)
+		if(n[i] > max)
 			max = n[i];
 
 	mpz_t *P = alloc_partition_ans(max);

@@ -2,8 +2,11 @@
 #define N_PARTITION_H_N54N2YTP
 
 #include <gmp.h>
+#include <omp.h>
 
 #include "visitor.h"
+
+#define MAXTHREADS 8
 
 typedef long long llong;
 
