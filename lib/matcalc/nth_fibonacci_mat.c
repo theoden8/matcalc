@@ -54,35 +54,35 @@ static void mul_mat(mat2 *r, mat2 *m, mat2 *p) {
 	mpz_inits(t1, t2, t3, NULL);
 	mpz_inits(p1, p2, p3, p4, p5, p6, p7, NULL);
 	// strassen multiplication
-	#pragma omp parallel
+	#pragma omp parallel num_threads(MAXTHREADS)
 	{
-		{
+		{ // 1
 			mpz_add(t1, p->a, p->d);
 			mpz_add(p1, m->a, m->d);
 			mpz_mul(p1, p1, t1);
 		};
-		{
+		{ // 2
 			mpz_add(p2, m->c, m->d);
 			mpz_mul(p2, p2, p->a);
 		};
-		{
+		{ // 3
 			mpz_sub(p3, p->b, p->d);
 			mpz_mul(p3, p3, p->a);
 		};
-		{
+		{ // 4
 			mpz_sub(p4, p->c, p->a);
 			mpz_mul(p4, p4, m->d);
 		};
-		{
+		{ // 5
 			mpz_add(p5, m->a, m->b);
 			mpz_mul(p5, p5, p->d);
 		};
-		{
+		{ // 6
 			mpz_add(t2, p->a, p->b);
 			mpz_sub(p6, m->c, m->a);
 			mpz_mul(p6, p6, t2);
 		};
-		{
+		{ // 7
 			mpz_add(t3, p->c, p->d);
 			mpz_sub(p7, m->b, m->d);
 			mpz_mul(p7, p7, t3);

@@ -3,6 +3,8 @@
 
 #include <gmp.h>
 
+#define MAXTHREADS 8
+
 typedef struct _mat2 {
 	mpz_t a, b, c, d;
 } mat2;

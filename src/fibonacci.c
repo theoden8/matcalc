@@ -25,7 +25,7 @@ void calc_fibs(long n, mpz_visitor visitor_func) {
 	mpz_set_ui(tail[0], 1);
 	mpz_set_ui(tail[1], 0);
 	mpz_set_ui(tail[2], 1);
-	gmp_printf("%Zd\n", tail[0]);
+	visitor_func(&tail[0]);
 	char head = 0, first = 1, second = 2;
 	for(long i = 1; i < n; ++i) {
 		mpz_add(tail[head], tail[first], tail[second]);

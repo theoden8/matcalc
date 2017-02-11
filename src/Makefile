@@ -19,7 +19,7 @@ $(shell rm -rf "$(BINDIR)")
 $(shell mkdir -p "$(BINDIR)")
 
 CORES = $(shell getconf _NPROCESSORS_ONLN)
-all :; @$(MAKE) _all -j$(CORES)
+all : ../lib/matcalc/libmatcalc.a; @$(MAKE) _all -j$(CORES)
 _all : \
 	$(patsubst %.c, %, $(COBJECTS)) \
 	$(patsubst %.cu, %, $(NVOBJECTS)) \

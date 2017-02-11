@@ -10,8 +10,7 @@ len=10
   term=$1; shift
 }
 
-cur=$term
-for i in $(seq $len); do
-  echo $cur
+for i in $(seq "$len"); do
+  printf "%s\n" "$(perl -e "print($term ** $i)")"
   ((cur *= term))
 done

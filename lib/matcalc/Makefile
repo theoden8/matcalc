@@ -2,6 +2,7 @@ ifeq ($(shell uname), Darwin)
 CC = clang-omp
 endif
 CFLAGS = -O2 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -ftrapv
+#CFLAGS += -DNRINT
 OBJECTS = $(wildcard *.c)
 
 STATICLIB = libmatcalc

@@ -4,10 +4,14 @@
 #include <gmp.h>
 #include <mpfr.h>
 
+void visitor_nop(void *);
+
 typedef void (mpz_visitor(mpz_t *));
-void mpz_printer(mpz_t *val);
+mpz_visitor
+	mpz_printer;
 
 typedef void (mpfr_visitor(mpfr_t *));
-void mpfr_printer(mpfr_t *val);
+mpfr_visitor
+	mpfr_printer;
 
 #endif /* end of include guard: VISITOR_H_U4R8EVIO */

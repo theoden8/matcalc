@@ -15,7 +15,7 @@ void calc_nth_catalan(size_t n, mpz_visitor visitor_func) {
 	mpz_t cat;
 	mpz_init(cat);
 	nth_catalan(cat, n);
-	visitor_func(cat);
+	visitor_func(&cat);
 	mpz_clear(cat);
 }
 
