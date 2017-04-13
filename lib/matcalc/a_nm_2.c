@@ -1,6 +1,10 @@
 #include "a_nm_2.h"
 #include "s_nk.h"
 
+// euler numbers of second kind
+// // n \\
+// \\ k //
+
 static void calc_euler_nk2(st_nk_t *st) {
 	const size_t n_k = st->n - st->k + 1;
 	mpz_t tmp;

@@ -5,10 +5,6 @@
 #include <matcalc/a_nm_2.h>
 #include <matcalc/visitor.h>
 
-// euler numbers of second kind
-// // n \\
-// \\ k //
-
 main(const argc, char *argv[]) {
 	if(argc != 3)
 		return EXIT_FAILURE;

@@ -2,6 +2,9 @@
 
 #include "visitor.h"
 
+// the arctangent formula for pi is:
+//  pi = 4 * atan(1) = 2 * (sum ( n! / (2*n + 1)!! | n -> infinity) )
+
 void calc_pi_arctan(mpfr_t pi, int niters, int nprec) {
 	mpfr_t sum, cur;
 	mpfr_inits2(nprec, sum, cur, NULL);

@@ -4,9 +4,6 @@
 #include <matcalc/visitor.h>
 #include <matcalc/pi_arctan.h>
 
-// the arctangent formula for pi is:
-//  pi = 4 * atan(1) = 2 * (sum ( n! / (2*n + 1)!! | n -> infinity) )
-
 main(const argc, char *argv[]) {
 	if(argc > 3)
 		return EXIT_FAILURE;

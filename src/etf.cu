@@ -14,44 +14,43 @@ __device__ int_t x;
 // the way to calculate it here is to use the amazing gpu cores for euclidean
 // algorithm.
 
-#define THREADS_PER_BLOCK 1024
-__global__ void kernel(int_t N) {
-	const int_t
-		T = blockIdx.x * THREADS_PER_BLOCK + threadIdx.x + 2;
-	int_t a = N, b = T;
-	/* printf("DEVICE [%d]: CALLED FOR (%d)\n", T, N); */
-	if(T > N)
-		return;
-	/* printf("DEVICE [%d]: STARTED WITH VALUE (%d)\n", b, x); */
+#define THREADS_PER_BLOCK 512
+__device__ int_t coprime(int_t a, int_t b) {
 	while(a > 0 && b > 0) {
 		if(a == 1 || b == 1) {
-			/* printf("DEVICE: INCR\n"); */
-			atomicAdd(&x, 1);
-			return;
-			/* goto end; */
+			return 1;
 		} else if(a > b) {
 			a -= a / b * b;
 		} else if(a < b) {
 			b -= b / a * a;
 		} else {
-			if(a == 1) {
-				/* printf("DEVICE: INCR\n"); */
-				atomicAdd(&x, 1);
-			}
-			return;
-			/* goto end; */
+			if(a == 1)
+				return 1;
+			return 0;
 		}
 	}
 	if(a == 1 || b == 1) {
-		/* printf("DEVICE: INCR\n"); */
-		atomicAdd(&x, 1);
+		return 1;
 	}
-/* end: */
-/* 	; */
-	/* printf("DEVICE: (%d, %d) FINISHED WITH RESULT %d\n", T, N, x); */
-	/* __syncthreads(); */
-	/* if(T + 1 == N) { */
-	/* 	printf("%d\n", x); */
+	return 0;
+}
+
+__global__ void kernel(int_t N) {
+	__shared__ int_t mem[THREADS_PER_BLOCK];
+	int tid = threadIdx.x;
+	const int_t T = blockIdx.x * THREADS_PER_BLOCK + threadIdx.x + 2;
+	if(T > N)
+		return;
+	mem[tid] = coprime(N, T);
+	__syncthreads();
+	for(unsigned int s = blockDim.x >> 1; s > 0; s >>= 1) {
+		if(tid < s) {
+			mem[tid] += mem[tid + s];
+		}
+		__syncthreads();
+	}
+	/* if(tid == 0) { */
+	/* 	atomicAdd(&x, mem[0]); */
 	/* } */
 }
 

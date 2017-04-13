@@ -5,7 +5,6 @@
 
 #include <gmp.h>
 
-
 // nth euclid number is a product of first n primes + 1
 // I will calculate that using eratosthene sieve iterator, which will iterate a
 // sieve of upper bound defined according to prime number theorem.
