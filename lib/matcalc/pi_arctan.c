@@ -20,8 +20,5 @@ void calc_pi_arctan(mpfr_t pi, int niters, int nprec) {
 	}
 	/* mpfr_printf("%.2000RNf\n", sum); */
 	mpfr_mul_ui(sum, sum, 2, MPFR_RNDU);
-	mpfr_printer(&sum);
-
-	mpfr_clears(sum, cur, NULL);
 }
 
