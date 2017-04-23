@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <omp.h>
-
 #include "nth_fibonacci_mat.h"
+#include "threads.h"
 
 static void init_mat(mat2 *m) {
 	mpz_inits(m->a, m->b, m->c, m->d, NULL);
@@ -54,7 +53,7 @@ static void mul_mat(mat2 *r, mat2 *m, mat2 *p) {
 	mpz_inits(t1, t2, t3, NULL);
 	mpz_inits(p1, p2, p3, p4, p5, p6, p7, NULL);
 	// strassen multiplication
-	#pragma omp parallel num_threads(MAXTHREADS)
+	#pragma omp parallel
 	{
 		{ // 1
 			mpz_add(t1, p->a, p->d);

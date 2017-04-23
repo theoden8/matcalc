@@ -2,6 +2,7 @@
 #include <assert.h>
 
 #include "n_partition.h"
+#include "threads.h"
 
 // calculates the number of partions of a given natural number
 //
@@ -29,18 +30,16 @@
 
 static mpz_t *alloc_partition_ans(long n) {
 	mpz_t *P = malloc(sizeof(mpz_t) * (n + 1));
-	#pragma omp for private(i) num_threads(MAXTHREADS)
-	for(long i = 0; i <= n; ++i) {
+	#pragma omp parallel for
+	for(long i = 0; i <= n; ++i)
 		mpz_init(P[i]);
-	}
 	return P;
 }
 
 static void clear_partition_ans(mpz_t *P, long n) {
-	#pragma omp for private(i) num_threads(MAXTHREADS)
-	for(long i = 0; i <= n; ++i) {
+	#pragma omp parallel for
+	for(long i = 0; i <= n; ++i)
 		mpz_clear(P[i]);
-	}
 	free(P);
 }
 

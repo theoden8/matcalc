@@ -6,8 +6,6 @@
 
 #include "visitor.h"
 
-#define MAXTHREADS 8
-
 typedef long long llong;
 
 void calc_npartition(long n, mpz_visitor visitor_func);

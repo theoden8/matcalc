@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include <matcalc/threads.h>
 #include <pthread.h>
 #include <gmp.h>
 
@@ -16,7 +17,6 @@
 
 #define N 30
 #define SIZE(x) (((x) >> 1) + 1)
-#define NTHREADS 4
 
 int min(int a, int b) {
 	return (a < b) ? a : b;
@@ -42,7 +42,7 @@ void *calc_elem(void *args) {
 }
 
 
-void calc_row(pthread_t threads[NTHREADS], tls_t thrtls[NTHREADS], int i) {
+void calc_row(pthread_t threads[MAXTHREADS], tls_t thrtls[MAXTHREADS], int i) {
 	/* assert(!pthread_mutex_init(&padlock, NULL)); */
 
 	if((i & 1) == 0)
@@ -50,7 +50,7 @@ void calc_row(pthread_t threads[NTHREADS], tls_t thrtls[NTHREADS], int i) {
 
 	int rc;
 	const int
-		t_step = (SIZE(i) + NTHREADS - 1) / NTHREADS,
+		t_step = (SIZE(i) + MAXTHREADS - 1) / MAXTHREADS,
 		nthr = (SIZE(i) + t_step - 1) / t_step;
 	for(int t = 0; t < nthr; ++t) {
 		thrtls[t].id = t;
@@ -76,8 +76,8 @@ void
 	mirror_rows(int);
 
 void pascal_triangle() {
-	pthread_t threads[NTHREADS];
-	tls_t thrtls[NTHREADS];
+	pthread_t threads[MAXTHREADS];
+	tls_t thrtls[MAXTHREADS];
 	init();
 	for(int i = 0; i < N; ++i) {
 		calc_row(threads, thrtls, i);

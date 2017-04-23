@@ -1,7 +1,4 @@
-ifeq ($(shell uname), Darwin)
-CC = clang-omp
-endif
-CFLAGS = -O2 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -ftrapv
+CFLAGS = -Ofast -fopenmp -flto -Wno-implicit-int -Wno-incompatible-pointer-types -ftrapv -D MAXTHREADS=$(shell getconf _NPROCESSORS_ONLN)
 # CFLAGS += -DNRINT
 OBJECTS = $(wildcard *.c)
 

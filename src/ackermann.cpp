@@ -2,6 +2,7 @@
 #include <climits>
 
 #include <iostream>
+#include <ostream>
 
 #include <gmpxx.h>
 

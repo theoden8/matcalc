@@ -1,11 +1,7 @@
 BINDIR = ../bin
 
-ifeq ($(shell uname), Darwin)
-CC = clang-omp
-endif
-
 LDFLAGS = -L../lib/matcalc -lmatcalc
-CFLAGS = -O2 -ftrapv -flto -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ -lgmp -lmpfr -pthread -lm $(LDFLAGS)
+CFLAGS = -fopenmp -Ofast -ftrapv -flto -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ -lgmp -lmpfr -pthread -lm $(LDFLAGS) -D MAXTHREADS=$(shell getconf _NPROCESSORS_ONLN)
 COBJECTS = $(wildcard *.c)
 
 CXXFLAGS = -std=c++1y -lgmpxx -lgmp -flto -O2
