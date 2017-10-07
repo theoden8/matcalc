@@ -3,3 +3,5 @@ results/
 *.gch
 *.o
 *.a
+*.so
+*.dSYM

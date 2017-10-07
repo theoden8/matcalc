@@ -1,6 +1,8 @@
 #ifndef MATTEMP_HPP_NMTDKPFC
 #define MATTEMP_HPP_NMTDKPFC
 
+#include <cstdlib>
+
 // matcalc in compile time
 
 #define superconst const constexpr

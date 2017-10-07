@@ -1,4 +1,4 @@
-HXXFLAGS = -std=c++1y
+HXXFLAGS = -std=c++1y -ftemplate-depth=4096
 CXXHEADERS = $(wildcard *.hpp)
 
 CORES = $(shell getconf _NPROCESSORS_ONLN)

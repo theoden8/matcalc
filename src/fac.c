@@ -7,7 +7,7 @@
 
 #define ch(condition) ;if(!(condition))return EXIT_FAILURE;
 #define R(x) mpz_clear(x);
-#define O(x) gmp_printf("%Sd\n", x);
+#define O(x) gmp_printf("%Zd\n", x);
 #define T(x) mpz_fac_ui(x, n);
 #define A(x) mpz_init(x);
 #define S(x) mpz_t x;
