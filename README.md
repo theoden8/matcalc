@@ -35,6 +35,7 @@ This is a collection of tools useful for combinatorics, number theory and other 
 * Eulerian 1, 2
 * Pi digits
 * E digits
+* Harmonic numbers
 * Natural number partition
 * Ackermann
 * Palindromes
@@ -53,7 +54,7 @@ This is a collection of tools useful for combinatorics, number theory and other 
 ### Compilation
 
 	$ make
-	
+
 ### Runing
 
 	$ # ./bin/program ...args, e.g
