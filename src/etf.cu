@@ -87,13 +87,13 @@ int main(int argc, char *argv[]) {
 	if(S <= 1 && N >= 1)
 		puts("1");
 	for(int_t i = S + 1; i <= N; ++i) {
-		cudaMemcpyToSymbol(x, &x_default, sizeof(int_t));
+		cudaMemcpy(x, &x_default, sizeof(int_t), cudaMemcpyHostToDevice);
 		CUDACHK;
 		const int no_threads = i - 2;
 		const int no_blocks = no_threads / THREADS_PER_BLOCK;
 		kernel<<<no_blocks + 1, THREADS_PER_BLOCK>>>(i);
 		CUDACHK;
-		cudaMemcpyFromSymbol(&x_copy, x, sizeof(int_t), 0, cudaMemcpyDeviceToHost);
+		cudaMemcpy(&x_copy, x, sizeof(int_t), cudaMemcpyDeviceToHost);
 		CUDACHK;
 		printf("%d\n", x_copy);
 	}

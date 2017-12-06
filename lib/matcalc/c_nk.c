@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdio.h>
 
 #include "c_nk.h"
 
@@ -31,7 +32,7 @@ static void binomial_u(long n, long k, mpz_t *res) {
 
 	int rc;
 	for(int i = 0; i < FACSIZE; ++i) {
-		rc = pthread_create(facs + i, NULL, factorial, (void *)(facs_data + i));
+		rc = pthread_create(&facs[i], NULL, factorial, (void *)(facs_data + i));
 		assert(!rc);
 	}
 	for(int i = 0; i < FACSIZE; ++i) {

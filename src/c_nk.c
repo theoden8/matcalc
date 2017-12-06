@@ -17,7 +17,7 @@ main(int argc, char *argv[]) {
 	}
 
 	long n = atol(argv[1]), k = atol(argv[2]);
-	if((n < 0 && k >= 0) || n >= k) {
+	if((n < 0 && k >= 0) || n < k) {
 		fputs("invalid arguments", stderr);
 		return EXIT_FAILURE;
 	}
