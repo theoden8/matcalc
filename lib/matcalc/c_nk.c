@@ -3,6 +3,22 @@
 
 #include "c_nk.h"
 
+// binomial coefficients
+// ( n )
+// ( k )
+//
+// c_n^k = n!/(k!(n-k)!)
+//
+// pascals triangle:
+// 1
+// 1 1
+// 1 2 1
+// 1 3 3  1
+// 1 4 6  4  1
+// 1 5 10 10 5  1
+// 1 6 15 20 15 6 1
+// ...
+
 static void *factorial(void *args) {
 	thrfac_t *wrap = args;
 	mpz_fac_ui(*wrap->obj, wrap->base);

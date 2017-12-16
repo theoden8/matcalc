@@ -1,7 +1,8 @@
 BINDIR = ../bin
 
 LDFLAGS = -L../lib/matcalc -lmatcalc
-CFLAGS = -fopenmp -Ofast -ftrapv -flto -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ -lgmp -lmpfr -pthread -lm $(LDFLAGS) -D MAXTHREADS=$(shell getconf _NPROCESSORS_ONLN)
+OPTFLAGS = -Ofast -ftrapv -flto -march=native -mtune=native
+CFLAGS = $(OPTFLAGS) -fopenmp -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ -lgmp -lmpfr -pthread -lm $(LDFLAGS) -D MAXTHREADS=$(shell getconf _NPROCESSORS_ONLN)
 COBJECTS = $(wildcard *.c)
 
 CXXFLAGS = -std=c++1y -lgmpxx -lgmp -flto -O2

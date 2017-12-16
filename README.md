@@ -30,9 +30,10 @@ This is a collection of tools useful for combinatorics, number theory and other 
 * Euclidean numbers
 * Binomial coefficient
 * Derangements
-* Catalan
-* Stirling 1, 2
-* Eulerian 1, 2
+* Catalan numbers
+* Stirling numbers 1, 2
+* Eulerian numbers 1, 2
+* Bell numbers
 * Pi digits
 * E digits
 * Harmonic numbers

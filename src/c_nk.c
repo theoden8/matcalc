@@ -6,10 +6,6 @@
 #include <matcalc/c_nk.h>
 #include <matcalc/visitor.h>
 
-// binomial coefficients
-// ( n )
-// ( k )
-
 main(int argc, char *argv[]) {
 	if(argc != 3) {
 		fputs("invalid number of arguments", stderr);

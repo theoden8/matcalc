@@ -11,7 +11,7 @@
 #define LOWER '3'
 #define UPPER '7'
 
-const inline char lt(char *restrict gr, const n) {
+const static inline char lt(char *restrict gr, const n) {
 	for(int i = 0; i < n; ++i)
 		if(gr[i] < UPPER)
 			return 1;

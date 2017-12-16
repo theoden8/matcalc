@@ -1,4 +1,4 @@
-OPTFLAGS = -Ofast -flto -ftrapv -m64 -march=native
+OPTFLAGS = -Ofast -flto -ftrapv -m64 -march=native -mtune=native
 CFLAGS = $(OPTFLAGS) -Wno-implicit-int -Wno-incompatible-pointer-types -ftrapv -D MAXTHREADS=$(shell getconf _NPROCESSORS_ONLN)
 # CFLAGS += -DNPRINT
 OBJECTS = $(wildcard *.c)
