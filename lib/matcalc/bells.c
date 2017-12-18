@@ -7,7 +7,7 @@
 //
 // B[0] = B[1] = 1
 // (1) using binomial coefficients:
-//   B[n] = sum ( C_n^k | k <- [0..n-1] )
+//   B[n] = sum ( C_n^k*B[k] | k <- [0..n-1] )
 // (2) using stirling numbers of second kind:
 //   B[n] = sum ( S2_n^k | k <- [0..n] )
 // (3) using Bell's triangle
