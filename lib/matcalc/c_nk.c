@@ -20,7 +20,7 @@
 // ...
 
 static void *factorial(void *args) {
-	thrfac_t *wrap = args;
+	thrfac_t *wrap = (thrfac_t *)args;
 	mpz_fac_ui(*wrap->obj, wrap->base);
 	return NULL;
 }

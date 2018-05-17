@@ -29,17 +29,19 @@
 // we can compute this iteratively without having to calculate anything twice.
 
 static mpz_t *alloc_partition_ans(long n) {
-	mpz_t *P = malloc(sizeof(mpz_t) * (n + 1));
+	mpz_t *P = (mpz_t *)malloc(sizeof(mpz_t) * (n + 1));
 	#pragma omp parallel for
-	for(long i = 0; i <= n; ++i)
+	for(long i = 0; i <= n; ++i) {
 		mpz_init(P[i]);
+	}
 	return P;
 }
 
 static void clear_partition_ans(mpz_t *P, long n) {
 	#pragma omp parallel for
-	for(long i = 0; i <= n; ++i)
+	for(long i = 0; i <= n; ++i) {
 		mpz_clear(P[i]);
+	}
 	free(P);
 }
 

@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #define UNDEFINED -1
-extern const PRECISION;
+extern const int PRECISION;
 
 long double atold(char *s);
 

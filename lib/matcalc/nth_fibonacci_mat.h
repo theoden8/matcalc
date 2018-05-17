@@ -1,6 +1,8 @@
 #ifndef NTH_FIBONACCI_MAT_H_5M1IET0Z
 #define NTH_FIBONACCI_MAT_H_5M1IET0Z
 
+#include "visitor.h"
+
 #include <gmp.h>
 
 #define MAXTHREADS 8
@@ -19,6 +21,6 @@ static void clear_mat(mat2 *m);
 static void mul_mat(mat2 *r, mat2 *m, mat2 *p);
 static mat2 square_mat(mat2 *m);
 static void pow_mat(mat2 *m, size_t power);
-void calc_nth_fib_mat(size_t power);
+void calc_nth_fib_mat(size_t power, mpz_visitor visitor_func);
 
 #endif

@@ -1,5 +1,7 @@
 #include "bells.h"
 
+#include <stdlib.h>
+
 // bells numbers:
 //  the number of ways to partition a set of n elements
 //
@@ -32,7 +34,7 @@ void calc_bells(size_t n, mpz_visitor visitor_func) {
   }
 
   const size_t ROW_SIZE = n - 2;
-  mpz_t *buf = malloc(sizeof(mpz_t) * ROW_SIZE * 2);
+  mpz_t *buf = (mpz_t *)malloc(sizeof(mpz_t) * ROW_SIZE * 2);
   assert(buf != NULL);
   for(int i = 0; i < n - 2; ++i) {
     mpz_inits(buf[i], buf[ROW_SIZE + i], NULL);

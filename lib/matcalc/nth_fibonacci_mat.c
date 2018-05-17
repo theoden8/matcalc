@@ -159,7 +159,7 @@ static void pow_mat(mat2 *m, size_t power) {
 	clear_mat(&p);
 }
 
-void calc_nth_fib_mat(size_t power) {
+void calc_nth_fib_mat(size_t power, mpz_visitor visitor_func) {
 	mat2 f;
 	init_mat(&f);
 	mpz_set_si(f.a, 1);
@@ -167,6 +167,6 @@ void calc_nth_fib_mat(size_t power) {
 	mpz_set_si(f.c, 1);
 	mpz_set_si(f.d, 0);
 	pow_mat(&f, power);
-	gmp_printf("%Zd\n", f.a);
+  visitor_func(&f.a);
 	clear_mat(&f);
 }

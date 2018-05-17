@@ -27,7 +27,7 @@ void calc_nth_fib(const long N, mpfr_visitor visitor_func) {
 	mpfr_sub(left, left, right, MPFR_RNDD);
 	mpfr_div(f, left, sqrt_5, MPFR_RNDD);
 
-	visitor_func(f);
+	visitor_func(&f);
 
 	mpfr_clears(f, left, right, NULL);
 }

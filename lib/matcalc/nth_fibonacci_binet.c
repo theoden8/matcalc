@@ -30,7 +30,7 @@ void calc_nth_fib_binet(int n, mpfr_visitor visitor_func) {
 	mpfr_set_si(rev_phi_n, 1, MPFR_RNDD);
 	mpfr_div(rev_phi_n, rev_phi_n, phi_n, MPFR_RNDD);
 
-	void (*mpfrdo)(mpfr_t, mpfr_t, mpfr_t, mpfr_rnd_t) = (n & 1) ? mpfr_sub : mpfr_add;
+	int (*mpfrdo)(mpfr_t, const mpfr_t, const mpfr_t, mpfr_rnd_t) = (n & 1) ? mpfr_sub : mpfr_add;
 	mpfrdo(phi_n, phi_n, rev_phi_n, MPFR_RNDD);
 	mpfr_mul_ui(phix, phi, 2, MPFR_RNDD);
 	mpfr_add_si(phix, phix, -1, MPFR_RNDD);

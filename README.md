@@ -2,16 +2,17 @@
 
 ## Authors
 
-Created by Kirill Rodriguez in 2016/08.
+Created by Kirill Rodriguez.
 
 ## About
 
-This is a collection of tools useful for combinatorics, number theory and other areas of maths.
+This is a collection of tools useful for computing things in combinatorics, number theory, probability theory, mathematical analysis and other areas of maths.
 
 ## Goals
 
 * Learn to work with gmp, mpfr and c++ templates.
 * Explore different approaches on computing different mathematical functions faster.
+* Build a low overhead API.
 
 ## Features
 
@@ -19,6 +20,7 @@ This is a collection of tools useful for combinatorics, number theory and other 
 * Calculations.
 * Approximations.
 * C++ headers with compile-time definitions.
+* C++ bindings
 
 ### Keywords
 
@@ -79,14 +81,51 @@ To clean up, do
 	$ cd src
 	$ make clean
 
-## License
+## C++ Bindings
 
-The project is licensed under [WTFPL](./LICENSE) license.
+There is currently only one way to access a value from within a function: by implementing your own visitor function. This will be applied from within a function without waiting for it to clean up, 
+
+```cpp
+#include <matcalcxx/combinatorics.hpp>
+
+void print_func(const mpz_t *x) {
+	gmp_printf("%Zd\n", *x);
+}
+
+int main() {
+	printf("ack(m, n) "); combinatorics::ackermann(3, 50).print();
+	printf("a1(n, m)  "); combinatorics::a_nm_1(100, 50).print();
+	printf("a2(n, m)  "); combinatorics::a_nm_2(100, 50).print();
+	printf("cat(n)    "); combinatorics::catalan(100).print();
+	printf("c(n, k)   "); combinatorics::c_nk(100, 50).print();
+	printf("d(n)      "); combinatorics::derangement(100).print();
+	printf("fib(n)    "); combinatorics::fibonacci(100).print();
+	printf("parttn(n) "); combinatorics::npartition(100).print();
+	printf("s1(n, k)  "); combinatorics::s_nk_1(100, 50).print();
+	printf("s2(n, k)  "); combinatorics::s_nk_2(100, 50).print();
+	puts("\nbells");
+	combinatorics::sequence::bells(20).print();
+	puts("\ncatalans");
+	combinatorics::sequence::catalans(20).print();
+	puts("\ncollatz");
+	combinatorics::sequence::collatz(20).print();
+	puts("\nderangements");
+	combinatorics::sequence::derangements(20).print();
+	puts("\nfigurates");
+	combinatorics::sequence::figurates(20, 20).visit(print_func);
+}
+```
+
+Each C++ binding returns an object which can be visited, but only possesses the result after `.evaluate()` is called and until the object is destroyed.
 
 ## Analysis tools
 
 * Benchmarking
 * Comparing output
+
+## License
+
+The project is licensed under [WTFPL](./LICENSE) license.
 
 ## Contributing
 

@@ -18,7 +18,7 @@
 //	(m + 1) * a(n - 1, m) + (n - m) * a(n - 1, m - 1)
 //  }
 
-static void misc_mpz_manip_fac_ui(mpz_t src, unsigned long val, void (*manip)(mpz_t, mpz_t, mpz_t)) {
+static void misc_mpz_manip_fac_ui(mpz_t src, unsigned long val, void (*manip)(mpz_t, const mpz_t, const mpz_t)) {
 	mpz_t fac;
 	mpz_init(fac);
 	mpz_fac_ui(fac, val);

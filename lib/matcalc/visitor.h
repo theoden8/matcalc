@@ -4,13 +4,13 @@
 #include <gmp.h>
 #include <mpfr.h>
 
-void visitor_nop(void *);
+void visitor_nop(const void *);
 
-typedef void (mpz_visitor(mpz_t *));
+typedef void (mpz_visitor(const mpz_t *));
 mpz_visitor
 	mpz_printer;
 
-typedef void (mpfr_visitor(mpfr_t *));
+typedef void (mpfr_visitor(const mpfr_t *));
 mpfr_visitor
 	mpfr_printer;
 

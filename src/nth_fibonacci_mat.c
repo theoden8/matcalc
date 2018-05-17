@@ -5,5 +5,5 @@
 main(int argc, char *argv[]) {
 	if(argc != 2)
 		return EXIT_FAILURE;
-	calc_nth_fib_mat(atoi(argv[1]) - 1);
+	calc_nth_fib_mat(atoi(argv[1]) - 1, mpz_printer);
 }
