@@ -1,9 +1,5 @@
 # matcalc
 
-## Authors
-
-Created by Kirill Rodriguez.
-
 ## About
 
 This is a collection of tools useful for computing things in combinatorics, number theory, probability theory, mathematical analysis and other areas of maths.
