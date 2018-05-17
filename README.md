@@ -88,6 +88,8 @@ There is currently only one way to access a value from within a function: by imp
 ```cpp
 #include <matcalcxx/combinatorics.hpp>
 
+using namespace matcalc;
+
 void print_func(const mpz_t *x) {
 	gmp_printf("%Zd\n", *x);
 }
