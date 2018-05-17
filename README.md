@@ -16,7 +16,7 @@ This is a collection of tools useful for computing things in combinatorics, numb
 * Calculations.
 * Approximations.
 * C++ headers with compile-time definitions.
-* C++ bindings
+* C++ bindings.
 
 ### Keywords
 
