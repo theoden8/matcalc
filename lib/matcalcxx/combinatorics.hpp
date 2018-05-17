@@ -2,6 +2,8 @@
 
 #include <matcalcxx/utils.hpp>
 
+#include <matcalc/gcd_euclid.h>
+
 #include <matcalc/ackermann.h>
 #include <matcalc/a_nm_1.h>
 #include <matcalc/a_nm_2.h>
@@ -22,6 +24,18 @@
 #include <matcalc/figurate.h>
 
 namespace matcalc {
+
+namespace ntheory {
+
+using namespace util;
+
+decltype(auto) gcd(const mpz_class &a, const mpz_class &b) {
+  return make_scalar([&](mpz_visitor vfunc) mutable -> void {
+    calc_gcd_euclid(a.get_mpz_t(), b.get_mpz_t(), vfunc);
+  });
+}
+
+} // namespace ntheory
 
 namespace combinatorics {
 

@@ -5,6 +5,6 @@
 
 #include "visitor.h"
 
-bool calc_gcd_euclid(const char *left, const char *right, mpz_visitor visitor_func);
+bool calc_gcd_euclid(const mpz_t a, const mpz_t b, mpz_visitor visitor_func);
 
 #endif

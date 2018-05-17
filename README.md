@@ -95,6 +95,7 @@ void print_func(const mpz_t *x) {
 }
 
 int main() {
+	printf("gcd(a, b) "); ntheory::gcd(40320, 51840).print();
 	printf("ack(m, n) "); combinatorics::ackermann(3, 50).print();
 	printf("a1(n, m)  "); combinatorics::a_nm_1(100, 50).print();
 	printf("a2(n, m)  "); combinatorics::a_nm_2(100, 50).print();
