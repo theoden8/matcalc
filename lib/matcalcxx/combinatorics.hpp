@@ -21,6 +21,7 @@
 #include <matcalc/catalans.h>
 #include <matcalc/collatz.h>
 #include <matcalc/derangements.h>
+#include <matcalc/fibonacci.h>
 #include <matcalc/figurate.h>
 
 namespace matcalc {
@@ -134,6 +135,12 @@ decltype(auto) collatz(size_t n) {
 decltype(auto) derangements(long n) {
   return make_sequence([=](mpz_visitor vfunc) mutable -> void {
     calc_derangements(n, vfunc);
+  });
+}
+
+decltype(auto) fibonacci(size_t n) {
+  return make_sequence([=](mpz_visitor vfunc) mutable -> void {
+    calc_fibs(n, vfunc);
   });
 }
 

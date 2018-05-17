@@ -114,6 +114,8 @@ int main() {
 	combinatorics::sequence::collatz(20).print();
 	puts("\nderangements");
 	combinatorics::sequence::derangements(20).print();
+	puts("\nfibonacci");
+	combinatorics::sequence::fibonacci(20).visit(print_func);
 	puts("\nfigurates");
 	combinatorics::sequence::figurates(20, 20).visit(print_func);
 }
