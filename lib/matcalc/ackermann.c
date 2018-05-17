@@ -45,7 +45,8 @@ void calc_ackermann(int m, size_t n, mpz_visitor visitor_func) {
         //    a[3, 1..] = { 13, 2 * a[3, n - 1] + 3 }
         // by converting it to closed formula we get:
         //    a[3, n] = -3 + 2^(n + 3)
-        pow2(n, a);
+        pow2(n + 3, a);
+        mpz_sub_ui(a, a, 3);
       break;
       case 4:
         // a(4, n) = [^n + 3](2) - 3
