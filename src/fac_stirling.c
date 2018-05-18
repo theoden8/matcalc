@@ -34,17 +34,17 @@ typedef struct _sequences_t {
 #define for_seq(i, seq) for(ULONG i = 0; i < seq->size; ++i)
 
 
-bool defined(mpfr_t *number) {
+static bool defined(mpfr_t *number) {
 	return mpfr_cmp_si(*number, INTUNDEF) != 0;
 }
 
-void wait_def(mpfr_t *number) {
+static void wait_def(mpfr_t *number) {
 	while(!defined(number))
 		;
 }
 
-mpfr_t const_e;
-void nth_term(seq_t *sargs, ULONG idx) {
+static mpfr_t const_e;
+static void nth_term(seq_t *sargs, ULONG idx) {
 	static bool e_init = false;
 	if(!e_init) {
 		e_init = true;
@@ -54,9 +54,8 @@ void nth_term(seq_t *sargs, ULONG idx) {
 	mpfr_t *head = sargs->arr + idx;
 	assert(!defined(head));
 	mpfr_const_pi(*head, MPFR_RNDD);
-	mpfr_mul_ui(*head, *head, 2, MPFR_RNDD);
-	mpfr_mul_ui(*head, *head, idx, MPFR_RNDD);
-	mpfr_root(*head, *head, 2, MPFR_RNDD);
+	mpfr_mul_ui(*head, *head, idx << 1, MPFR_RNDD);
+	mpfr_sqrt(*head, *head, MPFR_RNDD);
 
 	mpfr_t ne_pow;
 	mpfr_inits2(PRECISION, ne_pow, NULL);
@@ -70,7 +69,7 @@ void nth_term(seq_t *sargs, ULONG idx) {
 	mpfr_clear(ne_pow);
 }
 
-void *calc_seq(void *args) {
+static void *calc_seq(void *args) {
 	seq_t *sargs = args;
 	for_seq(i, sargs) {
 		nth_term(sargs, i);
@@ -92,7 +91,7 @@ void fac_stirling(unsigned long long N, mpfr_visitor visitor_func) {
 	rc = pthread_create(&thrcalc, NULL, calc_seq, &sequence);
 	assert(!rc);
 	for_seq(i, (&sequence)) {
-		wait_def(sequence.arr + i);
+		wait_def(&sequence.arr[i]);
 		visitor_func(&sequence.arr[i]);
 	}
 	pthread_join(thrcalc, NULL);
@@ -107,9 +106,12 @@ void fac_stirling(unsigned long long N, mpfr_visitor visitor_func) {
 	pthread_exit(NULL);
 }
 
+#undef for_seq
+
 main(int argc, char *argv[]) {
-	if(argc != 2)
+	if(argc != 2) {
 		return EXIT_FAILURE;
+	}
 	unsigned long long N;
 	sscanf(argv[1], "%llu", &N);
 	fac_stirling(N, mpfr_printer);

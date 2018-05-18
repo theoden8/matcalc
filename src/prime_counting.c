@@ -39,6 +39,8 @@ main(int argc, char *argv[]) {
 	}
 	if(Q == 3)
 		return EXIT_SUCCESS;
-	iterate_esieve(n_primes_upper(Q), prime_counting_iter);
+  esieve_t *e = get_esieve(n_primes_upper(Q));
+	iter_esieve(e, prime_counting_iter);
+  get_esieve(E_UNDEFINED);
 	printf("%d\n", cur);
 }

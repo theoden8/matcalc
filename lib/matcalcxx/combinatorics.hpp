@@ -3,6 +3,8 @@
 #include <matcalcxx/utils.hpp>
 
 #include <matcalc/gcd_euclid.h>
+#include <matcalc/erat_sieve.h>
+#include <matcalc/euclid.h>
 
 #include <matcalc/ackermann.h>
 #include <matcalc/a_nm_1.h>
@@ -35,6 +37,30 @@ decltype(auto) gcd(const mpz_class &a, const mpz_class &b) {
     calc_gcd_euclid(a.get_mpz_t(), b.get_mpz_t(), vfunc);
   });
 }
+
+decltype(auto) prime_counting(uint32_t N, EratostheneSieve &e) {
+  return make_scalar_uint([=]() mutable -> uint32_t {
+    e.set_size(N);
+    return get_esieve_no_primes();
+  });
+}
+
+namespace sequence {
+
+decltype(auto) primes(uint32_t N, EratostheneSieve &e) {
+  return make_prime_sequence([=](prime_visitor vfunc) mutable -> void {
+    e.set_size(N);
+    iter_esieve(e.get_ptr(), vfunc);
+  });
+}
+
+decltype(auto) euclideans(long Q, EratostheneSieve &e) {
+  return make_sequence([=](mpz_visitor vfunc) mutable -> void {
+    calc_euclid(Q, mpz_printer);
+  });
+}
+
+} // namespace sequence
 
 } // namespace ntheory
 

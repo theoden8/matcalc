@@ -91,7 +91,7 @@ void print_func(const mpz_t *x) {
 }
 
 int main() {
-	printf("gcd(a, b) "); ntheory::gcd(40320, 51840).print();
+	EratostheneSieve e;
 	printf("ack(m, n) "); combinatorics::ackermann(3, 50).print();
 	printf("a1(n, m)  "); combinatorics::a_nm_1(100, 50).print();
 	printf("a2(n, m)  "); combinatorics::a_nm_2(100, 50).print();
@@ -102,6 +102,8 @@ int main() {
 	printf("parttn(n) "); combinatorics::npartition(100).print();
 	printf("s1(n, k)  "); combinatorics::s_nk_1(100, 50).print();
 	printf("s2(n, k)  "); combinatorics::s_nk_2(100, 50).print();
+	printf("gcd(a, b) "); ntheory::gcd(40320, 51840).print();
+	printf("pcount(n) "); ntheory::prime_counting(10000, e).print();
 	puts("\nbells");
 	combinatorics::sequence::bells(20).print();
 	puts("\ncatalans");
@@ -114,13 +116,16 @@ int main() {
 	combinatorics::sequence::fibonacci(20).visit(print_func);
 	puts("\nfigurates");
 	combinatorics::sequence::figurates(20, 20).visit(print_func);
+	puts("\neuclideans");
+	ntheory::sequence::euclideans(20, e).print();
+	puts("\nprimes");
+	ntheory::sequence::primes(100, e).print();
 }
 ```
 
 Each C++ binding returns an object which can be visited, but only possesses the result after `.evaluate()` is called and until the object is destroyed.
 
 ```
-gcd(a, b) 5760
 ack(m, n) 9007199254740989
 a1(n, m)  12626583048565731758704803903613273608195677189975104100350973856449564133356757386852425614117017819889941988926638004335803974817249421258019632694790596628
 a2(n, m)  9442459110242879142255785460554415489987583780467124324883239672489226442868920997694622506743558673245459194646658362701020224959186634053798588925664046630126119147660961673904128
@@ -131,6 +136,8 @@ fib(n)    31116129774182108119595549
 parttn(n) 190569292
 s1(n, k)  3183222782352964384744354120729686064175609439397055063717578668769227113071836382198739697421125692626030268475
 s2(n, k)  430983237009366340421514301547258695943520289614340613912441741131280319058853783145598261659992013900
+gcd(a, b) 5760
+pcount(n) 1229
 
 ...
 ```

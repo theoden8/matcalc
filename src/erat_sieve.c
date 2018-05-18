@@ -27,11 +27,12 @@ MODE set_mode(int argc, char *argv[]) {
 #define MCOUNT(what) if(m == COUNT) { what; }
 
 MODE m;
-uint count = 2;
+uint count = 0;
 
-void print_and_count(uint n) {
+bool print_and_count(uint n) {
 	MPRINTF("%u\n", n);
 	MCOUNT(++count);
+	return true;
 }
 
 main(int argc, char *argv[]) {
@@ -43,11 +44,11 @@ main(int argc, char *argv[]) {
 	const uint N = atol(argv[1]);
 
 	if(m == TIMING) {
-		uint *esieve = erat_sieve(N);
-		free(esieve);
+		free(erat_sieve(N).sieve);
 	} else {
-		MPRINTF("2\n3\n");
-		iterate_esieve(N, print_and_count);
+		esieve_t *e = get_esieve(N);
+		iter_esieve(e, print_and_count);
 		MCOUNT(printf("\n%d\n", count));
+    get_esieve(E_UNDEFINED);
 	}
 }

@@ -4,6 +4,7 @@
 #include <functional>
 #include <gmpxx.h>
 
+#include <matcalc/erat_sieve.h>
 #include <matcalc/visitor.h>
 
 namespace matcalc {
@@ -14,7 +15,7 @@ template <typename F> struct Scalar;
 
 template <typename F>
 decltype(auto) make_scalar(F func) {
-  return Scalar<F>(func);
+  return Scalar<decltype(func)>(func);
 }
 
 // f :: mpz_visitor -> void
@@ -99,6 +100,31 @@ struct Scalar {
 
 template <typename F> mpz_t Scalar<F>::v;
 
+template <typename F> struct ScalarUint;
+template <typename F> decltype(auto) make_scalar_uint(F func) { return ScalarUint<F>(func); }
+template <typename F> struct ScalarUint {
+  F func;
+  ScalarUint(F func):func(func){}
+
+  size_t val = ~size_t(0);
+
+  auto evaluate() {
+    if(val == ~size_t(0)) {
+      val = func();
+    }
+    return val;
+  }
+
+  template <typename Callable>
+  void visit(Callable c) {
+    c(evaluate());
+  }
+
+  void print() {
+    printf("%lu\n", evaluate());
+  }
+};
+
 
 template <typename F> struct Sequence;
 template <typename F> decltype(auto) make_sequence(F func) {
@@ -120,5 +146,52 @@ template <typename F> struct Sequence {
   }
 };
 
+
+template <typename F> struct PrimeSequence;
+
+template <typename F>
+decltype(auto) make_prime_sequence(F func) {
+  return PrimeSequence<F>(func);
+}
+
+template <typename F>
+struct PrimeSequence {
+  F func;
+  PrimeSequence(F func):
+    func(func)
+  {}
+
+  void visit(prime_visitor vfunc) {
+    func(vfunc);
+  }
+
+  void print() {
+    func(prime_printer);
+  }
+};
+
 } // namespace util
 } // namespace matcalc
+
+class EratostheneSieve {
+  esieve_t *e = nullptr;
+public:
+
+  EratostheneSieve(uint N=E_CURRENT):
+    e(get_esieve(N))
+  {}
+
+  void set_size(uint N) {
+    e = get_esieve(N);
+  }
+
+  const esieve_t *get_ptr() {
+    return e;
+  }
+
+  ~EratostheneSieve() {
+    e = get_esieve(E_UNDEFINED);
+  }
+
+  decltype(auto) operator=(const EratostheneSieve) = delete;
+};
