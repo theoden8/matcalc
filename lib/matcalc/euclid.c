@@ -10,7 +10,7 @@ static long Q;
 static mpz_visitor *euc_visitor_func = &mpz_printer;
 
 static bool euclid_iter_func(uint N) {
-	if(Q <= 0)return true;
+	if(Q <= 0)return false;
 	--Q;
 	mpz_mul_ui(euclid, euclid, N);
 	mpz_add_ui(euclid, euclid, 1);
