@@ -22,6 +22,9 @@ int main() {
   printf("gcd(a, b) "); ntheory::gcd(40320, 51840).print();
   printf("pcount(n) "); ntheory::prime_counting(10000, e).print();
   printf("n#(n)     "); ntheory::primorial(100).print();
+  printf("~e:       "); analysis::const_e().print();
+  printf("~pi:      "); analysis::const_pi().print();
+  printf("~fib(n):  "); analysis::fibonacci(100).print();
   /* auto a = combinatorics::s_nk_1(100, 50); */
   /* auto b = combinatorics::s_nk_2(100, 50); */
   /* auto c = a + b; */

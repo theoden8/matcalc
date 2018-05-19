@@ -19,7 +19,7 @@ main(int argc, char *argv[]) {
 	const long p_K = ((argc == 4) ? atol(argv[3]) : UNDEFINED);
 
 	mpfr_t pmf, p_LD, fac, cdf;
-	mpfr_inits2(PRECISION, pmf, p_LD, fac, NULL);
+	mpfr_inits2(PRECISION, p_LD, fac, NULL);
 	if(p_K != UNDEFINED) {
 		mpfr_init2(cdf, PRECISION);
 		mpfr_set_si(cdf, 0, MPFR_RNDD);
@@ -29,7 +29,7 @@ main(int argc, char *argv[]) {
 		mpfr_clears(p_LD, NULL);
 		return EXIT_FAILURE;
 	}
-	mpfr_const_e(&pmf, -1, PRECISION);
+	calc_const_e(&pmf, -1, PRECISION);
 	mpfr_pow(pmf, pmf, p_LD, MPFR_RNDD);
 	for(size_t i = 0; i < p_N; ++i) {
 		mpfr_div(pmf, pmf, p_LD, MPFR_RNDD);

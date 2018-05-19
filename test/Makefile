@@ -6,7 +6,7 @@ THRFLAGS = -D MAXTHREADS=$(shell getconf _NPROCESSORS_ONLN) -pthreads -fopenmp
 CFLAGS = $(OPTFLAGS) -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ -lgmp -lmpfr $(LDFLAGS) $(THRFLAGS)
 COBJECTS = $(wildcard *.c)
 
-CXXFLAGS = -std=c++14 -lgmpxx -lgmp $(OPTFLAGS) -I ../lib/ $(LDFLAGS) $(THRFLAGS)
+CXXFLAGS = -std=c++14 -lgmpxx -lgmp -lmpfr $(OPTFLAGS) -I ../lib/ $(LDFLAGS) $(THRFLAGS)
 CXXOBJECTS = $(wildcard *.cpp)
 
 

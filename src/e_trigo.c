@@ -7,6 +7,7 @@
 
 // e^x = sinh(x) + cosh(x)
 
+#include <matcalc/visitor.h>
 #include <matcalc/constants.h>
 
 main(int argc, char *argv[]) {
@@ -14,8 +15,7 @@ main(int argc, char *argv[]) {
 		return EXIT_FAILURE;
 	const int power = (argc == 2) ? atol(argv[1]) : 1;
 	mpfr_t e;
-	mpfr_inits2(PRECISION, e, NULL);
-	mpfr_const_e(&e, power, PRECISION);
+	calc_const_e(&e, power, PRECISION);
+	mpfr_printer(&e);
 	mpfr_clears(e, NULL);
-	mpfr_printf("%.200RNf\n", e);
 }

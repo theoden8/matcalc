@@ -48,8 +48,7 @@ static void nth_term(seq_t *sargs, ULONG idx) {
 	static bool e_init = false;
 	if(!e_init) {
 		e_init = true;
-		mpfr_init2(const_e, PRECISION);
-		mpfr_const_e(&const_e, 1, PRECISION);
+		calc_const_e(&const_e, 1, PRECISION);
 	}
 	mpfr_t *head = sargs->arr + idx;
 	assert(!defined(head));

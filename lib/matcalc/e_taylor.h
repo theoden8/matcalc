@@ -5,6 +5,6 @@
 
 #include <mpfr.h>
 
-void calc_e_taylor(int niters, int prec, mpfr_visitor visitor_func);
+void calc_e_taylor(mpfr_t e, int niters, int prec);
 
 #endif

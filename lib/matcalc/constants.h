@@ -3,7 +3,7 @@
 
 #include <mpfr.h>
 
-void mpfr_const_e(mpfr_t *e, const double power, const int precision);
+void calc_const_e(mpfr_t e, const double power, const int precision);
 
 
 #endif

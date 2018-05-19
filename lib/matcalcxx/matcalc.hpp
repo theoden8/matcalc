@@ -2,8 +2,9 @@
 
 #include <matcalcxx/utils.hpp>
 
-#include <matcalc/e_taylor.h>
-#include <matcalc/pi_arctan.h>
+#include <matcalc/constants.h>
+#include <matcalc/pi_gauss_legendre.h>
+#include <matcalc/nth_fibonacci.h>
 
 #include <matcalc/gcd_euclid.h>
 #include <matcalc/euclid.h>
@@ -37,9 +38,12 @@ namespace analysis {
 
 using namespace util;
 
-decltype(auto) const_e() {
-  return make_scalarfr([&](mpfr_visitor vfunc) mutable -> void {
-    calc_e_taylor(10000, 20000, vfunc);
+decltype(auto) const_e(int power=1) {
+  return make_scalarfr([=](mpfr_visitor vfunc) mutable -> void {
+    mpfr_t e;
+    calc_const_e(e, power, PRECISION);
+    vfunc(&e);
+    mpfr_clear(e);
   });
 }
 
@@ -47,9 +51,15 @@ decltype(auto) const_pi() {
   return make_scalarfr([&](mpfr_visitor vfunc) mutable -> void {
     mpfr_t pi;
     mpfr_inits2(20000, pi, NULL);
-    calc_pi_arctan(pi, 10000, 20000);
+    calc_pi_gauss_legendre(pi, PRECISION, PRECISION);
     vfunc(&pi);
     mpfr_clears(pi, NULL);
+  });
+}
+
+decltype(auto) fibonacci(size_t n) {
+  return make_scalarfr([=](mpfr_visitor vfunc) mutable -> void {
+    calc_nth_fib(n, vfunc);
   });
 }
 

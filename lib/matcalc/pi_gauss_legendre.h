@@ -1,7 +1,7 @@
 #ifndef PI_GAUSS_LEGENDRE_H_3Y1TH6EW
 #define PI_GAUSS_LEGENDRE_H_3Y1TH6EW
 
-#include <mpfr.h>
+#include "visitor.h"
 
 static void init_components(mpfr_t a, mpfr_t b, mpfr_t t, mpfr_t p, int precision);
 static void pi_iterate(mpfr_t a[2], mpfr_t b[2], mpfr_t t[2], mpfr_t p[2], char head, int precision);

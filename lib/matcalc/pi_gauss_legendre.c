@@ -48,6 +48,5 @@ void calc_pi_gauss_legendre(mpfr_t pi, int no_iters, int prec) {
 		pi_iterate(a, b, t, p, head, prec);
 	}
 	pi_calculate(pi, a[head], b[head], t[head]);
-	mpfr_printf("%.20000RNf\n", pi);
 	mpfr_clears(a[0], a[1], b[0], b[1], t[0], t[1], p[0], p[1], NULL);
 }
