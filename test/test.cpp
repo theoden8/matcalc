@@ -15,6 +15,7 @@ int main() {
   printf("cat(n)    "); combinatorics::catalan(100).print();
   printf("c(n, k)   "); combinatorics::c_nk(100, 50).print();
   printf("d(n)      "); combinatorics::derangement(100).print();
+  printf("fac(n)    "); combinatorics::factorial(100).print();
   printf("fib(n)    "); combinatorics::fibonacci(100).print();
   printf("parttn(n) "); combinatorics::npartition(100).print();
   printf("s1(n, k)  "); combinatorics::s_nk_1(100, 50).print();
@@ -32,6 +33,8 @@ int main() {
   combinatorics::sequence::collatz(20).print();
   puts("\nderangements");
   combinatorics::sequence::derangements(20).print();
+  puts("\nfactorials");
+  combinatorics::sequence::factorials(20).visit(print_func);
   puts("\nfibonacci");
   combinatorics::sequence::fibonacci(20).visit(print_func);
   puts("\nfigurates");
@@ -40,4 +43,6 @@ int main() {
   ntheory::sequence::euclideans(20, e).print();
   puts("\nprimes");
   ntheory::sequence::primes(100, e).print();
+  puts("\nprime_factors");
+  ntheory::sequence::prime_factors(mpz_class("128387568424628448")).print();
 }

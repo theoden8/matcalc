@@ -39,6 +39,8 @@ This is a collection of tools useful for computing things in combinatorics, numb
 * Ackermann
 * Palindromes
 * Prime sieve
+* Prime counting
+* Pollard Rho factorization
 * Collatz conjecture
 * Polynomial coefficient
 * Binomial distribution
@@ -91,35 +93,40 @@ void print_func(const mpz_t *x) {
 }
 
 int main() {
-	EratostheneSieve e;
-	printf("ack(m, n) "); combinatorics::ackermann(3, 50).print();
-	printf("a1(n, m)  "); combinatorics::a_nm_1(100, 50).print();
-	printf("a2(n, m)  "); combinatorics::a_nm_2(100, 50).print();
-	printf("cat(n)    "); combinatorics::catalan(100).print();
-	printf("c(n, k)   "); combinatorics::c_nk(100, 50).print();
-	printf("d(n)      "); combinatorics::derangement(100).print();
-	printf("fib(n)    "); combinatorics::fibonacci(100).print();
-	printf("parttn(n) "); combinatorics::npartition(100).print();
-	printf("s1(n, k)  "); combinatorics::s_nk_1(100, 50).print();
-	printf("s2(n, k)  "); combinatorics::s_nk_2(100, 50).print();
-	printf("gcd(a, b) "); ntheory::gcd(40320, 51840).print();
-	printf("pcount(n) "); ntheory::prime_counting(10000, e).print();
-	puts("\nbells");
-	combinatorics::sequence::bells(20).print();
-	puts("\ncatalans");
-	combinatorics::sequence::catalans(20).print();
-	puts("\ncollatz");
-	combinatorics::sequence::collatz(20).print();
-	puts("\nderangements");
-	combinatorics::sequence::derangements(20).print();
-	puts("\nfibonacci");
-	combinatorics::sequence::fibonacci(20).visit(print_func);
-	puts("\nfigurates");
-	combinatorics::sequence::figurates(20, 20).visit(print_func);
-	puts("\neuclideans");
-	ntheory::sequence::euclideans(20, e).print();
-	puts("\nprimes");
-	ntheory::sequence::primes(100, e).print();
+  EratostheneSieve e;
+  printf("ack(m, n) "); combinatorics::ackermann(3, 50).print();
+  printf("a1(n, m)  "); combinatorics::a_nm_1(100, 50).print();
+  printf("a2(n, m)  "); combinatorics::a_nm_2(100, 50).print();
+  printf("cat(n)    "); combinatorics::catalan(100).print();
+  printf("c(n, k)   "); combinatorics::c_nk(100, 50).print();
+  printf("d(n)      "); combinatorics::derangement(100).print();
+  printf("fac(n)    "); combinatorics::factorial(100).print();
+  printf("fib(n)    "); combinatorics::fibonacci(100).print();
+  printf("parttn(n) "); combinatorics::npartition(100).print();
+  printf("s1(n, k)  "); combinatorics::s_nk_1(100, 50).print();
+  printf("s2(n, k)  "); combinatorics::s_nk_2(100, 50).print();
+  printf("gcd(a, b) "); ntheory::gcd(40320, 51840).print();
+  printf("pcount(n) "); ntheory::prime_counting(10000, e).print();
+  puts("\nbells");
+  combinatorics::sequence::bells(20).print();
+  puts("\ncatalans");
+  combinatorics::sequence::catalans(20).print();
+  puts("\ncollatz");
+  combinatorics::sequence::collatz(20).print();
+  puts("\nderangements");
+  combinatorics::sequence::derangements(20).print();
+  puts("\nfactorials");
+  combinatorics::sequence::factorials(20).visit(print_func);
+  puts("\nfibonacci");
+  combinatorics::sequence::fibonacci(20).visit(print_func);
+  puts("\nfigurates");
+  combinatorics::sequence::figurates(20, 20).visit(print_func);
+  puts("\neuclideans");
+  ntheory::sequence::euclideans(20, e).print();
+  puts("\nprimes");
+  ntheory::sequence::primes(100, e).print();
+  puts("\nprime_factors");
+  ntheory::sequence::prime_factors(mpz_class("128387568424628448")).print();
 }
 ```
 
@@ -132,6 +139,7 @@ a2(n, m)  9442459110242879142255785460554415489987583780467124324883239672489226
 cat(n)    896519947090131496687170070074100632420837521538745909320
 c(n, k)   100891344545564193334812497256
 d(n)      34332795984163804765195977526776142032365783805375784983543400282685180793327632432791396429850988990237345920155783984828001486412574060553756854137069878601
+fac(n)    93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
 fib(n)    31116129774182108119595549
 parttn(n) 190569292
 s1(n, k)  3183222782352964384744354120729686064175609439397055063717578668769227113071836382198739697421125692626030268475
@@ -157,8 +165,7 @@ The project is licensed under [WTFPL](./LICENSE) license.
 
 If you find a problem, or optimization related to any of the programs/algorithms, do not hesitate posting an issue.
 
-## Credits
+## References
 
-* [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia)
 * [ITMO University wiki conspects](http://neerc.ifmo.ru/wiki/index.php?title=%D0%94%D0%B8%D1%81%D0%BA%D1%80%D0%B5%D1%82%D0%BD%D0%B0%D1%8F_%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0,_%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B_%D0%B8_%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85)
 * [Collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture)

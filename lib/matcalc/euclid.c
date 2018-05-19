@@ -5,18 +5,18 @@
 #include <assert.h>
 #include <math.h>
 
-static mpz_t euclid;
+static mpz_t n;
 static long Q;
-static mpz_visitor *euc_visitor_func = &mpz_printer;
+static mpz_visitor *euclid_visitor = &mpz_printer;
 
-static bool euclid_iter_func(uint N) {
+static bool euclid_iter_func(uint p) {
 	if(Q <= 0)return false;
 	--Q;
-	mpz_mul_ui(euclid, euclid, N);
-	mpz_add_ui(euclid, euclid, 1);
+	mpz_mul_ui(n, n, p);
+	mpz_add_ui(n, n, 1);
 	/* printf("real bound... %u\n", N); */
-	euc_visitor_func(&euclid);
-	mpz_sub_ui(euclid, euclid, 1);
+	euclid_visitor(&n);
+	mpz_sub_ui(n, n, 1);
 	return true;
 }
 
@@ -41,14 +41,11 @@ void calc_euclid(uint q, mpz_visitor visitor_func) {
 		visit(3, visitor_func);
 		return;
 	}
-	mpz_inits(euclid, NULL);
-	visit(3, visitor_func);
-	visit(7, visitor_func);
-	q -= 2;
-	mpz_set_si(euclid, 6);
+	mpz_inits(n, NULL);
+	mpz_set_si(n, 1);
 	/* printf("upper bound %u\n", n_primes_upper(Q + 2)); */
-	esieve_t *e = get_esieve(n_primes_upper(q + 2));
-	euc_visitor_func = visitor_func;
+	esieve_t *e = get_esieve(n_primes_upper(Q));
+	euclid_visitor = visitor_func;
 	iter_esieve(e, euclid_iter_func);
-	mpz_clears(euclid, NULL);
+	mpz_clears(n, NULL);
 }

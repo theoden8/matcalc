@@ -3,8 +3,9 @@
 #include <matcalcxx/utils.hpp>
 
 #include <matcalc/gcd_euclid.h>
-#include <matcalc/erat_sieve.h>
 #include <matcalc/euclid.h>
+#include <matcalc/erat_sieve.h>
+#include <matcalc/factorization_pollard_rho.h>
 
 #include <matcalc/ackermann.h>
 #include <matcalc/a_nm_1.h>
@@ -47,6 +48,12 @@ decltype(auto) prime_counting(uint32_t N, EratostheneSieve &e) {
 
 namespace sequence {
 
+decltype(auto) euclideans(long Q, EratostheneSieve &e) {
+  return make_sequence([=](mpz_visitor vfunc) mutable -> void {
+    calc_euclid(Q, mpz_printer);
+  });
+}
+
 decltype(auto) primes(uint32_t N, EratostheneSieve &e) {
   return make_prime_sequence([=](prime_visitor vfunc) mutable -> void {
     e.set_size(N);
@@ -54,9 +61,9 @@ decltype(auto) primes(uint32_t N, EratostheneSieve &e) {
   });
 }
 
-decltype(auto) euclideans(long Q, EratostheneSieve &e) {
-  return make_sequence([=](mpz_visitor vfunc) mutable -> void {
-    calc_euclid(Q, mpz_printer);
+decltype(auto) prime_factors(const mpz_class n) {
+  return make_sequence([&](mpz_visitor vfunc) mutable -> void {
+    calc_prime_factors_pollard_rho(n.get_mpz_t(), vfunc);
   });
 }
 
@@ -92,7 +99,7 @@ decltype(auto) catalan(size_t n) {
   });
 }
 
-decltype(auto) c_nk(size_t n, size_t k) {
+decltype(auto) c_nk(long n, long k) {
   return make_scalar([=](mpz_visitor vfunc) mutable -> void {
     calc_c_nk(n, k, vfunc);
   });
@@ -101,6 +108,16 @@ decltype(auto) c_nk(size_t n, size_t k) {
 decltype(auto) derangement(size_t n) {
   return make_scalar([=](mpz_visitor vfunc) mutable -> void {
     calc_nth_derangement(n, vfunc);
+  });
+}
+
+decltype(auto) factorial(size_t n) {
+  return make_scalar([=](mpz_visitor vfunc) mutable -> void {
+    mpz_t f;
+    mpz_init(f);
+    mpz_fac_ui(f, n);
+    vfunc(&f);
+    mpz_clear(f);
   });
 }
 
@@ -161,6 +178,19 @@ decltype(auto) collatz(size_t n) {
 decltype(auto) derangements(long n) {
   return make_sequence([=](mpz_visitor vfunc) mutable -> void {
     calc_derangements(n, vfunc);
+  });
+}
+
+decltype(auto) factorials(size_t n) {
+  return make_sequence([=](mpz_visitor vfunc) mutable -> void {
+    mpz_t f;
+    mpz_init_set_d(f, 1);
+    vfunc(&f);
+    for(size_t i = 1; i <= n; ++i) {
+      mpz_mul_ui(f, f, i);
+      vfunc(&f);
+    }
+    mpz_clear(f);
   });
 }
 

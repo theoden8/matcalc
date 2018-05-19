@@ -17,5 +17,5 @@ main(const argc, char *argv[]) {
 	if(Q < 0)
 		return EXIT_FAILURE;
 	calc_euclid(Q, mpz_printer);
-  get_esieve(E_UNDEFINED);
+	get_esieve(E_UNDEFINED);
 }

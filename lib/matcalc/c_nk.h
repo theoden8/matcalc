@@ -16,6 +16,6 @@ typedef struct _thrfac_t {
 	unsigned int base;
 } thrfac_t;
 
-void calc_c_nk(size_t n, size_t k, mpz_visitor visitor_func);
+void calc_c_nk(long n, long k, mpz_visitor visitor_func);
 
 #endif
