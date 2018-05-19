@@ -1,5 +1,4 @@
-#include <iostream>
-#include <matcalcxx/combinatorics.hpp>
+#include <matcalcxx/matcalc.hpp>
 
 using namespace matcalc;
 
@@ -22,6 +21,7 @@ int main() {
   printf("s2(n, k)  "); combinatorics::s_nk_2(100, 50).print();
   printf("gcd(a, b) "); ntheory::gcd(40320, 51840).print();
   printf("pcount(n) "); ntheory::prime_counting(10000, e).print();
+  printf("n#(n)     "); ntheory::primorial(100).print();
   /* auto a = combinatorics::s_nk_1(100, 50); */
   /* auto b = combinatorics::s_nk_2(100, 50); */
   /* auto c = a + b; */

@@ -12,6 +12,5 @@ main(int argc, char *argv[]) {
 	if(argc != 2)
 		return EXIT_FAILURE;
 	const long N = atol(argv[1]);
-	mpfr_t E;
-	calc_e_taylor(E, N, 20000);
+	calc_e_taylor(N, 20000, mpfr_printer);
 }

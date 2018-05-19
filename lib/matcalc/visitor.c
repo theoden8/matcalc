@@ -8,6 +8,12 @@ void mpz_printer(const mpz_t *val) {
 #endif
 }
 
+void mpf_printer(const mpf_t *val) {
+#ifndef NPRINT
+	gmp_printf("%f\n", *val);
+#endif
+}
+
 void mpfr_printer(const mpfr_t *val) {
 #ifndef NPRINT
 	mpfr_printf("%.200RNf\n", *val);

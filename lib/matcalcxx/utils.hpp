@@ -6,6 +6,7 @@
 
 #include <matcalc/erat_sieve.h>
 #include <matcalc/visitor.h>
+#include <matcalc/probability.h>
 
 namespace matcalc {
 
@@ -124,6 +125,40 @@ template <typename F> struct ScalarUint {
     printf("%lu\n", evaluate());
   }
 };
+
+template <typename F> struct ScalarFR;
+
+template <typename F> decltype(auto) make_scalarfr(F func) { return ScalarFR<F>(func); }
+
+template <typename F>
+struct ScalarFR {
+  F func;
+  ScalarFR(F func):
+    func(func)
+  {
+    mpfr_inits2(PRECISION, v, NULL);
+    mpfr_set_si(v, 0, MPFR_RNDN);
+  }
+
+  static mpfr_t v;
+  static void assign(mpfr_t *z) {
+    mpfr_set(v, *z, MPFR_RNDN);
+  }
+
+  ~ScalarFR() {
+    mpfr_clear(v);
+  }
+
+  void visit(mpz_visitor vfunc) {
+    func(vfunc);
+  }
+
+  void print() {
+    func(mpfr_printer);
+  }
+};
+
+template <typename F> mpfr_t ScalarFR<F>::v;
 
 
 template <typename F> struct Sequence;

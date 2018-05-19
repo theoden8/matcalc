@@ -10,6 +10,10 @@ typedef void (mpz_visitor(const mpz_t *));
 mpz_visitor
 	mpz_printer;
 
+typedef void (mpf_visitor(const mpf_t *));
+mpf_visitor
+	mpf_printer;
+
 typedef void (mpfr_visitor(const mpfr_t *));
 mpfr_visitor
 	mpfr_printer;

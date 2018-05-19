@@ -53,18 +53,18 @@ static void nth_term(seq_t *sargs, ULONG idx) {
 	}
 	mpfr_t *head = sargs->arr + idx;
 	assert(!defined(head));
-	mpfr_const_pi(*head, MPFR_RNDD);
-	mpfr_mul_ui(*head, *head, idx << 1, MPFR_RNDD);
-	mpfr_sqrt(*head, *head, MPFR_RNDD);
+	mpfr_const_pi(*head, MPFR_RNDN);
+	mpfr_mul_ui(*head, *head, idx << 1, MPFR_RNDN);
+	mpfr_sqrt(*head, *head, MPFR_RNDN);
 
 	mpfr_t ne_pow;
 	mpfr_inits2(PRECISION, ne_pow, NULL);
 
-	mpfr_set_d(ne_pow, idx, MPFR_RNDD); // n
-	mpfr_div(ne_pow, ne_pow, const_e, MPFR_RNDD); // n / e
-	mpfr_pow_ui(ne_pow, ne_pow, idx, MPFR_RNDD); // (n / e) ^ n
+	mpfr_set_d(ne_pow, idx, MPFR_RNDN); // n
+	mpfr_div(ne_pow, ne_pow, const_e, MPFR_RNDN); // n / e
+	mpfr_pow_ui(ne_pow, ne_pow, idx, MPFR_RNDN); // (n / e) ^ n
 
-	mpfr_mul(*head, *head, ne_pow, MPFR_RNDD);
+	mpfr_mul(*head, *head, ne_pow, MPFR_RNDN);
 
 	mpfr_clear(ne_pow);
 }
@@ -82,7 +82,7 @@ void fac_stirling(unsigned long long N, mpfr_visitor visitor_func) {
 	seq_t sequence = { arr, N };
 	for_seq(i, (&sequence)) {
 		mpfr_init2(sequence.arr[i], PRECISION);
-		mpfr_set_si(sequence.arr[i], INTUNDEF, MPFR_RNDD);
+		mpfr_set_si(sequence.arr[i], INTUNDEF, MPFR_RNDN);
 	}
 
 	pthread_t thrcalc;

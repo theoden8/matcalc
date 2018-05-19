@@ -26,6 +26,7 @@ This is a collection of tools useful for computing things in combinatorics, numb
 * Factorial
 * Factorions
 * Euclidean numbers
+* Primorials
 * Binomial coefficient
 * Derangements
 * Catalan numbers
@@ -107,6 +108,7 @@ int main() {
   printf("s2(n, k)  "); combinatorics::s_nk_2(100, 50).print();
   printf("gcd(a, b) "); ntheory::gcd(40320, 51840).print();
   printf("pcount(n) "); ntheory::prime_counting(10000, e).print();
+  printf("n#(n)     "); ntheory::primorial(100).print();
   puts("\nbells");
   combinatorics::sequence::bells(20).print();
   puts("\ncatalans");
@@ -146,6 +148,7 @@ s1(n, k)  3183222782352964384744354120729686064175609439397055063717578668769227
 s2(n, k)  430983237009366340421514301547258695943520289614340613912441741131280319058853783145598261659992013900
 gcd(a, b) 5760
 pcount(n) 1229
+n#(n)     2305567963945518424753102147331756070
 
 ...
 ```

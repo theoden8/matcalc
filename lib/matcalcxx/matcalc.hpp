@@ -2,10 +2,14 @@
 
 #include <matcalcxx/utils.hpp>
 
+#include <matcalc/e_taylor.h>
+#include <matcalc/pi_arctan.h>
+
 #include <matcalc/gcd_euclid.h>
 #include <matcalc/euclid.h>
 #include <matcalc/erat_sieve.h>
 #include <matcalc/factorization_pollard_rho.h>
+#include <matcalc/nth_primorial.h>
 
 #include <matcalc/ackermann.h>
 #include <matcalc/a_nm_1.h>
@@ -29,6 +33,31 @@
 
 namespace matcalc {
 
+namespace analysis {
+
+using namespace util;
+
+decltype(auto) const_e() {
+  return make_scalarfr([&](mpfr_visitor vfunc) mutable -> void {
+    calc_e_taylor(10000, 20000, vfunc);
+  });
+}
+
+decltype(auto) const_pi() {
+  return make_scalarfr([&](mpfr_visitor vfunc) mutable -> void {
+    mpfr_t pi;
+    mpfr_inits2(20000, pi, NULL);
+    calc_pi_arctan(pi, 10000, 20000);
+    vfunc(&pi);
+    mpfr_clears(pi, NULL);
+  });
+}
+
+namespace sequence {
+} // namespace sequence
+
+} // namespace analysis
+
 namespace ntheory {
 
 using namespace util;
@@ -43,6 +72,12 @@ decltype(auto) prime_counting(uint32_t N, EratostheneSieve &e) {
   return make_scalar_uint([=]() mutable -> uint32_t {
     e.set_size(N);
     return get_esieve_no_primes();
+  });
+}
+
+decltype(auto) primorial(size_t n) {
+  return make_scalar([=](mpz_visitor vfunc) mutable -> void {
+    calc_nth_primorial(n, vfunc);
   });
 }
 
