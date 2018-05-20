@@ -5,12 +5,27 @@
 #include "mattemp.hpp"
 
 
-template <uint A, uint B> struct GCD {
-	declare (A > B) ? GCD<A % B, B>::n : (A < B) ? GCD<A, B % A>::n : A;
-};
-template <uint A> struct GCD <A, 0> { declare A; };
-template <uint B> struct GCD <0, B> { declare B; };
+namespace detail {
 
+template <uint A, uint B> struct cmp_struct {
+	static constexpr int n = (A > B) ? 1 : (A == B) ? 0 : -1;
+};
+
+template <uint A, uint B, int cmp = cmp_struct<A, B>::n> struct gcd_struct;
+
+template <uint A, uint B> struct gcd_struct <A, B, 1> { declare gcd_struct<A % B, B>::n; };
+template <uint A, uint B> struct gcd_struct <A, B, 0> { declare A; };
+template <uint A, uint B> struct gcd_struct <A, B, -1> { declare gcd_struct<A, B % A>::n; };
+template <uint A> struct gcd_struct<A, 0, 1> { declare A; };
+template <uint A> struct gcd_struct<A, 0, 0> { declare A; };
+template <uint B> struct gcd_struct<0, B, -1> { declare B; };
+template <uint B> struct gcd_struct<0, B, 0> { declare B; };
+
+} // namespace detail
+
+template <uint A, uint B> struct GCD {
+	declare detail::gcd_struct<A, B>::n;
+};
 template <uint A, uint B> superconst uint gcd = GCD<A, B>::n;
 
 
