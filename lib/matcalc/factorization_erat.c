@@ -6,7 +6,7 @@ static uint get_sieve_size(const mpz_t x) {
 	mpz_t xsqrt;
 	mpz_init(xsqrt);
 	mpz_sqrt(xsqrt, x);
-	const uint max_sieve = (uint)1e12;
+	const uint max_sieve = (uint)1e9;
 	uint sieve_size = E_CURRENT;
 	if(mpz_cmp_ui(xsqrt, max_sieve) > 0) {
 		sieve_size = max_sieve;
