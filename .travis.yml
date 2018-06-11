@@ -1,0 +1,39 @@
+language: cpp
+compiler: g++
+sudo: required
+dist: trusty
+os:
+  - linux
+
+compiler:
+  - gcc
+  - clang
+
+branches:
+  only: master
+
+matrix:
+  fast-finish: true
+
+notifications:
+  email: false
+
+addons:
+  apt:
+    sources:
+      - llvm-toolchain-trusty-6.0
+      - ubuntu-toolchain-r-test
+      - source-line: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
+        key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+    packages:
+      - cmake
+      - python-yaml
+      - gcc-8
+      - g++-8
+      - clang-6.0
+      - libc++-dev
+      - libgmp
+
+script:
+  - make
+  - ./test/bin/test
