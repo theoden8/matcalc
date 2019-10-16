@@ -1,13 +1,13 @@
 language: cpp
 compiler: g++
 sudo: required
-dist: trusty
+dist: xenial
 os:
   - linux
 
 compiler:
   - gcc
-  - clang
+  # - clang
 
 branches:
   only: master
@@ -21,19 +21,20 @@ notifications:
 addons:
   apt:
     sources:
-      - llvm-toolchain-trusty-6.0
       - ubuntu-toolchain-r-test
-      - source-line: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
-        key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
     packages:
       - cmake
       - python-yaml
-      - gcc-8
-      - g++-8
-      - clang-6.0
+      - gcc-9
+      - g++-9
+      # - llvm
+      # - clang
       - libc++-dev
-      - libgmp
+      - libgmp3-dev
+      - libmpfr-dev
+      - libmpfrc++-dev
 
 script:
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 50 --slave /usr/bin/g++ g++ /usr/bin/g++-9
   - make
   - ./test/bin/test

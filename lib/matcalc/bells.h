@@ -1,6 +1,7 @@
 #ifndef BELLS_H_48CXAON2
 #define BELLS_H_48CXAON2
 
+#include <stdlib.h>
 #include <assert.h>
 
 #include "visitor.h"

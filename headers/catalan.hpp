@@ -6,11 +6,11 @@
 #include "c_nk.hpp"
 
 
-template <uint N> struct Catalan {
+template <muint N> struct Catalan {
 	declare C_NK<2 * N, N>::n / (N + 1);
 };
 
-template <uint N> superconst uint catalan = Catalan<N>::n;
+template <muint N> superconst muint catalan = Catalan<N>::n;
 
 
 void statictest_catalan() {

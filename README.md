@@ -1,3 +1,5 @@
+<img align="left" width="150" src="https://travis-ci.org/theoden8/matcalc.svg?branch=master"><br>
+
 # matcalc
 
 ## About
@@ -82,7 +84,7 @@ To clean up, do
 
 ## C++ Bindings
 
-There is currently only one way to access a value from within a function: by implementing your own visitor function. This will be applied from within a function without waiting for it to clean up, 
+There is currently only one way to access a value from within a function: by implementing your own visitor function. This will be applied from within a function without waiting for it to clean up,
 
 ```cpp
 #include <matcalcxx/combinatorics.hpp>

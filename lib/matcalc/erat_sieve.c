@@ -1,5 +1,6 @@
 #include "erat_sieve.h"
 
+#include <limits.h>
 #include <stdio.h>
 
 typedef struct _int_it {

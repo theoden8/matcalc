@@ -5,14 +5,14 @@
 #include "mattemp.hpp"
 
 
-template <uint N, uint K> struct C_NK {
+template <muint N, muint K> struct C_NK {
 	declare C_NK<N - 1, K - 1>::n + C_NK<N - 1, K>::n;
 };
-template <uint N> struct C_NK <N, N> { declare 1; };
-template <uint N> struct C_NK <N, 0> { declare 1; };
+template <muint N> struct C_NK <N, N> { declare 1; };
+template <muint N> struct C_NK <N, 0> { declare 1; };
 template <> struct C_NK <0, 0> { declare 1; };
 
-template <uint N, uint K> superconst uint c_nk = C_NK<N, K>::n;
+template <muint N, muint K> superconst muint c_nk = C_NK<N, K>::n;
 
 void statictest_cnk() {
 	static_assert(c_nk<0, 0> == 1, "");

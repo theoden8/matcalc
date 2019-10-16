@@ -3,6 +3,8 @@
 
 #include "visitor.h"
 
+#include <stdlib.h>
+
 static void init_components(mpfr_t a, mpfr_t b, mpfr_t t, mpfr_t p, int precision);
 static void pi_iterate(mpfr_t a[2], mpfr_t b[2], mpfr_t t[2], mpfr_t p[2], char head, int precision);
 static void pi_calculate(mpfr_t pi, mpfr_t a, mpfr_t b, mpfr_t t);

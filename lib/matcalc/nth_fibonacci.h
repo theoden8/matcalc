@@ -1,6 +1,8 @@
 #ifndef NTH_FIBONACCI_H_FKUSC6CA
 #define NTH_FIBONACCI_H_FKUSC6CA
 
+#include <stdlib.h>
+
 #include "visitor.h"
 
 #define PRECISION 1000

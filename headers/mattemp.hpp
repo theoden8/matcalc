@@ -1,39 +1,40 @@
 #ifndef MATTEMP_HPP_NMTDKPFC
 #define MATTEMP_HPP_NMTDKPFC
 
+#include <cstdint>
 #include <cstdlib>
 
 // matcalc in compile time
 
 #define superconst const constexpr
-#define declare static superconst uint n =
+#define declare static superconst muint n =
 #define redeclare static superconst real n =
 
-typedef unsigned long long uint;
+typedef uint64_t muint;
 typedef long long sint;
 typedef long double real;
 
-template <uint N> struct Value { declare N; };
-template <uint N, uint D> struct Fraction {
+template <muint N> struct Value { declare N; };
+template <muint N, muint D> struct Fraction {
 	superconst static auto _n = N, _d = D;
 	redeclare real(N) / real(D);
 };
 template <class A, class B> struct Min { declare (A::n < B::n) ? A::n : B::n; };
 template <class A, class B> struct Max { declare (A::n > B::n) ? A::n : B::n; };
 
-template <uint N> constexpr uint value() {
+template <muint N> constexpr muint value() {
 	return N;
 }
 
-template <uint N, uint D> constexpr real frac() {
+template <muint N, muint D> constexpr real frac() {
 	return Fraction<N, D>::n;
 }
 
-template <class A, class B> constexpr uint mmin() {
+template <class A, class B> constexpr muint mmin() {
 	return Min<A, B>::n;
 }
 
-template <class A, class B> constexpr uint mmax() {
+template <class A, class B> constexpr muint mmax() {
 	return Max<A, B>::n;
 }
 

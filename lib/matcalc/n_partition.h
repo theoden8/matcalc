@@ -1,6 +1,7 @@
 #ifndef N_PARTITION_H_N54N2YTP
 #define N_PARTITION_H_N54N2YTP
 
+#include <stdlib.h>
 #include <gmp.h>
 #include <omp.h>
 

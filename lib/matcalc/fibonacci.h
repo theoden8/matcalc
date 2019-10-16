@@ -1,6 +1,7 @@
 #ifndef FIBONACCI_H_Q8GXRZBC
 #define FIBONACCI_H_Q8GXRZBC
 
+#include <stdlib.h>
 #include <stdbool.h>
 
 #include "visitor.h"

@@ -1,6 +1,8 @@
 #ifndef A_NM_1_H_HBXK3GDJ
 #define A_NM_1_H_HBXK3GDJ
 
+#include <stdlib.h>
+
 #include <gmp.h>
 
 #include "visitor.h"

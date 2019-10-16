@@ -6,19 +6,19 @@
 #include "pow.hpp"
 
 
-template <uint M, uint N> struct Ackermann {
+template <muint M, muint N> struct Ackermann {
 	declare Ackermann<M - 1, Ackermann<M, N - 1>::n>::n;
 };
-/* template <uint M> struct Ackermann <M, 0> { declare Ackermann<M - 1, 1>::n;  }; */
-template <uint N> struct Ackermann <0, N> { declare N + 1; };
-template <uint N> struct Ackermann <1, N> { declare N + 2; };
-template <uint N> struct Ackermann <2, N> { declare 2 * N + 3; };
-template <uint N> struct Ackermann <3, N> { declare -3 + 8 * Power<2, N>::n; };
-template <uint N> struct Ackermann <4, N> { declare Power<2, Ackermann<4, N - 1>::n + 3>::n - 3; };
+/* template <muint M> struct Ackermann <M, 0> { declare Ackermann<M - 1, 1>::n;  }; */
+template <muint N> struct Ackermann <0, N> { declare N + 1; };
+template <muint N> struct Ackermann <1, N> { declare N + 2; };
+template <muint N> struct Ackermann <2, N> { declare 2 * N + 3; };
+template <muint N> struct Ackermann <3, N> { declare -3 + 8 * Power<2, N>::n; };
+template <muint N> struct Ackermann <4, N> { declare Power<2, Ackermann<4, N - 1>::n + 3>::n - 3; };
 template <> struct Ackermann <4, 0> { declare 13; };
 template <> struct Ackermann <0, 0> { declare 1; };
 
-template <uint M, uint N> superconst uint ack = Ackermann<M, N>::n;
+template <muint M, muint N> superconst muint ack = Ackermann<M, N>::n;
 
 void statictest_ack() {
 	static_assert(ack<0, 0> == 1, "");

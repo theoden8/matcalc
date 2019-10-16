@@ -5,12 +5,12 @@
 #include "mattemp.hpp"
 #include "pow.hpp"
 
-template <uint N> struct Factorial {
+template <muint N> struct Factorial {
 	declare N * Factorial<N - 1>::n;
 };
 template <> struct Factorial <0> { declare 1; };
 
-template <uint N> superconst uint fac = Factorial<N>::n;
+template <muint N> superconst muint fac = Factorial<N>::n;
 
 void statictest_fac() {
 	static_assert(fac<0> == 1, "");

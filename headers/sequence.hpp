@@ -6,15 +6,15 @@
 #include "mattemp.hpp"
 
 
-template <uint F, uint... Rs> struct SumArgs {
+template <muint F, muint... Rs> struct SumArgs {
 	declare F + SumArgs<Rs...>::n;
 };
-template <uint F> struct SumArgs <F> { declare F; };
+template <muint F> struct SumArgs <F> { declare F; };
 
-template <uint L, uint N, template <uint> class Sequence> struct SubseqSum {
+template <muint L, muint N, template <muint> class Sequence> struct SubseqSum {
 	declare Sequence<L>::n + SubseqSum<L + 1, N - 1, Sequence>::n;
 };
-template <uint L, template <uint> class Sequence> struct SubseqSum <L, 0, Sequence> {
+template <muint L, template <muint> class Sequence> struct SubseqSum <L, 0, Sequence> {
 	declare 0;
 };
 

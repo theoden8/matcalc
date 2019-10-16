@@ -1,6 +1,7 @@
 #ifndef NTH_CATALAN_H_JTUC9HQK
 #define NTH_CATALAN_H_JTUC9HQK
 
+#include <stdlib.h>
 #include <gmp.h>
 
 #include "visitor.h"

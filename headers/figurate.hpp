@@ -5,11 +5,11 @@
 #include "mattemp.hpp"
 
 
-template <uint K, uint N> struct Figurate {
+template <muint K, muint N> struct Figurate {
 	declare N * (2 + (K - 2) * (N - 1)) / 2;
 };
 
-template <uint K, uint N> superconst uint figurate = Figurate<K, N>::n;
+template <muint K, muint N> superconst muint figurate = Figurate<K, N>::n;
 
 void statictest_fig() {
 	static_assert(figurate<3, 1> == 1, "");

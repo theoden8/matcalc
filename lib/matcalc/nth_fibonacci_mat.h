@@ -3,6 +3,7 @@
 
 #include "visitor.h"
 
+#include <stdlib.h>
 #include <gmp.h>
 
 #define MAXTHREADS 8

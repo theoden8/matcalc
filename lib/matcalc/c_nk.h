@@ -3,6 +3,7 @@
 
 #include "visitor.h"
 
+#include <stdlib.h>
 #include <pthread.h>
 #include <gmp.h>
 

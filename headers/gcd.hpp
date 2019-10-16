@@ -7,26 +7,26 @@
 
 namespace detail {
 
-template <uint A, uint B> struct cmp_struct {
+template <muint A, muint B> struct cmp_struct {
 	static constexpr int n = (A > B) ? 1 : (A == B) ? 0 : -1;
 };
 
-template <uint A, uint B, int cmp = cmp_struct<A, B>::n> struct gcd_struct;
+template <muint A, muint B, int cmp = cmp_struct<A, B>::n> struct gcd_struct;
 
-template <uint A, uint B> struct gcd_struct <A, B, 1> { declare gcd_struct<A % B, B>::n; };
-template <uint A, uint B> struct gcd_struct <A, B, 0> { declare A; };
-template <uint A, uint B> struct gcd_struct <A, B, -1> { declare gcd_struct<A, B % A>::n; };
-template <uint A> struct gcd_struct<A, 0, 1> { declare A; };
-template <uint A> struct gcd_struct<A, 0, 0> { declare A; };
-template <uint B> struct gcd_struct<0, B, -1> { declare B; };
-template <uint B> struct gcd_struct<0, B, 0> { declare B; };
+template <muint A, muint B> struct gcd_struct <A, B, 1> { declare gcd_struct<A % B, B>::n; };
+template <muint A, muint B> struct gcd_struct <A, B, 0> { declare A; };
+template <muint A, muint B> struct gcd_struct <A, B, -1> { declare gcd_struct<A, B % A>::n; };
+template <muint A> struct gcd_struct<A, 0, 1> { declare A; };
+template <muint A> struct gcd_struct<A, 0, 0> { declare A; };
+template <muint B> struct gcd_struct<0, B, -1> { declare B; };
+template <muint B> struct gcd_struct<0, B, 0> { declare B; };
 
 } // namespace detail
 
-template <uint A, uint B> struct GCD {
+template <muint A, muint B> struct GCD {
 	declare detail::gcd_struct<A, B>::n;
 };
-template <uint A, uint B> superconst uint gcd = GCD<A, B>::n;
+template <muint A, muint B> superconst muint gcd = GCD<A, B>::n;
 
 
 void statictest_gcd() {
@@ -40,7 +40,7 @@ void statictest_gcd() {
 	static_assert(gcd<99999999, 100000000> == 1, "");
 }
 
-template <uint A, uint B> struct Coprime { declare (GCD<A, B>::n == 1) ? 1 : 0; };
+template <muint A, muint B> struct Coprime { declare (GCD<A, B>::n == 1) ? 1 : 0; };
 
 void statictest_coprime() {
 	static_assert(Coprime<1, 1>::n == 1, "");

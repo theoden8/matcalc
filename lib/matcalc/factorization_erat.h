@@ -3,6 +3,7 @@
 
 #include "erat_sieve.h"
 
+#include <stdlib.h>
 #include <gmp.h>
 
 void calc_prime_factors_erat(const mpz_t n, prime_visitor visitor_func);

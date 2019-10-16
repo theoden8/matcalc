@@ -1,6 +1,8 @@
 #ifndef NTH_FIBONACCI_BINET_H_ASARNCR8
 #define NTH_FIBONACCI_BINET_H_ASARNCR8
 
+#include <stdlib.h>
+
 #include "visitor.h"
 
 #define PRECISION 500

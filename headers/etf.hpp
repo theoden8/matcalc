@@ -6,19 +6,19 @@
 #include "gcd.hpp"
 
 
-template <uint I, uint N> struct ETFLoopCoprimes {
+template <muint I, muint N> struct ETFLoopCoprimes {
 	declare Coprime<I, N>::n + ETFLoopCoprimes<I - 1, N>::n;
 };
-template <uint N> struct ETFLoopCoprimes <1, N> { declare Coprime<1, N>::n; };
+template <muint N> struct ETFLoopCoprimes <1, N> { declare Coprime<1, N>::n; };
 
 
-template <uint N> struct ETF {
+template <muint N> struct ETF {
 	declare ETFLoopCoprimes<N - 1, N>::n;
 };
 template <> struct ETF <1> { declare 1; };
 
 
-template <uint N> superconst uint etf = ETF<N>::n;
+template <muint N> superconst muint etf = ETF<N>::n;
 
 void statictest_etf() {
 	static_assert(etf<1> == 1, "");

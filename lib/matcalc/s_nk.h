@@ -1,6 +1,7 @@
 #ifndef S_NK_H_SFA03QPJ
 #define S_NK_H_SFA03QPJ
 
+#include <stdlib.h>
 #include <gmp.h>
 
 #ifndef MAXTHREADS

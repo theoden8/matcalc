@@ -6,14 +6,14 @@
 #include "pow.hpp"
 
 
-template <uint F, uint ... Ns> struct ExponentArgs {
+template <muint F, muint ... Ns> struct ExponentArgs {
 	declare Power<F, ExponentArgs<Ns...>::n>::n;
 };
 template <> struct ExponentArgs <0> { declare 0; };
 template <> struct ExponentArgs <1> { declare 1; };
-template <uint... Ns> struct ExponentArgs <0, Ns...> { declare ExponentArgs<0>::n; };
-template <uint... Ns> struct ExponentArgs <1, Ns...> { declare ExponentArgs<1>::n; };
-template <uint F> struct ExponentArgs <F> { declare F; };
+template <muint... Ns> struct ExponentArgs <0, Ns...> { declare ExponentArgs<0>::n; };
+template <muint... Ns> struct ExponentArgs <1, Ns...> { declare ExponentArgs<1>::n; };
+template <muint F> struct ExponentArgs <F> { declare F; };
 
 
 void statictest_exps() {
@@ -25,12 +25,12 @@ void statictest_exps() {
 }
 
 
-template <uint N, uint T> struct Tetration {
+template <muint N, muint T> struct Tetration {
 	declare Power<N, Tetration<N, T - 1>::n>::n;
 };
-template <uint N> struct Tetration <N, 0> { declare 1; };
+template <muint N> struct Tetration <N, 0> { declare 1; };
 
-template <uint N, uint T> constexpr uint tetration = Tetration<N, T>::n;
+template <muint N, muint T> constexpr muint tetration = Tetration<N, T>::n;
 
 void statictest_tetration() {
 	static_assert(tetration<2, 0> == 1, "");

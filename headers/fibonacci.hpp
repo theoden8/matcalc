@@ -5,13 +5,13 @@
 #include "mattemp.hpp"
 
 
-template <uint N> struct Fibonacci {
+template <muint N> struct Fibonacci {
 	declare Fibonacci<N - 2>::n + Fibonacci<N - 1>::n;
 };
 template <> struct Fibonacci <1> { declare 1; };
 template <> struct Fibonacci <2> { declare 1; };
 
-template <uint N> superconst uint fib = Fibonacci<N>::n;
+template <muint N> superconst muint fib = Fibonacci<N>::n;
 
 void statictest_fib() {
 	static_assert(fib<1> == 1, "");

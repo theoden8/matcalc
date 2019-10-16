@@ -3,6 +3,8 @@
 
 #include "visitor.h"
 
+#include <stdlib.h>
+
 void calc_figurate(long k, long n, mpz_visitor visitor_func);
 
 #endif

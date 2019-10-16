@@ -7,10 +7,10 @@
 #include "tetration.hpp"
 
 
-template <uint N, uint P, template <uint, uint...> class Join> struct HyperOperation {
+template <muint N, muint P, template <muint, muint...> class Join> struct HyperOperation {
 	declare Join<N, HyperOperation<N, P - 1, Join>::n >::n;
 };
-template <uint N, template <uint, uint...> class Join> struct HyperOperation <N, 0, Join> {
+template <muint N, template <muint, muint...> class Join> struct HyperOperation <N, 0, Join> {
 	declare 1;
 };
 

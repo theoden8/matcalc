@@ -3,7 +3,7 @@ BINDIR = ./bin
 LDFLAGS = -L../lib/matcalc -lmatcalc -lm
 OPTFLAGS = -Ofast -ftrapv -flto -march=native -mtune=native
 THRFLAGS = -D MAXTHREADS=$(shell getconf _NPROCESSORS_ONLN) -pthread -fopenmp
-CFLAGS = $(OPTFLAGS) -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ -lgmp -lmpfr $(LDFLAGS) $(THRFLAGS)
+CFLAGS = -std=c99 $(OPTFLAGS) -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ -lgmp $(shell pkg-config --cflags mpfr) $(LDFLAGS) $(THRFLAGS)
 COBJECTS = $(wildcard *.c)
 
 CXXFLAGS = -std=c++14 -lgmpxx -lgmp -lmpfr $(OPTFLAGS) -I ../lib/ $(LDFLAGS) $(THRFLAGS)

@@ -1,6 +1,8 @@
 #ifndef A_NM_2_H_NKEPTDSO
 #define A_NM_2_H_NKEPTDSO
 
+#include <stdlib.h>
+
 #include <gmp.h>
 
 #include "visitor.h"

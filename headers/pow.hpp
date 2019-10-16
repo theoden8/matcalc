@@ -5,23 +5,23 @@
 #include "mattemp.hpp"
 
 
-template <uint F, uint... Rs> struct ProductArgs {
+template <muint F, muint... Rs> struct ProductArgs {
 	declare F * ProductArgs<Rs...>::n;
 };
-template <uint F> struct ProductArgs <F> { declare F; };
+template <muint F> struct ProductArgs <F> { declare F; };
 
 
 
-template <uint L, uint R> struct ProductRange {
+template <muint L, muint R> struct ProductRange {
 	declare L * ProductRange<L + 1, R>::n;
 };
-template <uint L> struct ProductRange<L, L> { declare L; };
+template <muint L> struct ProductRange<L, L> { declare L; };
 
 
-template <uint L, uint N, template <uint> class Sequence> struct SubseqProduct {
+template <muint L, muint N, template <muint> class Sequence> struct SubseqProduct {
 	declare Sequence<L>::n * SubseqProduct<L + 1, N - 1, Sequence>::n;
 };
-template <uint L, template <uint> class Sequence> struct SubseqProduct <L, 0, Sequence> {
+template <muint L, template <muint> class Sequence> struct SubseqProduct <L, 0, Sequence> {
 	declare 1;
 };
 
@@ -38,10 +38,10 @@ void statictest_product() {
 }
 
 
-template <uint N, uint P> struct Power { declare Power<N, P - 1>::n * N; };
-template <uint N> struct Power <N, 0> { declare 1; };
+template <muint N, muint P> struct Power { declare Power<N, P - 1>::n * N; };
+template <muint N> struct Power <N, 0> { declare 1; };
 
-template <uint N, uint P> constexpr uint power = Power<N, P>::n;
+template <muint N, muint P> constexpr muint power = Power<N, P>::n;
 
 void statictest_pow() {
 	static_assert(power<0, 0> == 1, "");
