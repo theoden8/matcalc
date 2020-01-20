@@ -5,7 +5,7 @@
 // \ m /
 //
 // alike stirling numbers, catalan numbers, binomial coefficients and other
-// parts of the zoo, euler numbers mean something to combinatorics: they
+// animals of the mathematical zoo, euler numbers mean something in combinatorics: they
 // represent the number of permutations with exactly m ascents of a set of size n
 //
 // (1) iterative formula:
