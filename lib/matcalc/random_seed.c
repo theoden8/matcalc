@@ -1,5 +1,3 @@
-#include <bsd/stdlib.h>
-
 #include "random_seed.h"
 
 
