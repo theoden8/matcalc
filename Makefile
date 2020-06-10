@@ -1,4 +1,7 @@
-PKGCONFIG=pkgconf
+PKGCONFIG ?= pkgconf
+ifeq (, $(shell which pkgconf))
+PKGCONFIG ?= pkg-config
+endif
 DEFINITIONS= PKGCONFIG=$(PKGCONFIG)
 
 all :
