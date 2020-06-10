@@ -1,5 +1,5 @@
 PKGCONFIG ?= pkgconf
-ifeq (, $(shell which pkgconf))
+ifeq (, $(shell command -v pkgconf))
 PKGCONFIG ?= pkg-config
 endif
 DEFINITIONS= PKGCONFIG=$(PKGCONFIG)
