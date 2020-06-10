@@ -1,9 +1,9 @@
 BINDIR = ../bin
 
-LDFLAGS = -L../lib/matcalc -lmatcalc -lm $(shell pkg-config --libs mpfr) -lmpfr
+LDFLAGS = -L../lib/matcalc -lmatcalc -lm $(shell $(PKGCONFIG) --libs mpfr) -lmpfr
 OPTFLAGS = -Ofast -ftrapv -flto -march=native -mtune=native
 THRFLAGS = -D MAXTHREADS=$(shell getconf _NPROCESSORS_ONLN) -pthread -fopenmp
-CFLAGS = -std=c99 $(OPTFLAGS) -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ -lgmp $(shell pkg-config --cflags mpfr) $(LDFLAGS) $(THRFLAGS)
+CFLAGS = -std=c99 $(OPTFLAGS) -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ -lgmp $(shell $(PKGCONFIG) --cflags mpfr) $(LDFLAGS) $(THRFLAGS)
 COBJECTS = $(wildcard *.c)
 
 CXXFLAGS = -std=c++14 -lgmpxx -lgmp $(OPTFLAGS) -I ../lib/ $(LDFLAGS) $(THRFLAGS)

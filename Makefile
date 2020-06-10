@@ -1,9 +1,12 @@
+PKGCONFIG=pkgconf
+DEFINITIONS= PKGCONFIG=$(PKGCONFIG)
+
 all :
-	$(MAKE) -C lib
-	$(MAKE) -C headers
-	$(MAKE) -C src
-	$(MAKE) -C test
-	$(MAKE) -C analyse
+	$(MAKE) -C lib $(DEFINITIONS)
+	$(MAKE) -C headers $(DEFINITIONS)
+	$(MAKE) -C src $(DEFINITIONS)
+	$(MAKE) -C test $(DEFINITIONS)
+	$(MAKE) -C analyse $(DEFINITIONS)
 
 clean :
 	$(MAKE) -C lib clean
