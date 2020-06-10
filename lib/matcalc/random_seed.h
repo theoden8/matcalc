@@ -6,14 +6,12 @@
 #if defined(__linux__)
   typedef unsigned char u_char;
   #include <bsd/stdlib.h>
-#elif defined(__unix__)
-  #if defined(__APPLE__) || defined(__MACH__)
+#elif defined(__APPLE__)
+  #include <stdlib.h>
+#else
+  #include <sys/param.h>
+  #if defined(BSD)
     #include <stdlib.h>
-  #else
-    #include <sys/param.h>
-    #if defined(BSD)
-      #include <stdlib.h>
-    #endif
   #endif
 #endif
 

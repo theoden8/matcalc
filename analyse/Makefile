@@ -1,7 +1,5 @@
-ifeq ($(shell uname), Darwin)
-	CC = clang-omp
-endif
-CFLAGS = -O2 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -lgmp -lmpfr -pthread -lm -ftrapv
+CFLAGS = -O2 -flto -Wno-implicit-int -Wno-incompatible-pointer-types -fopenmp $(pkg-config --cflags gmp mpfr)
+LDFLAGS = $(shell $(PKGCONFIG) --libs gmp mpfr) -lgmp -lmpfr -pthread -lm -ftrapv
 COBJECTS = $(wildcard *.c)
 BINDIR = ../bin
 
@@ -11,6 +9,6 @@ _all : \
 	$(patsubst %.c, %, $(COBJECTS))
 
 % : %.c
-	$(CC) "$<" $(CFLAGS) -o "$(BINDIR)/$@"
+	$(CC) "$<" $(CFLAGS) $(LDFLAGS) -o "$(BINDIR)/$@"
 
 clean :;
