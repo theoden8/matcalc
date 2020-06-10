@@ -1,12 +1,13 @@
 BINDIR = ../bin
 
-LDFLAGS = -L../lib/matcalc -lmatcalc -lm $(shell $(PKGCONFIG) --libs mpfr) -lmpfr
 OPTFLAGS = -Ofast -ftrapv -flto -march=native -mtune=native
 THRFLAGS = -D MAXTHREADS=$(shell getconf _NPROCESSORS_ONLN) -pthread -fopenmp
-CFLAGS = -std=c99 $(OPTFLAGS) -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ -lgmp $(shell $(PKGCONFIG) --cflags mpfr) $(LDFLAGS) $(THRFLAGS)
+CFLAGS = -std=c99 $(OPTFLAGS) -Wno-implicit-int -Wno-incompatible-pointer-types -I../lib/ $(shell $(PKGCONFIG) --cflags mpfr gmp) $(THRFLAGS)
+LDFLAGS = -L../lib/matcalc -lmatcalc $(shell $(PKGCONFIG) --libs gmp mpfr) -lmpfr -lgmp -lm
 COBJECTS = $(wildcard *.c)
 
-CXXFLAGS = -std=c++14 -lgmpxx -lgmp $(OPTFLAGS) -I ../lib/ $(LDFLAGS) $(THRFLAGS)
+CXXFLAGS = -std=c++14 $(shell pkg-config --cflags gmp mpfr) $(OPTFLAGS) -I ../lib/ $(LDFLAGS) $(THRFLAGS)
+LDXXFLAGS = $(LDFLAGS) -lgmpxx
 CXXOBJECTS = $(wildcard *.cpp)
 
 # NVCC = nvcc
@@ -24,13 +25,13 @@ _all : \
 	$(patsubst %.cpp, %, $(CXXOBJECTS))
 
 % : %.c
-	$(CC) "$<" $(CFLAGS) -o "$(BINDIR)/$@"
+	$(CC) "$<" $(CFLAGS) $(LDFLAGS) -o "$(BINDIR)/$@"
 
 # % : %.cu
 # 	$(NVCC) "$<" $(NVFLAGS) -o "$(BINDIR)/$@"
 
 % : %.cpp
-	$(CXX) "$<" $(CXXFLAGS) -o "$(BINDIR)/$@"
+	$(CXX) "$<" $(CXXFLAGS) $(LDXXFLAGS) -o "$(BINDIR)/$@"
 
 check :
 	make
