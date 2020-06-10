@@ -5,11 +5,11 @@
 // derangement is a permutation of a sequence (1..n) s.t. pmt(i) != i for i in [1..n]
 //
 // the number of derangements can be computed in recursively as:
-//	d(n) = (n - 1) * (d(n - 1) * d(n - 2)) for n >= 3, otherwise {0, 1, 2}
+//	d(n) = (n - 1) * (d(n - 1) + d(n - 2)) for n >= 3, otherwise {0, 1, 2}
 //	d(n) = n*d(n - 1) + (-1)^n
 // and iteratively as:
-//	d(n) = sum( (-1)^k * (n!/k!) | k <- 0..n )
-//       = n! * sum( (-1)^k / k! | k <- 0..n )
+//	d(n) = sum( (-1)^k * (n!/k!) | k <- 0..n ) =
+//		= n! * sum( (-1)^k / k! | k <- 0..n )
 
 #include <stdio.h>
 static void nth_derangements(mpz_t d_n, long n) {

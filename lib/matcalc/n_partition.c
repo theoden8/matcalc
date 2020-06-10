@@ -71,7 +71,6 @@ static void partition(long n, mpz_t *P) {
 			sign = -sign;
 			pent1 += 3*q + 1;
 			pent2 += 3*q + 2;
-			assert(pent2 > 0);
 		}
 		if(i - pent1 >= 0) {
 			mpz_mul_si(term, P[i - pent1], sign);
