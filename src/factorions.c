@@ -33,7 +33,9 @@ int map_elem(char x) {
 	return fac(x - '0');
 }
 
+#ifndef MAXTHREADS
 #define MAXTHREADS 8
+#endif
 void *reduce_sum(void *args) {
 	reduce_tls *tt = (reduce_tls *)args;
 
